@@ -87,8 +87,6 @@ export default () => {
 
 		const currentYear = new Date().getFullYear()
 
-		console.log('ssssssssssssssssssssssssssssssss', currentYear)
-
 		for (let i = 1940; i <= currentYear; i++) {
 			years.push(i)
 		}
@@ -103,7 +101,7 @@ export default () => {
 	}, [errors])
 
 	return (
-		<div className="container mx-auto my-10 max-w-2xl items-center bg-white shadow-lg">
+		<div className="container mx-auto my-10 items-center bg-white shadow-lg md:max-w-2xl">
 			<div className="py-2">
 				<Logo className="mx-auto w-20" />
 				<span className="mt-2 block h-[2px] w-full bg-gradient-to-r from-sky-400 via-rose-400 to-lime-400"></span>
@@ -132,7 +130,7 @@ export default () => {
 				<form
 					method="POST"
 					onSubmit={handleSome}
-					className="mt-8 flex items-start justify-between gap-x-10">
+					className="mt-8 flex flex-wrap items-start justify-between gap-x-10 md:flex-nowrap">
 					<div className="flex-1 space-y-5">
 						<FormInput
 							type="email"
