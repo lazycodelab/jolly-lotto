@@ -55,6 +55,47 @@ export default () => {
 		register({ setErrors, userData })
 	}
 
+	const getDays = () => {
+		let days = []
+
+		for (let i = 1; i <= 31; i++) {
+			days.push(i)
+		}
+
+		return days
+	}
+
+	const getMonths = () => {
+		return [
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'October',
+			'November',
+			'December',
+		]
+	}
+
+	const getYears = () => {
+		let years = []
+
+		const currentYear = new Date().getFullYear()
+
+		console.log('ssssssssssssssssssssssssssssssss', currentYear)
+
+		for (let i = 1940; i <= currentYear; i++) {
+			years.push(i)
+		}
+
+		return years
+	}
+
 	useEffect(() => {
 		if (errors) {
 			setLoading(false)
@@ -143,17 +184,20 @@ export default () => {
 								label="Date of Birth"
 								name="day"
 								isReq={true}
-								options={['Day', '01', '02', '03', '04']}
+								defaultValue="Day"
+								options={getDays()}
 							/>
 							<FormSelect
 								label=""
 								name="month"
-								options={['Month', '01', '02', '03', '04']}
+								defaultValue="Month"
+								options={getMonths()}
 							/>
 							<FormSelect
 								label=""
 								name="year"
-								options={['Year', 1990, 1992, 1993, 1994]}
+								defaultValue="Year"
+								options={getYears()}
 							/>
 						</div>
 						<div className="flex items-end gap-x-3">

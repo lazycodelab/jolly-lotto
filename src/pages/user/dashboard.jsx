@@ -19,15 +19,34 @@ export default () => {
 				<title>Dashboard</title>
 			</Head>
 			<nav className="bg-gray-200">
-				<div className="container mx-auto flex max-w-md items-center justify-center">
-					<Link href="/account">Account</Link>
-					<Link href="/account">Wallet</Link>
-					<Link href="/account">Orders</Link>
-					<Link href="/account">Notifications</Link>
+				<div className="container mx-auto flex max-w-md items-center justify-center space-x-5 py-3">
+					<Link
+						className="border-b-2 border-slate-300 hover:border-slate-500"
+						href="/account">
+						Account
+					</Link>
+					<Link
+						className="border-b-2 border-slate-300 hover:border-slate-500"
+						href="/account">
+						Wallet
+					</Link>
+					<Link
+						className="border-b-2 border-slate-300 hover:border-slate-500"
+						href="/account">
+						Orders
+					</Link>
+					<Link
+						className="border-b-2 border-slate-300 hover:border-slate-500"
+						href="/account">
+						Notifications
+					</Link>
 				</div>
 			</nav>
 			<section className="current-acc-status">
-				<div className="auto-container">
+				<h3 className="p-10 text-center text-2xl">
+					Welcome to your dashboard!
+				</h3>
+				{/*<div className="auto-container">
 					<div className="current-acc-row">
 						<div className="current-acc-heading">
 							<p>
@@ -815,7 +834,7 @@ export default () => {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>*/}
 			</section>
 		</Layout>
 	)

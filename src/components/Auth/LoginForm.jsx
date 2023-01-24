@@ -7,22 +7,18 @@ import Link from 'next/link'
 export default () => {
 	const { login } = useAuth({ middleware: 'guest' })
 	const [errors, setErrors] = useState([])
-	const [status, setStatus] = useState('ok')
 
 	const handleSome = e => {
 		e.preventDefault()
-
-		console.log(errors, status)
 
 		const userData = {
 			email: e.target.email.value,
 			password: e.target.password.value,
 		}
 
-		login({ setStatus, setErrors, userData })
+		login({ setErrors, userData })
 	}
 
-	console.log('log err', errors)
 	return (
 		<div className="container mx-auto my-10 max-w-2xl items-center bg-white shadow-lg">
 			<div className="py-2">

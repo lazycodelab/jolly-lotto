@@ -36,15 +36,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
 				setErrors(error.response.data.errors)
 			})
-
-		window.location.pathname = '/'
 	}
 
-	const login = async ({ setErrors, setStatus, ...props }) => {
+	const login = async ({ setErrors, ...props }) => {
 		await csrf()
-
 		setErrors([])
-		setStatus(null)
 
 		const { userData } = props
 
