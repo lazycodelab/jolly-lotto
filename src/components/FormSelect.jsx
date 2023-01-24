@@ -1,6 +1,7 @@
 export default ({
 	label,
 	name = null,
+	defaultValue = null,
 	options = [],
 	isReq = false,
 	infoText = null,
@@ -17,7 +18,13 @@ export default ({
 			<select
 				id={name}
 				name={name}
-				className="border-2 border-slate-300 bg-zinc-100 px-2 text-sm ring-0 focus:ring-0">
+				className="border-2 border-slate-300 bg-zinc-100 px-2 text-sm ring-0 focus:ring-0"
+				{...(defaultValue && { defaultValue })}>
+				{defaultValue && (
+					<option value={defaultValue} disabled>
+						{defaultValue}
+					</option>
+				)}
 				{options.map((o, k) => (
 					<option key={k} value={o}>
 						{o}
