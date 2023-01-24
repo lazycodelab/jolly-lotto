@@ -9,7 +9,7 @@ export default ({ weeks, setWeeks }) => {
 				}>
 				-
 			</button>
-			<div className="flex flex-col items-center justify-center border-2 border-slate-300 bg-zinc-100">
+			<div className="flex w-full flex-col items-center justify-center border-2 border-slate-300 bg-zinc-100">
 				<input
 					type="number"
 					className="border-none bg-transparent p-0 text-center text-lg font-bold focus:ring-0"

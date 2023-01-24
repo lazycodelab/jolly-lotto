@@ -180,7 +180,7 @@ export default ({ details }) => {
 						</button>
 					</div>
 				</div>
-				<div className="mt-4 mb-20 flex flex-wrap gap-x-1.5 gap-y-3">
+				<div className="mt-4 mb-20 flex flex-wrap justify-center gap-x-1.5 gap-y-3 md:justify-start">
 					{lotteryLines.map((line, idx) => (
 						<LineCard
 							id={idx}
@@ -198,13 +198,13 @@ export default ({ details }) => {
 				</div>
 			</div>
 			<div className="container mx-auto flex max-w-4xl flex-wrap items-start justify-center md:justify-between">
-				<div className="max-w-sm flex-1">
+				<div className="w-full md:max-w-sm md:flex-1">
 					<h4 className="text-base font-semibold text-cyan-900">
 						Duration
 					</h4>
 
 					<QuantityInput weeks={weeks} setWeeks={setWeeks} />
-					<div className="mt-7">
+					<div className="mt-5 md:mt-7">
 						<h4 className="text-base font-semibold text-cyan-900">
 							Select your Draw Days
 						</h4>
@@ -222,7 +222,7 @@ export default ({ details }) => {
 						</ul>
 					</div>
 				</div>
-				<div className="max-w-sm flex-1">
+				<div className="mt-5 w-full md:mt-0 md:max-w-sm md:flex-1">
 					<h4 className="text-base font-semibold text-cyan-900">
 						{details?.lotteryName}
 					</h4>
