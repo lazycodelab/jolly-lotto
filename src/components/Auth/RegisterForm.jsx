@@ -87,8 +87,6 @@ export default () => {
 
 		const currentYear = new Date().getFullYear()
 
-		console.log('ssssssssssssssssssssssssssssssss', currentYear)
-
 		for (let i = 1940; i <= currentYear; i++) {
 			years.push(i)
 		}
