@@ -15,7 +15,7 @@ export default () => {
 	const { user, logout } = useAuth()
 
 	return (
-		<Menu as="button" className="">
+		<Menu as="div" className="">
 			<Menu.Button className="flex items-center text-sm text-gray-700">
 				<Bars3Icon className="h-6 w-6" aria-hidden="true" />
 			</Menu.Button>
