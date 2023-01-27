@@ -59,6 +59,8 @@ export default () => {
 		let days = []
 
 		for (let i = 1; i <= 31; i++) {
+			i = i.toString()
+			i = i.padStart(2, '0')
 			days.push(i)
 		}
 
@@ -66,6 +68,16 @@ export default () => {
 	}
 
 	const getMonths = () => {
+		let months = []
+
+		for (let i = 1; i <= 12; i++) {
+			i = i.toString()
+			i = i.padStart(2, '0')
+			months.push(i)
+		}
+
+		return months
+
 		return [
 			'January',
 			'February',
@@ -187,15 +199,19 @@ export default () => {
 							/>
 							<FormSelect
 								label=""
+								isReq={true}
 								name="month"
 								defaultValue="Month"
 								options={getMonths()}
+								noMarker
 							/>
 							<FormSelect
 								label=""
+								isReq={true}
 								name="year"
 								defaultValue="Year"
 								options={getYears()}
+								noMarker
 							/>
 						</div>
 						<div className="flex items-end gap-x-3">
