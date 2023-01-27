@@ -171,12 +171,6 @@ export default function Home({ singleProducts }) {
 			<Swiper
 				className="relative justify-center"
 				modules={[Navigation]}
-				onBeforeInit={swiper => {
-					swiper.params.wrapperClass = 'swiper-wrapper justify-center'
-					//swiper.$wrapperEl = document.querySelector(
-					//	'.swiper-wrapper.justify-center',
-					//)
-				}}
 				onInit={swiper => {
 					swiper.params.navigation.prevEl = prevRef.current
 					swiper.params.navigation.nextEl = nextRef.current
