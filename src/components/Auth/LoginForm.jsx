@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FormInput from '../FormInput'
 import Logo from '../Logo'
 import { useAuth } from '../../hooks/auth'
 import Link from 'next/link'
+import cl from 'classnames'
 
 export default () => {
 	const { login } = useAuth({ middleware: 'guest' })
-	const [errors, setErrors] = useState([])
+	const [errors, setErrors] = useState(null)
+	const [loading, setLoading] = useState(false)
 
 	const handleSome = e => {
 		e.preventDefault()
+		setLoading(true)
 
 		const userData = {
 			email: e.target.email.value,
@@ -19,6 +22,16 @@ export default () => {
 		login({ setErrors, userData })
 	}
 
+	useEffect(() => {
+		if (errors) {
+			setLoading(false)
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth',
+			})
+		}
+	}, [errors])
+
 	return (
 		<div className="container mx-auto my-10 max-w-2xl items-center bg-white shadow-lg">
 			<div className="py-2">
@@ -26,7 +39,11 @@ export default () => {
 				<span className="mt-2 block h-[2px] w-full bg-gradient-to-r from-sky-400 via-rose-400 to-lime-400"></span>
 			</div>
 
-			<div className="p-8">
+			<div
+				className={cl('relative p-8', {
+					'cursor-wait after:absolute after:inset-0 after:z-30 after:h-full after:w-full after:animate-pulse after:bg-black/70':
+						loading,
+				})}>
 				<Link
 					href="/register"
 					className="text-sm text-cyan-500 underline">
@@ -36,11 +53,13 @@ export default () => {
 					Login to Your Account
 				</h2>
 
-				{errors.length > 0 && (
+				{errors && (
 					<div className="mt-3 border-2 border-red-300 bg-red-300/60 px-3 py-2 text-sm text-slate-900">
-						{errors.map((msg, key) => (
-							<span key={key}>{msg}</span>
-						))}
+						<ul>
+							{Object.keys(errors).map(key => (
+								<li key={key}>{errors[key][0]}</li>
+							))}
+						</ul>
 					</div>
 				)}
 				<form
@@ -66,7 +85,16 @@ export default () => {
 						<div className="flex flex-col gap-y-5">
 							<button
 								type="submit"
-								className="mt-5 w-full rounded-md bg-gradient-to-r from-orange-400 to-orange-500 py-3 px-14 text-lg font-semibold text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
+								{...(loading && { disabled: 'disabled' })}
+								className={cl(
+									'mt-5 w-full rounded-md  py-3 px-14 text-lg font-semibold text-white shadow-md ',
+									{
+										'cursor-not-allowed bg-slate-300':
+											loading === true,
+										'bg-gradient-to-r from-orange-400 to-orange-500 shadow-orange-700 hover:from-orange-500 hover:to-orange-400':
+											loading !== true,
+									},
+								)}>
 								Sign In
 							</button>
 							<Link
