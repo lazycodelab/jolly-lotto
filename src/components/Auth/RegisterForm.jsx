@@ -4,7 +4,7 @@ import FormSelect from '../FormSelect'
 import Logo from '../Logo'
 import { useAuth } from '../../hooks/auth'
 import Link from 'next/link'
-import classNames from 'classnames'
+import cl from 'classnames'
 
 export default () => {
 	const { register } = useAuth({ middleware: 'guest' })
@@ -94,6 +94,10 @@ export default () => {
 	useEffect(() => {
 		if (errors) {
 			setLoading(false)
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth',
+			})
 		}
 	}, [errors])
 
@@ -104,7 +108,11 @@ export default () => {
 				<span className="mt-2 block h-[2px] w-full bg-gradient-to-r from-sky-400 via-rose-400 to-lime-400"></span>
 			</div>
 
-			<div className="p-8">
+			<div
+				className={cl('relative p-8', {
+					'cursor-wait after:absolute after:inset-0 after:z-30 after:h-full after:w-full after:animate-pulse after:bg-black/70':
+						loading,
+				})}>
 				<Link
 					href="/signin"
 					className="text-sm text-cyan-500 underline">
@@ -127,7 +135,7 @@ export default () => {
 				<form
 					method="POST"
 					onSubmit={handleSome}
-					className="mt-8 flex flex-wrap items-start justify-between gap-x-10 md:flex-nowrap">
+					className="mt-8 grid grid-cols-1 gap-x-10 md:grid-cols-2">
 					<div className="flex-1 space-y-5">
 						<FormInput
 							type="email"
@@ -317,7 +325,7 @@ export default () => {
 							<button
 								type="submit"
 								{...(loading && { disabled: 'disabled' })}
-								className={classNames(
+								className={cl(
 									'mt-5 w-full rounded-md  py-3 px-14 text-lg font-semibold text-white shadow-md ',
 									{
 										'cursor-not-allowed bg-slate-300':
