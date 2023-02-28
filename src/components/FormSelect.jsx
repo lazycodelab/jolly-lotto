@@ -21,18 +21,25 @@ export default ({
 				id={name}
 				name={name}
 				className="w-full border-2 border-slate-300 bg-zinc-100 px-2 text-sm ring-0 focus:ring-0"
-				{...(isReq && { required: 'required' })}
+				//{...(isReq && { required: 'required' })}
 				{...(defaultValue && { defaultValue: '' })}>
 				{defaultValue && (
 					<option value="" disabled>
 						{defaultValue}
 					</option>
 				)}
-				{options.map((o, k) => (
-					<option key={k} value={o}>
-						{o}
-					</option>
-				))}
+				{Object.keys(options).map(k => {
+					const _textValue = options[k]
+					let _o = k
+					_o = k.toString()
+					_o = k.padStart(2, '0')
+
+					return (
+						<option key={k} value={_o}>
+							{_textValue}
+						</option>
+					)
+				})}
 			</select>
 			{infoText && <p className="text-xs text-gray-500">{infoText}</p>}
 		</div>

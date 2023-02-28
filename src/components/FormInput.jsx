@@ -22,7 +22,7 @@ export default ({
 				type={type}
 				name={name}
 				className="w-full border-2 border-slate-300 bg-zinc-100 px-2 text-sm ring-0 focus:ring-0"
-				{...(isReq && { required: 'required' })}
+				//{...(isReq && { required: 'required' })}
 				{...(placeholder && { placeholder })}
 				{...(disabled && { disabled })}
 				{...(value && { defaultValue: value })}
