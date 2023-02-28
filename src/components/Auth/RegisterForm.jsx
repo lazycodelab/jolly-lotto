@@ -5,6 +5,8 @@ import Logo from '../Logo'
 import { useAuth } from '../../hooks/auth'
 import Link from 'next/link'
 import cl from 'classnames'
+import moment from 'moment'
+import { getDays, getMonths, getYears } from '../Helpers'
 
 export default () => {
 	const { register } = useAuth({ middleware: 'guest' })
@@ -15,37 +17,32 @@ export default () => {
 		e.preventDefault()
 		setLoading(true)
 
+		const data = e.target
 		const birthDate =
-			e.target.year.value +
-			'-' +
-			e.target.month.value +
-			'-' +
-			e.target.day.value
+			data.year.value + '-' + data.month.value + '-' + data.day.value
+		const age = moment().diff(birthDate, 'years')
 
 		const userData = {
-			password: e.target.password.value,
-			password_confirmation: e.target.password_confirmation.value,
-			minimumLegalAge: 18,
-			prefix: 'Ms',
-			firstName: e.target.first_name.value,
-			lastName: e.target.last_name.value,
+			password: data.password.value,
+			password_confirmation: data.password_confirmation.value,
+			minimumLegalAge: age,
+			prefix: data.title.value,
+			firstName: data.first_name.value,
+			lastName: data.last_name.value,
 			birthDate: birthDate,
 			billingAddress: {
-				street: '101 French Str LOCAL FROM TEST',
-				city: '2988507',
-				postalCode: '101FR',
-				state: '',
-				country: 'FR',
+				street: data.address.value,
+				city: data.city.value,
+				postalCode: data.post_code.value,
+				state: data.state.value,
+				country: data.country.value,
 			},
-			email: e.target.email.value,
-			phone: e.target.phone.value,
-			sessionId: '',
-			ip: '',
-			language: '',
-			currencyCode: '',
+			email: data.email.value,
+			phone: data.phone.value,
+			currencyCode: data.currency.value,
 			notification: {
 				isAllowEmail: true,
-				isAllowMarketingEmail: false,
+				isAllowMarketingEmail: data.marketing.value ?? false,
 				isAllowSms: true,
 				isAllowMarketingSms: false,
 				isAllowPhoneCall: false,
@@ -53,42 +50,6 @@ export default () => {
 		}
 
 		register({ setErrors, userData })
-	}
-
-	const getDays = () => {
-		let days = []
-
-		for (let i = 1; i <= 31; i++) {
-			i = i.toString()
-			i = i.padStart(2, '0')
-			days.push(i)
-		}
-
-		return days
-	}
-
-	const getMonths = () => {
-		let months = []
-
-		for (let i = 1; i <= 12; i++) {
-			i = i.toString()
-			i = i.padStart(2, '0')
-			months.push(i)
-		}
-
-		return months
-	}
-
-	const getYears = () => {
-		let years = []
-
-		const currentYear = new Date().getFullYear()
-
-		for (let i = 1940; i <= currentYear; i++) {
-			years.push(i)
-		}
-
-		return years
 	}
 
 	useEffect(() => {
@@ -224,32 +185,41 @@ export default () => {
 					<div className="flex-1 space-y-5">
 						<FormSelect
 							label="Country"
-							options={[
-								'United Kingdom',
-								'United States',
-								'Canada',
-								'Uganda',
-							]}
+							options={{
+								UK: 'United Kingdom',
+								US: 'United States',
+								CA: 'Canada',
+								NZ: 'New Zealand',
+								JP: 'Japan',
+								AU: 'Australia',
+								ZR: 'Zimbabwe',
+							}}
 							isReq={true}
 						/>
+						<FormInput label="Address" isReq={true} />
+						<FormInput
+							label="Apartment, suite, etc. (optional)"
+							name="address2"
+						/>
 						<div className="flex gap-x-3">
-							<FormInput label="Number" />
-							<FormInput label="Street" />
-						</div>
-						<div className="flex gap-x-3">
-							<FormInput label="Number" />
-							<FormInput label="Street" />
-						</div>
-						<FormInput label="Flat Number" />
-						<div className="flex gap-x-3">
-							<FormInput label="Post Code" isReq={true} />
 							<FormInput label="City" isReq={true} />
+							<FormInput label="State" isReq={true} />
+							<FormInput label="Post Code" isReq={true} />
 						</div>
 
 						<FormSelect
 							label="Currency"
 							isReq={true}
-							options={['USD', 'EUR', 'GBP']}
+							options={[
+								'USD',
+								'EUR',
+								'GBP',
+								'NZD',
+								'AUD',
+								'JPY',
+								'CAD',
+								'ZAR',
+							]}
 						/>
 
 						<div className="space-y-3">
@@ -299,7 +269,11 @@ export default () => {
 								Day.
 							</p>
 							<div className="flex gap-x-3">
-								<input id="term-3" type="checkbox" name="" />
+								<input
+									id="term-3"
+									type="checkbox"
+									name="marketing"
+								/>
 								<label
 									htmlFor="term-3"
 									className="cursor-pointer text-xs text-gray-500">

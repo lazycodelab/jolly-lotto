@@ -28,11 +28,18 @@ export default ({
 						{defaultValue}
 					</option>
 				)}
-				{options.map((o, k) => (
-					<option key={k} value={o}>
-						{o}
-					</option>
-				))}
+				{Object.keys(options).map(k => {
+					const _textValue = options[k]
+					let _o = k
+					_o = k.toString()
+					_o = k.padStart(2, '0')
+
+					return (
+						<option key={k} value={_o}>
+							{_textValue}
+						</option>
+					)
+				})}
 			</select>
 			{infoText && <p className="text-xs text-gray-500">{infoText}</p>}
 		</div>
