@@ -185,12 +185,15 @@ export default () => {
 					<div className="flex-1 space-y-5">
 						<FormSelect
 							label="Country"
-							options={[
-								'United Kingdom',
-								'United States',
-								'Canada',
-								'Uganda',
-							]}
+							options={{
+								UK: 'United Kingdom',
+								US: 'United States',
+								CA: 'Canada',
+								NZ: 'New Zealand',
+								JP: 'Japan',
+								AU: 'Australia',
+								ZR: 'Zimbabwe',
+							}}
 							isReq={true}
 						/>
 						<FormInput label="Address" isReq={true} />
@@ -207,7 +210,16 @@ export default () => {
 						<FormSelect
 							label="Currency"
 							isReq={true}
-							options={['USD', 'EUR', 'GBP']}
+							options={[
+								'USD',
+								'EUR',
+								'GBP',
+								'NZD',
+								'AUD',
+								'JPY',
+								'CAD',
+								'ZAR',
+							]}
 						/>
 
 						<div className="space-y-3">
