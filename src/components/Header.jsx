@@ -3,6 +3,7 @@ import Logo from './Logo'
 import Nav from './Nav'
 import UserInfo from './Header/UserInfo'
 import MobileMenuPopup from './Header/MobileMenuPopup'
+import UserAccountLink from './Header/UserAccountLink'
 
 export default () => {
 	return (
@@ -22,7 +23,10 @@ export default () => {
 				</Link>
 
 				<div className="flex-1">
-					<UserInfo />
+					<div className="flex items-center justify-end space-x-5 py-2">
+						<UserInfo />
+						<UserAccountLink />
+					</div>
 					<Nav />
 				</div>
 			</div>

@@ -3,6 +3,7 @@ import IconAdd from '@/components/Icons/IconAdd'
 import LineCard from '@/components/LotteryDetails/LineCard'
 import QuantityInput from '@/components/LotteryDetails/QuantityInput'
 import { useEffect, useState } from 'react'
+import PaymentModal from '../PaymentModal'
 
 export default ({ details }) => {
 	const balls = details?.lottery?.balls ?? 0
@@ -259,11 +260,8 @@ export default ({ details }) => {
 						</div>
 					</div>
 					{/* confirm button */}
-					<button
-						type="submit"
-						className="mt-5 w-full rounded-md bg-gradient-to-r from-orange-400 to-orange-500 py-3 px-14 text-lg text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
-						Play Now
-					</button>
+
+					<PaymentModal />
 				</div>
 			</div>
 		</section>
