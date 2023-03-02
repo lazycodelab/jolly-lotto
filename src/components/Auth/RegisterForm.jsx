@@ -74,9 +74,7 @@ export default () => {
 					'cursor-wait after:absolute after:inset-0 after:z-30 after:h-full after:w-full after:animate-pulse after:bg-black/70':
 						loading,
 				})}>
-				<Link
-					href="/signin"
-					className="text-sm text-cyan-500 underline">
+				<Link href="/login" className="text-sm text-cyan-500 underline">
 					&larr; Sign In Here
 				</Link>
 				<h2 className="mt-4 text-center text-xl font-semibold text-teal-700">
@@ -311,7 +309,7 @@ export default () => {
 								Create New Account
 							</button>
 							<Link
-								href="/signin"
+								href="/login"
 								type="button"
 								className="w-full rounded-md bg-cyan-400 px-5 py-2.5 text-center text-lg font-medium text-white shadow shadow-cyan-600">
 								Sign In Here
