@@ -67,9 +67,7 @@ export default () => {
 									<div>
 										<h3>Personal Details</h3>
 
-										<div>
-											<ProfileUpdate user={user} />
-										</div>
+										<ProfileUpdate user={user} />
 									</div>
 								</Disclosure.Panel>
 							</>

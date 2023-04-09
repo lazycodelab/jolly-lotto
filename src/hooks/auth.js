@@ -54,15 +54,19 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 			})
 	}
 
-	const updateProfile = async ({ setErrors, ...props }) => {
+	const updateProfile = async ({ setErrors, setSuccess, ...props }) => {
 		await csrf()
 		setErrors(null)
+		setSuccess(false)
 
 		const { userData } = props
 
 		axios
 			.post('/update', userData)
-			.then(() => mutate())
+			.then(() => {
+				mutate()
+				setSuccess(true)
+			})
 			.catch(error => {
 				if (error.response.status !== 422) throw error
 
