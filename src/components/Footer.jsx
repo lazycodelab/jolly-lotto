@@ -107,12 +107,6 @@ export default () => {
 
 				<div className="mt-10 flex items-center justify-center gap-10">
 					<Image
-						src="/images/footer/gc.png"
-						alt="GC"
-						width={180}
-						height={50}
-					/>
-					<Image
 						src="/images/footer/lock-icon.png"
 						width={180}
 						height={50}
@@ -123,18 +117,6 @@ export default () => {
 						width={70}
 						alt="cio"
 						height={70}
-					/>
-					<Image
-						src="/images/footer/ST_Footer_GA.svg"
-						width={150}
-						height={50}
-						alt="cio"
-					/>
-					<Image
-						src="/images/footer/ST_Footer_GC.svg"
-						width={150}
-						height={50}
-						alt="cio"
 					/>
 				</div>
 			</div>
