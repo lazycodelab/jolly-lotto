@@ -156,11 +156,8 @@ export default ({ details }) => {
 		<section className="mt-8 px-6">
 			<div className="container mx-auto max-w-6xl">
 				<h2 className="text-2xl font-semibold text-teal-600">
-					Play German Lotto Single Play
+					Australia Lotto 6/45 Single Play
 				</h2>
-				<h6 className="text-sm text-cyan-900">
-					German Lotto Single Play
-				</h6>
 				<div className="mt-6 flex items-center justify-between">
 					<h3 className="text-base font-semibold">
 						Quickpick, Edit or Delete lines
