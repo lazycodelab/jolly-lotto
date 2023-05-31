@@ -160,7 +160,7 @@ export default () => {
 							</div>
 							<button
 								type="submit"
-								className="mt-5 rounded-md bg-gradient-to-r from-orange-400 to-orange-500 py-1.5 px-7 text-base text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
+								className="mt-5 rounded-md bg-gradient-to-r from-orange-400 to-orange-500 px-7 py-1.5 text-base text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
 								Add Card
 							</button>
 						</form>
@@ -196,7 +196,7 @@ export default () => {
 				<button
 					onClick={handleAddPayment}
 					type="button"
-					className="mt-5 w-full rounded-md bg-gradient-to-r from-orange-400 to-orange-500 py-3 px-14 text-lg text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
+					className="mt-5 w-full rounded-md bg-gradient-to-r from-orange-400 to-orange-500 px-14 py-3 text-lg text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
 					Add Funds
 				</button>
 			</section>

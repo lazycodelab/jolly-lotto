@@ -84,7 +84,7 @@ export default () => {
 										} h-5 w-5 text-purple-500`}
 									/>
 								</Disclosure.Button>
-								<Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
 									If youre unhappy with your purchase for any
 									reason, email us within 90 days and well
 									refund you in full, no questions asked.
@@ -103,7 +103,7 @@ export default () => {
 										} h-5 w-5 text-purple-500`}
 									/>
 								</Disclosure.Button>
-								<Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
 									If youre unhappy with your purchase for any
 									reason, email us within 90 days and well
 									refund you in full, no questions asked.
@@ -122,7 +122,7 @@ export default () => {
 										} h-5 w-5 text-purple-500`}
 									/>
 								</Disclosure.Button>
-								<Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
+								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
 									If youre unhappy with your purchase for any
 									reason, email us within 90 days and well
 									refund you in full, no questions asked.

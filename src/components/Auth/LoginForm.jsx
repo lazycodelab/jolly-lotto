@@ -87,7 +87,7 @@ export default () => {
 								type="submit"
 								{...(loading && { disabled: 'disabled' })}
 								className={cl(
-									'mt-5 w-full rounded-md  py-3 px-14 text-lg font-semibold text-white shadow-md ',
+									'mt-5 w-full rounded-md px-14 py-3 text-lg font-semibold text-white shadow-md',
 									{
 										'cursor-not-allowed bg-slate-300':
 											loading === true,
