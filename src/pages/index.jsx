@@ -1,10 +1,12 @@
-import React, { useRef } from 'react'
-// Import Swiper React components
+import React, { useEffect, useRef } from 'react'
+import { register } from 'swiper/element'
 import { Navigation, Pagination } from 'swiper'
-import { Swiper, SwiperSlide } from 'swiper/react'
+
+register()
+//import { Swiper, SwiperSlide } from 'swiper/react'
 // Import Swiper styles
-import 'swiper/css'
-import 'swiper/css/navigation'
+//import 'swiper/css'
+//import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 
 import Link from 'next/link'
@@ -64,120 +66,111 @@ const qualityData = [
 ]
 
 export default function Home({ singleProducts }) {
-	const HeroSlider = () => (
-		<Swiper
-			slidesPerView={1}
-			pagination={{
-				el: 'div[data-hero-pagination]',
-				clickable: true,
-				bulletClass:
-					'h-2.5 w-2.5 bg-gray-200 rounded-full cursor-pointer',
-				bulletActiveClass: 'bg-cyan-400',
-			}}
-			modules={[Pagination]}>
-			<SwiperSlide className="bg-[#dafcfe]">
-				<div className="mx-auto flex max-w-6xl flex-wrap md:flex-nowrap md:items-center md:justify-between">
-					<Image
-						className="order-2 block md:order-1"
-						width={800}
-						src="/images/banner-man-1.png"
-						alt="banner"
-						height={290}
+	// Removing any test products.
+	singleProducts = singleProducts.filter(prod => !prod.name.includes('test'))
+	const sortedProds = singleProducts.sort((a, b) => b.price - a.price)
+
+	const HeroSlider = ({ prods }) => {
+		const swiperElRef = useRef(null)
+		useEffect(() => {
+			const params = {
+				modules: [Pagination],
+				pagination: {
+					el: 'div[data-hero-pagination]',
+					clickable: true,
+					bulletClass:
+						'h-2.5 w-2.5 bg-gray-200 rounded-full cursor-pointer',
+					bulletActiveClass: 'bg-cyan-400',
+				},
+				// inject modules styles to shadow DOM
+				injectStylesUrls: [
+					'swiper/css/pagination',
+					//  'path/to/pagination-element.min.css'
+				],
+			}
+
+			Object.assign(swiperElRef.current, params)
+
+			swiperElRef.current.initialize()
+		}, [])
+
+		return (
+			<>
+				<swiper-container
+					ref={swiperElRef}
+					pagination="true"
+					slides-per-view="1">
+					{prods.map(product => (
+						<swiper-slide key={product.name}>
+							<div className="bg-[#dafcfe]">
+								<div className="mx-auto flex max-w-6xl flex-wrap md:flex-nowrap md:items-center md:justify-between">
+									<Image
+										className="order-2 block md:order-1"
+										width={800}
+										src="/images/banner-man-1.png"
+										alt="banner"
+										height={290}
+									/>
+									<div className="order-1 my-3 w-full space-y-3 px-3 text-center md:order-2 md:px-0 md:py-5 md:text-center">
+										<h2 className="text-2xl font-medium text-teal-900">
+											{product.lotteryName}
+										</h2>
+										{/*<p className="text-base font-thin text-teal-900">
+								Support Lorem Ipsum
+							</p>*/}
+										<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
+											${product.price} MILLION
+										</h2>
+										<Link href={`/lotteries/${product.id}`}>
+											<button
+												className="mt-4 inline-block rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-2 px-8 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
+												type="button">
+												Play Now
+											</button>
+										</Link>
+									</div>
+								</div>
+							</div>
+						</swiper-slide>
+					))}
+					<div
+						data-hero-pagination
+						className="mt-3 flex justify-center space-x-2"
 					/>
-					<div className="order-1 my-3 w-full space-y-3 px-3 text-center md:order-2 md:px-0 md:py-5 md:text-center">
-						<h2 className="text-2xl font-medium text-teal-900">
-							Header Lorem Ipsum
-						</h2>
-						<p className="text-base font-thin text-teal-900">
-							Support Lorem Ipsum
-						</p>
-						<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
-							$100 MILLION
-						</h2>
-						<a
-							href="#"
-							className="mt-4 inline-block rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-2 px-8 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
-							Play Now
-						</a>
-					</div>
-				</div>
-			</SwiperSlide>
-			<SwiperSlide className="bg-[#dafcfe]">
-				<div className="mx-auto flex max-w-6xl flex-wrap md:flex-nowrap md:items-center md:justify-between">
-					<Image
-						className="order-2 block md:order-1"
-						width={800}
-						src="/images/banner-man-1.png"
-						alt="banner"
-						height={290}
-					/>
-					<div className="order-1 my-3 w-full space-y-3 px-3 text-center md:order-2 md:px-0 md:py-5 md:text-center">
-						<h2 className="text-2xl font-medium text-teal-900">
-							Header Lorem Ipsum
-						</h2>
-						<p className="text-base font-thin text-teal-900">
-							Support Lorem Ipsum
-						</p>
-						<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
-							$100 MILLION
-						</h2>
-						<a
-							href="#"
-							className="mt-4 inline-block rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-2 px-8 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
-							Play Now
-						</a>
-					</div>
-				</div>
-			</SwiperSlide>
-			<SwiperSlide className="bg-[#dafcfe]">
-				<div className="mx-auto flex max-w-6xl flex-wrap md:flex-nowrap md:items-center md:justify-between">
-					<Image
-						className="order-2 block md:order-1"
-						width={800}
-						src="/images/banner-man-1.png"
-						alt="banner"
-						height={290}
-					/>
-					<div className="order-1 my-3 w-full space-y-3 px-3 text-center md:order-2 md:px-0 md:py-5 md:text-center">
-						<h2 className="text-2xl font-medium text-teal-900">
-							Header Lorem Ipsum
-						</h2>
-						<p className="text-base font-thin text-teal-900">
-							Support Lorem Ipsum
-						</p>
-						<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
-							$100 MILLION
-						</h2>
-						<a
-							href="#"
-							className="mt-4 inline-block rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-2 px-8 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
-							Play Now
-						</a>
-					</div>
-				</div>
-			</SwiperSlide>
-			<div
-				data-hero-pagination
-				className="mt-3 flex justify-center space-x-2"
-			/>
-		</Swiper>
-	)
+				</swiper-container>
+			</>
+		)
+		//<Swiper
+		//	slidesPerView="auto"
+		//	pagination={{
+		//		el: 'div[data-hero-pagination]',
+		//		clickable: true,
+		//		bulletClass:
+		//			'h-2.5 w-2.5 bg-gray-200 rounded-full cursor-pointer',
+		//		bulletActiveClass: 'bg-cyan-400',
+		//	}}
+		//	removeClippedSubviews={false}
+		//	modules={ [ Pagination ] }
+		//>
+
+		//</Swiper>
+	}
 
 	const SwiperElm = () => {
+		const swiperElRef = useRef(null)
 		const prevRef = useRef(null)
 		const nextRef = useRef(null)
 
-		return (
-			<Swiper
-				className="relative justify-center"
-				modules={[Navigation]}
-				onInit={swiper => {
+		useEffect(() => {
+			const params = {
+				modules: [Navigation],
+				onInit: swiper => {
 					swiper.params.navigation.prevEl = prevRef.current
 					swiper.params.navigation.nextEl = nextRef.current
 					swiper.navigation.init()
 					swiper.navigation.update()
-				}}
-				breakpoints={{
+				},
+				breakpoints: {
 					640: {
 						slidesPerView: 2,
 						spaceBetween: 10,
@@ -190,69 +183,129 @@ export default function Home({ singleProducts }) {
 						slidesPerView: 3,
 						spaceBetween: 30,
 					},
-				}}
-				spaceBetween={10}
-				slidesPerView={1}>
-				{singleProducts.map((product, idx) => (
-					<SwiperSlide
-						key={idx}
-						className="flex flex-col items-center justify-between space-y-2.5 rounded-lg border-l-8 border-r-8 border-yellow-300/80 bg-amber-100 py-6">
-						<Image
-							src={'/images/Australian6-45.png'}
-							width={80}
-							height={80}
-							alt="icon"
-						/>
-						<h3 className="px-2 text-center">
-							<span>{product.lotteryName}</span>{' '}
-							<strong>{product.price}M</strong>
-						</h3>
-						<Link href={`/lotteries/${product.id}`}>
-							<button
-								className="rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-2 px-8 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
-								type="button">
-								Play Now
-							</button>
-						</Link>
+				},
+				injectStylesUrls: ['swiper/css/navigation'],
+			}
 
-						<span>Meta text here</span>
-					</SwiperSlide>
+			Object.assign(swiperElRef.current, params)
+
+			swiperElRef.current.initialize()
+		}, [])
+
+		//return <div className="flex">asds</div>
+		return (
+			<swiper-container ref={swiperElRef} class="relative justify-center">
+				{sortedProds.map(product => (
+					<swiper-slide key={product.name}>
+						<div className="flex flex-col items-center justify-between space-y-2.5 rounded-lg border-l-8 border-r-8 border-yellow-300/80 bg-amber-100 py-6">
+							<Image
+								src={'/images/Australian6-45.png'}
+								width={80}
+								height={80}
+								alt="icon"
+							/>
+							<h3 className="px-2 text-center">
+								<span>{product.lotteryName}</span>{' '}
+								<strong>{product.price}M</strong>
+							</h3>
+							<Link href={`/lotteries/${product.id}`}>
+								<button
+									className="rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-2 px-8 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
+									type="button">
+									Play Now
+								</button>
+							</Link>
+
+							<span>Meta text here</span>
+						</div>
+					</swiper-slide>
 				))}
-				<button
-					type="button"
-					className="absolute top-1/3 z-50 flex h-16 w-11 items-center justify-center rounded-tr-lg rounded-br-lg bg-gray-200"
-					ref={prevRef}>
-					<svg
-						fill="none"
-						viewBox="0 0 24 24"
-						strokeWidth={1.5}
-						stroke="currentColor"
-						className="h-10 w-10 text-white">
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							d="M15.75 19.5L8.25 12l7.5-7.5"
-						/>
-					</svg>
-				</button>
-				<button
-					type="button"
-					className="absolute top-1/3 right-0 z-50 flex h-16 w-11 items-center justify-center rounded-tl-lg rounded-bl-lg bg-gray-200"
-					ref={nextRef}>
-					<svg
-						fill="none"
-						viewBox="0 0 24 24"
-						strokeWidth={1.5}
-						stroke="currentColor"
-						className="h-10 w-10 text-white">
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							d="M8.25 4.5l7.5 7.5-7.5 7.5"
-						/>
-					</svg>
-				</button>
-			</Swiper>
+			</swiper-container>
+			//<Swiper
+			//	className="relative justify-center"
+			//	modules={[Navigation]}
+			//	onInit={swiper => {
+			//		swiper.params.navigation.prevEl = prevRef.current
+			//		swiper.params.navigation.nextEl = nextRef.current
+			//		swiper.navigation.init()
+			//		swiper.navigation.update()
+			//	}}
+			//	breakpoints={{
+			//		640: {
+			//			slidesPerView: 2,
+			//			spaceBetween: 10,
+			//		},
+			//		768: {
+			//			slidesPerView: 2,
+			//			spaceBetween: 20,
+			//		},
+			//		1024: {
+			//			slidesPerView: 3,
+			//			spaceBetween: 30,
+			//		},
+			//	}}
+			//	spaceBetween={10}
+			//	slidesPerView={1}>
+			//	{sortedProds.map(product => (
+			//		<SwiperSlide
+			//			key={product.name}
+			//			className="flex flex-col items-center justify-between space-y-2.5 rounded-lg border-l-8 border-r-8 border-yellow-300/80 bg-amber-100 py-6">
+			//			<Image
+			//				src={'/images/Australian6-45.png'}
+			//				width={80}
+			//				height={80}
+			//				alt="icon"
+			//			/>
+			//			<h3 className="px-2 text-center">
+			//				<span>{product.lotteryName}</span>{' '}
+			//				<strong>{product.price}M</strong>
+			//			</h3>
+			//			<Link href={`/lotteries/${product.id}`}>
+			//				<button
+			//					className="rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-2 px-8 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
+			//					type="button">
+			//					Play Now
+			//				</button>
+			//			</Link>
+
+			//			<span>Meta text here</span>
+			//		</SwiperSlide>
+			//	))}
+			//	<button
+			//		type="button"
+			//		className="absolute top-1/3 z-50 flex h-16 w-11 items-center justify-center rounded-tr-lg rounded-br-lg bg-gray-200"
+			//		ref={prevRef}>
+			//		<svg
+			//			fill="none"
+			//			viewBox="0 0 24 24"
+			//			strokeWidth={1.5}
+			//			stroke="currentColor"
+			//			className="h-10 w-10 text-white">
+			//			<path
+			//				strokeLinecap="round"
+			//				strokeLinejoin="round"
+			//				d="M15.75 19.5L8.25 12l7.5-7.5"
+			//			/>
+			//		</svg>
+			//	</button>
+			//	<button
+			//		type="button"
+			//		className="absolute top-1/3 right-0 z-50 flex h-16 w-11 items-center justify-center rounded-tl-lg rounded-bl-lg bg-gray-200"
+			//		ref={nextRef}>
+			//		<svg
+			//			fill="none"
+			//			viewBox="0 0 24 24"
+			//			strokeWidth={1.5}
+			//			stroke="currentColor"
+			//			className="h-10 w-10 text-white">
+			//			<path
+			//				strokeLinecap="round"
+			//				strokeLinejoin="round"
+			//				d="M8.25 4.5l7.5 7.5-7.5 7.5"
+			//			/>
+			//		</svg>
+			//	</button>
+			//</Swiper>
 		)
 	}
 
@@ -296,7 +349,7 @@ export default function Home({ singleProducts }) {
 
 			{/* Hero section */}
 			<section>
-				<HeroSlider />
+				<HeroSlider prods={sortedProds} />
 			</section>
 
 			{/* Products section */}
