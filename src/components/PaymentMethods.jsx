@@ -9,10 +9,10 @@ export default ({ setShowCardForm }) => {
 
 	useEffect(() => {
 		// get all the methods here.
-		//axios.get('/payment/gateways').then(({ data }) => {
-		//	setMethods(data)
-		//	setSelected(data[0].cardHolder)
-		//})
+		axios.get('/payment/gateways').then(({ data }) => {
+			setMethods(data)
+			setSelected(data[0].cardHolder)
+		})
 	}, [])
 
 	const handleMethodChange = selected => {

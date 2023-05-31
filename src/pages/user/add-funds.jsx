@@ -22,6 +22,7 @@ export default () => {
 		return <ErrorPage title="Unauthorized" statusCode={401} />
 	}
 
+	console.log('ss', success)
 	const handleAddPayment = () => {
 		const fund = {
 			id: user.profile.id,
