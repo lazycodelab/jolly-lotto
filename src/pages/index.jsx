@@ -19,46 +19,46 @@ import Layout from '@/components/Layout'
 
 const sectionData = [
 	{
-		title: 'Choice',
+		title: 'Pick Your Game',
 		content:
-			'Choose which lotteries you want to play. You can play your favorite numbers, or “Quick Pick” for a random selection.',
+			'Dive into the lottery world by selecting from a variety of games. Go with your go-to numbers or give our "Rapid Generator" a shot for spontaneous combination',
 		icon: <IconBoxesChecked className={'mx-auto w-16 md:w-20'} />,
 	},
 	{
-		title: 'Confirmation',
+		title: 'Entry Acknowledgment',
 		content:
-			"As soon as your order id processed we'll send you a confirmation of your lottery numbers and dates of play.",
+			"Once we have processed your submission, you'll receive a prompt confirmation with your  lottery numbers and the dates you'll be playing.",
 		icon: <IconPaper className={'mx-auto w-14 md:w-16'} />,
 	},
 	{
-		title: 'Winnings',
+		title: 'Celebrate Your Triumph',
 		content:
-			"When you win a lotto prize, we'll immediately notify you and deposit your winning in to your Lotto Express account.",
+			"Get ready to celebrate as a lucky winner! We'll keep in the loop and swiftly deposit your winnings into your Lotto Bonanza account.",
 		icon: <IconMoneyEnvelope className={'mx-auto w-16 md:w-20'} />,
 	},
 ]
 
 const qualityData = [
 	{
-		title: 'Exciting',
+		title: 'Thrilling',
 		content: [
-			"The world's most exciting lotteries.",
-			'Play for the biggest jackpots on Earth!',
+			"Participate in the world's most captivating lotteries.",
+			'Play for massive jackpots that will keep you on the edge of your seat!',
 		],
 	},
 	{
-		title: 'Secure',
+		title: 'Safe',
 		content: [
-			'Highest security standards in the industry.',
-			'Exceeding regulated security requirements.',
-			'Frequent system upgrades to keep your data safe.',
+			'We implement the highest security measures in the industry.',
+			'Our security standards exceeds the regulated requirements.',
+			'Regular system upgrades ensure the protection of your data.',
 		],
 	},
 	{
-		title: 'Honest',
+		title: 'Transparent',
 		content: [
-			'Service charges are included in the price.',
-			'No additional fees to collect your winnings or for any other reason.',
+			'We include service charges in the ticket price.',
+			'There are no additional fees for collect your winnings or for any other purpose.',
 		],
 	},
 ]
@@ -303,8 +303,8 @@ export default function Home({ singleProducts }) {
 			<section className="py-0 md:py-12">
 				<div className="container mx-auto">
 					<h2 className="hidden text-center text-2xl font-bold uppercase text-teal-600 md:block">
-						Play the world&apos;s biggest lotteries online at
-						jollylotto.com
+						Fell the excitement: Step into the world of
+						distinguished lotteries online at jollylotto.com
 					</h2>
 
 					<div className="mx-auto mt-10 max-w-6xl">
@@ -321,7 +321,8 @@ export default function Home({ singleProducts }) {
 						))}
 					</div>
 					<h2 className="mt-12 text-center text-xl font-semibold text-orange-400 md:mt-16 md:text-2xl">
-						WE DO THE WORK SO YOU CAN HAVE THE FUN!
+						WE TAKE CARE OF THE LOTTO DETAILS, SO YOU CAN ENJOY THE
+						THRILL OF WINNING BIG!
 					</h2>
 				</div>
 			</section>

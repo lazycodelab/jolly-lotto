@@ -8,15 +8,46 @@ import FormSelect from '@/components/FormSelect'
 import { useState } from 'react'
 import PaymentMethods from '@/components/PaymentMethods'
 import { getMonths, getYears } from '@/components/Helpers'
+import cx from 'classnames'
 
 export default () => {
-	const { user } = useAuth()
+	const { user, addFunds, addMethod } = useAuth()
 	const router = useRouter()
 	const [showBillingForm, setShowBillingForm] = useState(false)
+	const [errors, setErrors] = useState(false)
+	const [success, setSuccess] = useState(false)
+	const [showCardForm, setShowCardForm] = useState(false)
 
 	if (!router.isFallback && !user) {
 		return <ErrorPage title="Unauthorized" statusCode={401} />
 	}
+
+	const handleAddPayment = () => {
+		const fund = {
+			id: user.profile.id,
+			mode: 'card',
+			amount: 20,
+		}
+		addFunds({ setErrors, setSuccess, fund })
+	}
+
+	const handleAddNewMethod = e => {
+		e.preventDefault()
+
+		const form = e.target
+		const method = {}
+
+		for (let field of form.elements) {
+			if (field.name) {
+				method[field.name] = field.value
+			}
+		}
+
+		console.log('xxxx', method)
+
+		addMethod({ setErrors, setSuccess, method })
+	}
+
 	return (
 		<Layout>
 			<Head>
@@ -31,6 +62,16 @@ export default () => {
 					Funds added to your wallet will be available for placing
 					orders.
 				</p>
+
+				{errors && (
+					<div className="mt-3 border-2 border-red-300 bg-red-300/60 px-3 py-2 text-sm text-slate-900">
+						<ul>
+							{Object.keys(errors).map(key => (
+								<li key={key}>{errors[key][0]}</li>
+							))}
+						</ul>
+					</div>
+				)}
 
 				<div className="mx-auto mt-10 grid w-full grid-cols-2 gap-x-5 rounded border p-5">
 					<div>
@@ -72,20 +113,30 @@ export default () => {
 						<p className="font-medium">
 							Select a New Payment Method
 						</p>
-						<PaymentMethods />
+						<PaymentMethods setShowCardForm={setShowCardForm} />
 
-						<div className="mt-3">
-							<FormInput label="Card Number" />
+						<form
+							className={cx('mt-3', {
+								block: showCardForm,
+								hidden: !showCardForm,
+							})}
+							onSubmit={handleAddNewMethod}>
+							<FormInput name="cardNumber" label="Card Number" />
 							<div className="mt-2 flex gap-x-3">
-								<FormInput label="Name on Card" />
-								<FormInput label="CVV Number" />
+								<FormInput
+									name="cardHolder"
+									label="Name on Card"
+								/>
+								<FormInput name="cvv" label="CVV Number" />
 							</div>
 							<div className="mt-2 flex gap-x-3">
 								<FormSelect
+									name="month"
 									label="Expiry Month"
 									options={getMonths()}
 								/>
 								<FormSelect
+									name="year"
 									label="Expiry Year"
 									options={getYears()}
 								/>
@@ -106,7 +157,12 @@ export default () => {
 									Use my stored address as billing address.
 								</label>
 							</div>
-						</div>
+							<button
+								type="submit"
+								className="mt-5 rounded-md bg-gradient-to-r from-orange-400 to-orange-500 py-1.5 px-7 text-base text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
+								Add Card
+							</button>
+						</form>
 					</div>
 				</div>
 
@@ -137,6 +193,7 @@ export default () => {
 
 				<hr className="mt-5" />
 				<button
+					onClick={handleAddPayment}
 					type="button"
 					className="mt-5 w-full rounded-md bg-gradient-to-r from-orange-400 to-orange-500 py-3 px-14 text-lg text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
 					Add Funds

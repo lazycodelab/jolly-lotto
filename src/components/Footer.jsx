@@ -27,47 +27,33 @@ export default () => {
 		<footer className="border-t border-gray-200 bg-cyan-50 py-14 px-6 sm:px-16 md:py-20">
 			<div className="mx-auto max-w-6xl md:container">
 				<div className="grid grid-cols-2 gap-y-8 gap-x-10 md:grid-cols-3 md:grid-rows-2">
-					<MenuSection title={'Play Lottery Online'}>
+					<MenuSection title={'Play Lottos Online'}>
 						<li>
 							<FooterLink href={'#'}>
-								About Lotto Express
+								About Jolly Lotto
 							</FooterLink>
 						</li>
 					</MenuSection>
 					<MenuSection title="Play Lotteries Online">
 						<li>
-							<FooterLink href="/">French Lotto</FooterLink>
-						</li>
-						<li>
-							<FooterLink href="/">Oz Lotto</FooterLink>
-						</li>
-						<li>
-							<FooterLink href="/">Irish Lotto</FooterLink>
+							<FooterLink href="/">Australian 6/45</FooterLink>
 						</li>
 						<li>
 							<FooterLink href="/">Euro Millions</FooterLink>
 						</li>
+						<li>
+							<FooterLink href="/">Canadian 6/49</FooterLink>
+						</li>
 					</MenuSection>
-					<MenuSection title="Lottery Results & Winnings">
+					<MenuSection title="Lotto Results">
 						<li>
-							<FooterLink href="/">French Lotto</FooterLink>
-						</li>
-						<li>
-							<FooterLink href="/">Oz Lotto</FooterLink>
-						</li>
-						<li>
-							<FooterLink href="/">Irish Lotto</FooterLink>
+							<FooterLink href="/">Australian 6/45</FooterLink>
 						</li>
 						<li>
 							<FooterLink href="/">Euro Millions</FooterLink>
 						</li>
-					</MenuSection>
-					<MenuSection title="Useful Links">
 						<li>
-							<FooterLink href="/">Responsible</FooterLink>
-						</li>
-						<li>
-							<FooterLink href="/">Gaming Contact Us</FooterLink>
+							<FooterLink href="/">Canadian 6/49</FooterLink>
 						</li>
 					</MenuSection>
 					<MenuSection
@@ -121,12 +107,6 @@ export default () => {
 
 				<div className="mt-10 flex flex-wrap items-center justify-center gap-10">
 					<Image
-						src="/images/footer/gc.png"
-						alt="GC"
-						width={180}
-						height={50}
-					/>
-					<Image
 						src="/images/footer/lock-icon.png"
 						width={180}
 						height={50}
@@ -137,18 +117,6 @@ export default () => {
 						width={70}
 						alt="cio"
 						height={70}
-					/>
-					<Image
-						src="/images/footer/ST_Footer_GA.svg"
-						width={150}
-						height={50}
-						alt="cio"
-					/>
-					<Image
-						src="/images/footer/ST_Footer_GC.svg"
-						width={150}
-						height={50}
-						alt="cio"
 					/>
 				</div>
 			</div>
