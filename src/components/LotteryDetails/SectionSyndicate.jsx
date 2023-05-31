@@ -16,7 +16,7 @@ export default ({ isSuper, data }) => {
 				<div className="flex items-center justify-center gap-x-4">
 					{isSuper === 1 ? (
 						<div className="max-w-xs rounded border border-teal-600 bg-cyan-50">
-							<header className="relative flex items-center gap-x-3 bg-teal-600 py-2 px-5 text-white">
+							<header className="relative flex items-center gap-x-3 bg-teal-600 px-5 py-2 text-white">
 								<span className="absolute -top-4 right-3 bg-green-500 px-2 py-1 text-sm text-white shadow-md">
 									Best Value
 								</span>
@@ -27,7 +27,7 @@ export default ({ isSuper, data }) => {
 										1,080 lines
 									</h3>
 								</div>
-								<span className="absolute right-2 -bottom-12 flex h-24 w-24 flex-col justify-center rounded-full bg-green-500 p-1 text-center text-sm text-white shadow-md">
+								<span className="absolute -bottom-12 right-2 flex h-24 w-24 flex-col justify-center rounded-full bg-green-500 p-1 text-center text-sm text-white shadow-md">
 									Approx.{' '}
 									<strong className="text-2xl">$0.08</strong>{' '}
 									per line
@@ -70,7 +70,7 @@ export default ({ isSuper, data }) => {
 						</div>
 					) : (
 						<div className="max-w-xs rounded border border-[#00AEB9] bg-cyan-50">
-							<header className="relative flex items-center gap-x-3 bg-[#00AEB9] py-2 px-5 text-white">
+							<header className="relative flex items-center gap-x-3 bg-[#00AEB9] px-5 py-2 text-white">
 								<IconUserGroup className="w-10" />
 								<div>
 									<h4 className="text-lg">
@@ -80,7 +80,7 @@ export default ({ isSuper, data }) => {
 										{data[0].totalShare} lines
 									</h3>
 								</div>
-								<span className="absolute right-2 -bottom-12 flex h-24 w-24 flex-col justify-center rounded-full bg-[#24484B] p-1 text-center text-sm text-white shadow-md">
+								<span className="absolute -bottom-12 right-2 flex h-24 w-24 flex-col justify-center rounded-full bg-[#24484B] p-1 text-center text-sm text-white shadow-md">
 									Approx.{' '}
 									<strong className="text-2xl">$0.26</strong>{' '}
 									per line

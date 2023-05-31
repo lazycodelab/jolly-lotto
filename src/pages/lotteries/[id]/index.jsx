@@ -35,7 +35,7 @@ export default ({ details, results }) => {
 			<div className="container mx-auto flex max-w-6xl items-center bg-orange-50">
 				<span
 					className={classNames(
-						'cursor-pointer border-b-2 py-3 px-12 text-center text-base font-semibold text-cyan-900',
+						'cursor-pointer border-b-2 px-12 py-3 text-center text-base font-semibold text-cyan-900',
 						{
 							'border-cyan-900': activeTab === 'cards',
 							'border-orange-50': activeTab !== 'cards',
@@ -47,7 +47,7 @@ export default ({ details, results }) => {
 				{details?.type === 5 && (
 					<span
 						className={classNames(
-							'cursor-pointer border-b-2 py-3 px-12 text-center text-base font-semibold text-cyan-900',
+							'cursor-pointer border-b-2 px-12 py-3 text-center text-base font-semibold text-cyan-900',
 							{
 								'border-cyan-900': activeTab === 'syndicate',
 								'border-orange-50': activeTab !== 'syndicate',
@@ -59,7 +59,7 @@ export default ({ details, results }) => {
 				)}
 				<span
 					className={classNames(
-						'cursor-pointer border-b-2 py-3 px-12 text-center text-base font-semibold text-cyan-900',
+						'cursor-pointer border-b-2 px-12 py-3 text-center text-base font-semibold text-cyan-900',
 						{
 							'border-cyan-900': activeTab === 'results',
 							'border-orange-50': activeTab !== 'results',

@@ -18,7 +18,7 @@ export default () => {
 			<button
 				type="button"
 				onClick={openModal}
-				className="mt-5 w-full rounded-md bg-gradient-to-r from-orange-400 to-orange-500 py-3 px-14 text-lg text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
+				className="mt-5 w-full rounded-md bg-gradient-to-r from-orange-400 to-orange-500 px-14 py-3 text-lg text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
 				Play Now
 			</button>
 

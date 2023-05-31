@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default () => {
 	return (
-		<section className="mt-10 bg-orange-50 py-10 px-6">
+		<section className="mt-10 bg-orange-50 px-6 py-10">
 			<div className="mx-auto flex max-w-6xl justify-between gap-x-5">
 				<div className="max-w-xl flex-1">
 					<h2 className="text-2xl font-semibold text-teal-600">
@@ -88,8 +88,8 @@ export default () => {
 						height={250}
 						alt="ban"
 					/>
-					<div className="mt-8 divide-y divide-black border-t border-b border-black">
-						<details className="cursor-pointer py-4 px-3">
+					<div className="mt-8 divide-y divide-black border-b border-t border-black">
+						<details className="cursor-pointer px-3 py-4">
 							<summary>Lotto Facts</summary>
 
 							<ul className="px-5 pt-5">
@@ -112,7 +112,7 @@ export default () => {
 								</li>
 							</ul>
 						</details>
-						<details className="cursor-pointer py-4 px-3">
+						<details className="cursor-pointer px-3 py-4">
 							<summary>10 Prize Categories</summary>
 							<div className="mt-5">
 								<p>
@@ -292,7 +292,7 @@ export default () => {
 								</p>
 							</div>
 						</details>
-						<details className="cursor-pointer py-4 px-3">
+						<details className="cursor-pointer px-3 py-4">
 							<summary>Why Choose Australian Lotto 6/45?</summary>
 							<div className="px-5 pt-5">
 								<strong>
