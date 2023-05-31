@@ -25,7 +25,7 @@ export default () => {
 
 	return (
 		<footer className="border-t border-gray-200 bg-cyan-50 py-14 px-6 sm:px-16 md:py-20">
-			<div className="container mx-auto max-w-6xl">
+			<div className="mx-auto max-w-6xl md:container">
 				<div className="grid grid-cols-2 gap-y-8 gap-x-10 md:grid-cols-3 md:grid-rows-2">
 					<MenuSection title={'Play Lottos Online'}>
 						<li>
@@ -105,7 +105,7 @@ export default () => {
 					</FooterLink>
 				</div>
 
-				<div className="mt-10 flex items-center justify-center gap-10">
+				<div className="mt-10 flex flex-wrap items-center justify-center gap-10">
 					<Image
 						src="/images/footer/lock-icon.png"
 						width={180}

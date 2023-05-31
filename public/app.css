@@ -11,6 +11,9 @@
 		margin: 0;
 	}
 }
+.swiper-wrapper {
+	justify-content: center;
+}
 
 @font-face {
 	font-family: 'Impact';

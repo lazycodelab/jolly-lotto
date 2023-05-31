@@ -10,7 +10,7 @@ export default () => {
 	const router = useRouter()
 
 	if (user && user.statusCode === 200) {
-		router.push('/')
+		router.push('/user/dashboard')
 	}
 
 	return (

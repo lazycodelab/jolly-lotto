@@ -76,38 +76,83 @@ export default function Home({ singleProducts }) {
 			}}
 			modules={[Pagination]}>
 			<SwiperSlide className="bg-[#dafcfe]">
-				<div className="mx-auto flex max-w-6xl items-center justify-between">
+				<div className="mx-auto flex max-w-6xl flex-wrap md:flex-nowrap md:items-center md:justify-between">
 					<Image
+						className="order-2 block md:order-1"
+						width={800}
 						src="/images/banner-man-1.png"
-						width={510}
 						alt="banner"
 						height={290}
 					/>
-					<div className="text-center">
-						<h2>Header Lorem Ipsum</h2>
-						<p>Support Lorem Ipsum</p>
-						<h2 className="font-impact text-2xl text-teal-900 sm:text-3xl md:text-7xl">
+					<div className="order-1 my-3 w-full space-y-3 px-3 text-center md:order-2 md:px-0 md:py-5 md:text-center">
+						<h2 className="text-2xl font-medium text-teal-900">
+							Header Lorem Ipsum
+						</h2>
+						<p className="text-base font-thin text-teal-900">
+							Support Lorem Ipsum
+						</p>
+						<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
 							$100 MILLION
 						</h2>
-						<a href="#">Play Now</a>
+						<a
+							href="#"
+							className="mt-4 inline-block rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-2 px-8 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
+							Play Now
+						</a>
 					</div>
 				</div>
 			</SwiperSlide>
 			<SwiperSlide className="bg-[#dafcfe]">
-				<div className="mx-auto flex max-w-6xl items-center justify-between">
+				<div className="mx-auto flex max-w-6xl flex-wrap md:flex-nowrap md:items-center md:justify-between">
 					<Image
+						className="order-2 block md:order-1"
+						width={800}
 						src="/images/banner-man-1.png"
-						width={510}
-						height={290}
 						alt="banner"
+						height={290}
 					/>
-					<div className="text-center">
-						<h2>Header Lorem Ipsum</h2>
-						<p>Support Lorem Ipsum</p>
-						<h2 className="font-impact text-2xl text-teal-900 sm:text-3xl md:text-7xl">
+					<div className="order-1 my-3 w-full space-y-3 px-3 text-center md:order-2 md:px-0 md:py-5 md:text-center">
+						<h2 className="text-2xl font-medium text-teal-900">
+							Header Lorem Ipsum
+						</h2>
+						<p className="text-base font-thin text-teal-900">
+							Support Lorem Ipsum
+						</p>
+						<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
 							$100 MILLION
 						</h2>
-						<a href="#">Play Now</a>
+						<a
+							href="#"
+							className="mt-4 inline-block rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-2 px-8 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
+							Play Now
+						</a>
+					</div>
+				</div>
+			</SwiperSlide>
+			<SwiperSlide className="bg-[#dafcfe]">
+				<div className="mx-auto flex max-w-6xl flex-wrap md:flex-nowrap md:items-center md:justify-between">
+					<Image
+						className="order-2 block md:order-1"
+						width={800}
+						src="/images/banner-man-1.png"
+						alt="banner"
+						height={290}
+					/>
+					<div className="order-1 my-3 w-full space-y-3 px-3 text-center md:order-2 md:px-0 md:py-5 md:text-center">
+						<h2 className="text-2xl font-medium text-teal-900">
+							Header Lorem Ipsum
+						</h2>
+						<p className="text-base font-thin text-teal-900">
+							Support Lorem Ipsum
+						</p>
+						<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
+							$100 MILLION
+						</h2>
+						<a
+							href="#"
+							className="mt-4 inline-block rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-2 px-8 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
+							Play Now
+						</a>
 					</div>
 				</div>
 			</SwiperSlide>
@@ -126,12 +171,6 @@ export default function Home({ singleProducts }) {
 			<Swiper
 				className="relative justify-center"
 				modules={[Navigation]}
-				onBeforeInit={swiper => {
-					swiper.params.wrapperClass = 'swiper-wrapper justify-center'
-					//swiper.$wrapperEl = document.querySelector(
-					//	'.swiper-wrapper.justify-center',
-					//)
-				}}
 				onInit={swiper => {
 					swiper.params.navigation.prevEl = prevRef.current
 					swiper.params.navigation.nextEl = nextRef.current
@@ -218,7 +257,7 @@ export default function Home({ singleProducts }) {
 	}
 
 	const SectionCard = ({ data }) => (
-		<div className="max-w-sm space-y-10">
+		<div className="max-w-sm space-y-5 md:space-y-10">
 			<h3 className="text-center text-2xl font-medium uppercase text-orange-400">
 				{data.title}
 			</h3>
@@ -261,7 +300,7 @@ export default function Home({ singleProducts }) {
 			</section>
 
 			{/* Products section */}
-			<section className="py-12">
+			<section className="py-0 md:py-12">
 				<div className="container mx-auto">
 					<h2 className="hidden text-center text-2xl font-bold uppercase text-teal-600 md:block">
 						Fell the excitement: Step into the world of
@@ -274,7 +313,7 @@ export default function Home({ singleProducts }) {
 				</div>
 			</section>
 
-			<section className="bg-orange-50 py-10 px-6 sm:px-16 sm:py-14">
+			<section className="mt-8 bg-orange-50 py-10 px-6 sm:px-16 sm:py-14">
 				<div className="container mx-auto max-w-6xl">
 					<div className="flex flex-wrap justify-center gap-y-10 md:flex-nowrap md:justify-between md:gap-x-10">
 						{sectionData.map((data, idx) => (

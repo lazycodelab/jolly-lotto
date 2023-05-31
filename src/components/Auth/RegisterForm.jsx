@@ -4,7 +4,9 @@ import FormSelect from '../FormSelect'
 import Logo from '../Logo'
 import { useAuth } from '../../hooks/auth'
 import Link from 'next/link'
-import classNames from 'classnames'
+import cl from 'classnames'
+import moment from 'moment'
+import { getDays, getMonths, getYears } from '../Helpers'
 
 export default () => {
 	const { register } = useAuth({ middleware: 'guest' })
@@ -15,37 +17,32 @@ export default () => {
 		e.preventDefault()
 		setLoading(true)
 
+		const data = e.target
 		const birthDate =
-			e.target.year.value +
-			'-' +
-			e.target.month.value +
-			'-' +
-			e.target.day.value
+			data.year.value + '-' + data.month.value + '-' + data.day.value
+		const age = moment().diff(birthDate, 'years')
 
 		const userData = {
-			password: e.target.password.value,
-			password_confirmation: e.target.password_confirmation.value,
-			minimumLegalAge: 18,
-			prefix: 'Ms',
-			firstName: e.target.first_name.value,
-			lastName: e.target.last_name.value,
+			password: data.password.value,
+			password_confirmation: data.password_confirmation.value,
+			minimumLegalAge: age,
+			prefix: data.title.value,
+			firstName: data.first_name.value,
+			lastName: data.last_name.value,
 			birthDate: birthDate,
 			billingAddress: {
-				street: '101 French Str LOCAL FROM TEST',
-				city: '2988507',
-				postalCode: '101FR',
-				state: '',
-				country: 'FR',
+				street: data.address.value,
+				city: data.city.value,
+				postalCode: data.post_code.value,
+				state: data.state.value,
+				country: data.country.value,
 			},
-			email: e.target.email.value,
-			phone: e.target.phone.value,
-			sessionId: '',
-			ip: '',
-			language: '',
-			currencyCode: '',
+			email: data.email.value,
+			phone: data.phone.value,
+			currencyCode: data.currency.value,
 			notification: {
 				isAllowEmail: true,
-				isAllowMarketingEmail: false,
+				isAllowMarketingEmail: data.marketing.value ?? false,
 				isAllowSms: true,
 				isAllowMarketingSms: false,
 				isAllowPhoneCall: false,
@@ -58,20 +55,26 @@ export default () => {
 	useEffect(() => {
 		if (errors) {
 			setLoading(false)
+			window.scrollTo({
+				top: 0,
+				behavior: 'smooth',
+			})
 		}
 	}, [errors])
 
 	return (
-		<div className="container mx-auto my-10 max-w-2xl items-center bg-white shadow-lg">
+		<div className="container mx-auto my-10 items-center bg-white shadow-lg md:max-w-2xl">
 			<div className="py-2">
 				<Logo className="mx-auto w-20" />
 				<span className="mt-2 block h-[2px] w-full bg-gradient-to-r from-sky-400 via-rose-400 to-lime-400"></span>
 			</div>
 
-			<div className="p-8">
-				<Link
-					href="/signin"
-					className="text-sm text-cyan-500 underline">
+			<div
+				className={cl('relative p-8', {
+					'cursor-wait after:absolute after:inset-0 after:z-30 after:h-full after:w-full after:animate-pulse after:bg-black/70':
+						loading,
+				})}>
+				<Link href="/login" className="text-sm text-cyan-500 underline">
 					&larr; Sign In Here
 				</Link>
 				<h2 className="mt-4 text-center text-xl font-semibold text-teal-700">
@@ -91,7 +94,7 @@ export default () => {
 				<form
 					method="POST"
 					onSubmit={handleSome}
-					className="mt-8 flex items-start justify-between gap-x-10">
+					className="mt-8 grid grid-cols-1 gap-x-10 md:grid-cols-2">
 					<div className="flex-1 space-y-5">
 						<FormInput
 							type="email"
@@ -143,17 +146,24 @@ export default () => {
 								label="Date of Birth"
 								name="day"
 								isReq={true}
-								options={['Day', '01', '02', '03', '04']}
+								defaultValue="Day"
+								options={getDays()}
 							/>
 							<FormSelect
 								label=""
+								isReq={true}
 								name="month"
-								options={['Month', '01', '02', '03', '04']}
+								defaultValue="Month"
+								options={getMonths()}
+								noMarker
 							/>
 							<FormSelect
 								label=""
+								isReq={true}
 								name="year"
-								options={['Year', 1990, 1992, 1993, 1994]}
+								defaultValue="Year"
+								options={getYears()}
+								noMarker
 							/>
 						</div>
 						<div className="flex items-end gap-x-3">
@@ -173,32 +183,41 @@ export default () => {
 					<div className="flex-1 space-y-5">
 						<FormSelect
 							label="Country"
-							options={[
-								'United Kingdom',
-								'United States',
-								'Canada',
-								'Uganda',
-							]}
+							options={{
+								UK: 'United Kingdom',
+								US: 'United States',
+								CA: 'Canada',
+								NZ: 'New Zealand',
+								JP: 'Japan',
+								AU: 'Australia',
+								ZR: 'Zimbabwe',
+							}}
 							isReq={true}
 						/>
+						<FormInput label="Address" isReq={true} />
+						<FormInput
+							label="Apartment, suite, etc. (optional)"
+							name="address2"
+						/>
 						<div className="flex gap-x-3">
-							<FormInput label="Number" />
-							<FormInput label="Street" />
-						</div>
-						<div className="flex gap-x-3">
-							<FormInput label="Number" />
-							<FormInput label="Street" />
-						</div>
-						<FormInput label="Flat Number" />
-						<div className="flex gap-x-3">
-							<FormInput label="Post Code" isReq={true} />
 							<FormInput label="City" isReq={true} />
+							<FormInput label="State" isReq={true} />
+							<FormInput label="Post Code" isReq={true} />
 						</div>
 
 						<FormSelect
 							label="Currency"
 							isReq={true}
-							options={['USD', 'EUR', 'GBP']}
+							options={[
+								'USD',
+								'EUR',
+								'GBP',
+								'NZD',
+								'AUD',
+								'JPY',
+								'CAD',
+								'ZAR',
+							]}
 						/>
 
 						<div className="space-y-3">
@@ -248,7 +267,11 @@ export default () => {
 								Day.
 							</p>
 							<div className="flex gap-x-3">
-								<input id="term-3" type="checkbox" name="" />
+								<input
+									id="term-3"
+									type="checkbox"
+									name="marketing"
+								/>
 								<label
 									htmlFor="term-3"
 									className="cursor-pointer text-xs text-gray-500">
@@ -274,7 +297,7 @@ export default () => {
 							<button
 								type="submit"
 								{...(loading && { disabled: 'disabled' })}
-								className={classNames(
+								className={cl(
 									'mt-5 w-full rounded-md  py-3 px-14 text-lg font-semibold text-white shadow-md ',
 									{
 										'cursor-not-allowed bg-slate-300':
@@ -286,7 +309,7 @@ export default () => {
 								Create New Account
 							</button>
 							<Link
-								href="/signin"
+								href="/login"
 								type="button"
 								className="w-full rounded-md bg-cyan-400 px-5 py-2.5 text-center text-lg font-medium text-white shadow shadow-cyan-600">
 								Sign In Here

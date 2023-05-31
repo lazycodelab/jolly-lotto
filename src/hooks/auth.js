@@ -36,15 +36,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
 				setErrors(error.response.data.errors)
 			})
-
-		window.location.pathname = '/'
 	}
 
-	const login = async ({ setErrors, setStatus, ...props }) => {
+	const login = async ({ setErrors, ...props }) => {
 		await csrf()
-
-		setErrors([])
-		setStatus(null)
+		setErrors(null)
 
 		const { userData } = props
 
@@ -54,7 +50,27 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 			.catch(error => {
 				if (error.response.status !== 422) throw error
 
-				setErrors(errors => [...errors, error.response.data.message])
+				setErrors(error.response.data.errors)
+			})
+	}
+
+	const updateProfile = async ({ setErrors, setSuccess, ...props }) => {
+		await csrf()
+		setErrors(null)
+		setSuccess(false)
+
+		const { userData } = props
+
+		axios
+			.post('/update', userData)
+			.then(() => {
+				mutate()
+				setSuccess(true)
+			})
+			.catch(error => {
+				if (error.response.status !== 422) throw error
+
+				setErrors(error.response.data.errors)
 			})
 	}
 
@@ -106,6 +122,48 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 		window.location.pathname = '/'
 	}
 
+	// @todo: Payment related functions.
+	const addFunds = async ({ setErrors, setSuccess, ...props }) => {
+		await csrf()
+		setErrors(null)
+		setSuccess(false)
+
+		const { fund } = props
+
+		axios
+			.post('/add-funds', fund)
+			.then(() => {
+				mutate()
+				setSuccess(true)
+			})
+			.catch(error => {
+				if (error.response.status !== 422) throw error
+
+				setErrors(error.response.data.errors)
+			})
+	}
+
+	// @todo: Payment related functions.
+	const addMethod = async ({ setErrors, setSuccess, ...props }) => {
+		await csrf()
+		setErrors(null)
+		setSuccess(false)
+
+		const { method } = props
+
+		axios
+			.post('payment/gateways/new', method)
+			.then(() => {
+				mutate()
+				setSuccess(true)
+			})
+			.catch(error => {
+				if (error.response.status !== 422) throw error
+
+				setErrors(error.response.data.errors)
+			})
+	}
+
 	useEffect(() => {
 		if (middleware === 'guest' && redirectIfAuthenticated && user)
 			router.push(redirectIfAuthenticated)
@@ -119,8 +177,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
 	return {
 		user,
+		addFunds,
+		addMethod,
 		register,
 		login,
+		updateProfile,
 		forgotPassword,
 		resetPassword,
 		resendEmailVerification,
