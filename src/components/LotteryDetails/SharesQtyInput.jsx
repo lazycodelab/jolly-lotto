@@ -9,7 +9,7 @@ export default () => {
 			<button
 				type="button"
 				className={cs(
-					'flex h-16 w-14 items-center justify-center rounded-tl-xl rounded-bl-xl text-3xl text-white',
+					'flex h-16 w-14 items-center justify-center rounded-bl-xl rounded-tl-xl text-3xl text-white',
 					{
 						'cursor-not-allowed bg-gray-100': shares <= 1,
 						'bg-cyan-500 hover:bg-cyan-400': shares > 1,
@@ -35,7 +35,7 @@ export default () => {
 			<button
 				type="button"
 				className={cs(
-					'flex h-16 w-14 items-center justify-center rounded-tr-xl rounded-br-xl text-3xl text-white',
+					'flex h-16 w-14 items-center justify-center rounded-br-xl rounded-tr-xl text-3xl text-white',
 					{
 						'bg-gray-100': shares >= 20,
 						'bg-cyan-500 hover:bg-cyan-400': shares <= 20,

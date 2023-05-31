@@ -137,20 +137,20 @@ export default ({
 			<div className="flex items-stretch justify-between gap-x-1 pt-8">
 				<button
 					type="button"
-					className="flex-1 rounded-xl bg-gradient-to-r from-orange-400 to-orange-500 py-1 px-2 text-xs font-medium text-white hover:from-orange-500 hover:to-orange-400"
+					className="flex-1 rounded-xl bg-gradient-to-r from-orange-400 to-orange-500 px-2 py-1 text-xs font-medium text-white hover:from-orange-500 hover:to-orange-400"
 					onClick={() => quickPick(id)}>
 					Quick Pick
 				</button>
 				<button
 					type="button"
-					className="rounded-xl bg-cyan-400 py-1 px-4 text-xs font-medium text-white hover:bg-cyan-300"
+					className="rounded-xl bg-cyan-400 px-4 py-1 text-xs font-medium text-white hover:bg-cyan-300"
 					onClick={() => clearList(id)}>
 					Clear
 				</button>
 				<button
 					type="button"
 					className={classNames(
-						'rounded-xl py-1 px-4 text-xs font-medium text-white',
+						'rounded-xl px-4 py-1 text-xs font-medium text-white',
 						{
 							'bg-cyan-400 hover:bg-cyan-300': totalLines > 1,
 							'cursor-not-allowed bg-gray-300': totalLines <= 1,

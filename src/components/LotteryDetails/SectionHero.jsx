@@ -45,7 +45,7 @@ export default ({ details }) => {
 					<span className="block text-base text-zinc-600">
 						Draw Cutoff Timer
 					</span>
-					<div className="rounded-lg bg-white py-1 px-9 text-center text-xl font-bold text-red-600">
+					<div className="rounded-lg bg-white px-9 py-1 text-center text-xl font-bold text-red-600">
 						<Countdown
 							daysInHours={true}
 							date={cutoffTime}

@@ -178,7 +178,7 @@ export default ({ details }) => {
 						</button>
 					</div>
 				</div>
-				<div className="mt-4 mb-20 flex flex-wrap justify-center gap-x-1.5 gap-y-3 md:justify-start">
+				<div className="mb-20 mt-4 flex flex-wrap justify-center gap-x-1.5 gap-y-3 md:justify-start">
 					{lotteryLines.map((line, idx) => (
 						<LineCard
 							id={idx}

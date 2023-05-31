@@ -6,7 +6,7 @@ export default ({ weeks, setWeeks }) => {
 			<button
 				type="button"
 				className={cl(
-					'flex h-16 w-14 items-center justify-center rounded-tl-xl rounded-bl-xl text-3xl text-white',
+					'flex h-16 w-14 items-center justify-center rounded-bl-xl rounded-tl-xl text-3xl text-white',
 					{
 						'bg-gray-100 hover:bg-none': weeks <= 1,
 						'bg-cyan-400 hover:bg-cyan-500': weeks > 1,
@@ -32,7 +32,7 @@ export default ({ weeks, setWeeks }) => {
 			<button
 				type="button"
 				className={cl(
-					'flex h-16 w-14 items-center justify-center rounded-tr-xl rounded-br-xl bg-cyan-400 text-3xl text-white hover:bg-cyan-500',
+					'flex h-16 w-14 items-center justify-center rounded-br-xl rounded-tr-xl bg-cyan-400 text-3xl text-white hover:bg-cyan-500',
 				)}
 				onClick={() => setWeeks(state => state + 1)}>
 				+

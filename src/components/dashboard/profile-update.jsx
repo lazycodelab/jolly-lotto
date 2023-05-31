@@ -128,7 +128,7 @@ export default ({ user }) => {
 								disabled: 'disabled',
 							})}
 							className={cl(
-								'rounded-md py-2 px-8 text-base font-semibold text-white shadow-md ',
+								'rounded-md px-8 py-2 text-base font-semibold text-white shadow-md ',
 								{
 									'cursor-not-allowed bg-slate-300':
 										loading === true,

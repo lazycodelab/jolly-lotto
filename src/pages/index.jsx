@@ -123,7 +123,7 @@ export default function Home({ singleProducts }) {
 										</h2>
 										<Link href={`/lotteries/${product.id}`}>
 											<button
-												className="mt-4 inline-block rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-2 px-8 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
+												className="mt-4 inline-block rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 px-8 py-2 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
 												type="button">
 												Play Now
 											</button>
@@ -210,7 +210,7 @@ export default function Home({ singleProducts }) {
 							</h3>
 							<Link href={`/lotteries/${product.id}`}>
 								<button
-									className="rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-2 px-8 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
+									className="rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 px-8 py-2 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
 									type="button">
 									Play Now
 								</button>
@@ -366,7 +366,7 @@ export default function Home({ singleProducts }) {
 				</div>
 			</section>
 
-			<section className="mt-8 bg-orange-50 py-10 px-6 sm:px-16 sm:py-14">
+			<section className="mt-8 bg-orange-50 px-6 py-10 sm:px-16 sm:py-14">
 				<div className="container mx-auto max-w-6xl">
 					<div className="flex flex-wrap justify-center gap-y-10 md:flex-nowrap md:justify-between md:gap-x-10">
 						{sectionData.map((data, idx) => (
@@ -380,7 +380,7 @@ export default function Home({ singleProducts }) {
 				</div>
 			</section>
 
-			<section className="py-10 px-6 sm:px-16 sm:py-14">
+			<section className="px-6 py-10 sm:px-16 sm:py-14">
 				<div className="container mx-auto max-w-6xl">
 					<div className="flex flex-wrap justify-center gap-y-10 md:flex-nowrap md:justify-between">
 						{qualityData.map((data, idx) => (
