@@ -38,9 +38,7 @@ export default ({
 
 		const handleToggleSelected = () => {
 			if (isSelected) {
-				//console.log( '222', id, number )
 				const r = lotteryData.selectedBalls.filter(x => x !== number)
-				//lotteryData.selectedBalls = r
 				setLines(lines =>
 					lines.map((line, idx) =>
 						idx === id
