@@ -17,12 +17,12 @@ export default () => {
 
 	return (
 		<Menu as="div" className="relative">
-			{user && user.statusCode === 200 ? (
+			{user && user.isSuccess === true ? (
 				<Menu.Button
 					as="div"
 					className="flex items-center text-sm text-gray-700">
 					<UserIcon className="mr-1 w-4 text-gray-500" />
-					{user.user.name}
+					{user.profile.firstName}
 					<ChevronDownIcon className="h-4 w-4" aria-hidden="true" />
 				</Menu.Button>
 			) : (
