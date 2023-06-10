@@ -194,7 +194,7 @@ export default function Home({ singleProducts }) {
 
 		//return <div className="flex">asds</div>
 		return (
-			<swiper-container ref={swiperElRef} class="relative justify-center">
+			<swiper-container ref={swiperElRef}>
 				{sortedProds.map(product => (
 					<swiper-slide key={product.name}>
 						<div className="flex flex-col items-center justify-between space-y-2.5 rounded-lg border-l-8 border-r-8 border-yellow-300/80 bg-amber-100 py-6">
