@@ -18,6 +18,7 @@ import IconPaper from '@/components/Icons/IconPaper'
 import IconMoneyEnvelope from '@/components/Icons/IconMoneyEnvelope'
 import IconTick from '@/components/Icons/IconTick'
 import Layout from '@/components/Layout'
+import LotteryFrame from '@/components/lotteries/lottery-frame'
 
 const sectionData = [
 	{
@@ -156,6 +157,13 @@ export default function Home({ singleProducts }) {
 		//</Swiper>
 	}
 
+	const symbols = {
+		USD: '$',
+		AUD: 'AU$',
+		CAD: 'CA$',
+		EUR: '€',
+	}
+
 	const SwiperElm = () => {
 		const swiperElRef = useRef(null)
 		const prevRef = useRef(null)
@@ -181,7 +189,7 @@ export default function Home({ singleProducts }) {
 					},
 					1024: {
 						slidesPerView: 3,
-						spaceBetween: 30,
+						spaceBetween: 0,
 					},
 				},
 				injectStylesUrls: ['swiper/css/navigation'],
@@ -197,15 +205,21 @@ export default function Home({ singleProducts }) {
 			<swiper-container ref={swiperElRef}>
 				{sortedProds.map(product => (
 					<swiper-slide key={product.name}>
-						<div className="flex flex-col items-center justify-between space-y-2.5 rounded-lg border-l-8 border-r-8 border-yellow-300/80 bg-amber-100 py-6">
+						<div className="relative flex flex-col items-center justify-between space-y-2.5">
+							<LotteryFrame
+								type={product.lottery.country_code}
+								className="absolute -z-[1] h-full"
+							/>
 							<Image
-								src={'/images/Australian6-45.png'}
+								src={`/images/lotteries/${product.lottery.country_code}.png`}
 								width={80}
 								height={80}
 								alt="icon"
 							/>
 							<h3 className="px-2 text-center">
-								<span>{product.lotteryName}</span>{' '}
+								<span className="text-xs">
+									{symbols[product.lottery.currency_code]}
+								</span>
 								<strong>{product.price}M</strong>
 							</h3>
 							<Link href={`/lotteries/${product.id}`}>
@@ -216,7 +230,7 @@ export default function Home({ singleProducts }) {
 								</button>
 							</Link>
 
-							<span>Meta text here</span>
+							<span className="pb-2 text-xs">Meta text here</span>
 						</div>
 					</swiper-slide>
 				))}
