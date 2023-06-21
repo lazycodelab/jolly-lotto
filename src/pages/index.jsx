@@ -19,6 +19,7 @@ import IconMoneyEnvelope from '@/components/Icons/IconMoneyEnvelope'
 import IconTick from '@/components/Icons/IconTick'
 import Layout from '@/components/Layout'
 import LotteryFrame from '@/components/lotteries/lottery-frame'
+import PlayButton from '@/components/play-button'
 
 const sectionData = [
 	{
@@ -76,18 +77,21 @@ export default function Home({ singleProducts }) {
 		useEffect(() => {
 			const params = {
 				modules: [Pagination],
+				init: false,
+				on: {
+					init: () => {
+						console.log('hero loaded')
+					},
+				},
 				pagination: {
 					el: 'div[data-hero-pagination]',
 					clickable: true,
 					bulletClass:
 						'h-2.5 w-2.5 bg-gray-200 rounded-full cursor-pointer',
-					bulletActiveClass: 'bg-cyan-400',
+					bulletActiveClass: '!bg-cyan-400',
 				},
 				// inject modules styles to shadow DOM
-				injectStylesUrls: [
-					'swiper/css/pagination',
-					//  'path/to/pagination-element.min.css'
-				],
+				injectStylesUrls: ['swiper/css/pagination'],
 			}
 
 			Object.assign(swiperElRef.current, params)
@@ -97,10 +101,7 @@ export default function Home({ singleProducts }) {
 
 		return (
 			<>
-				<swiper-container
-					ref={swiperElRef}
-					pagination="true"
-					slides-per-view="1">
+				<swiper-container ref={swiperElRef} init="false">
 					{prods.map(product => (
 						<swiper-slide key={product.name}>
 							<div className="bg-[#dafcfe]">
@@ -116,15 +117,12 @@ export default function Home({ singleProducts }) {
 										<h2 className="text-2xl font-medium text-teal-900">
 											{product.lotteryName}
 										</h2>
-										{/*<p className="text-base font-thin text-teal-900">
-								Support Lorem Ipsum
-							</p>*/}
 										<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
 											${product.price} MILLION
 										</h2>
 										<Link href={`/lotteries/${product.id}`}>
 											<button
-												className="mt-4 inline-block rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 px-8 py-2 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
+												className="mt-4 inline-block rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 px-14 py-3 text-xl text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
 												type="button">
 												Play Now
 											</button>
@@ -134,27 +132,13 @@ export default function Home({ singleProducts }) {
 							</div>
 						</swiper-slide>
 					))}
-					<div
-						data-hero-pagination
-						className="mt-3 flex justify-center space-x-2"
-					/>
 				</swiper-container>
+				<div
+					data-hero-pagination
+					className="mt-3 flex justify-center space-x-2"
+				/>
 			</>
 		)
-		//<Swiper
-		//	slidesPerView="auto"
-		//	pagination={{
-		//		el: 'div[data-hero-pagination]',
-		//		clickable: true,
-		//		bulletClass:
-		//			'h-2.5 w-2.5 bg-gray-200 rounded-full cursor-pointer',
-		//		bulletActiveClass: 'bg-cyan-400',
-		//	}}
-		//	removeClippedSubviews={false}
-		//	modules={ [ Pagination ] }
-		//>
-
-		//</Swiper>
 	}
 
 	const symbols = {
@@ -164,19 +148,18 @@ export default function Home({ singleProducts }) {
 		EUR: '€',
 	}
 
-	const SwiperElm = () => {
+	const LotteryCards = () => {
 		const swiperElRef = useRef(null)
-		const prevRef = useRef(null)
-		const nextRef = useRef(null)
+		//const prevRef = useRef(null)
+		//const nextRef = useRef(null)
 
 		useEffect(() => {
 			const params = {
 				modules: [Navigation],
-				onInit: swiper => {
-					swiper.params.navigation.prevEl = prevRef.current
-					swiper.params.navigation.nextEl = nextRef.current
-					swiper.navigation.init()
-					swiper.navigation.update()
+				on: {
+					init: swiper => {
+						console.log('loaded', swiper)
+					},
 				},
 				breakpoints: {
 					640: {
@@ -192,19 +175,20 @@ export default function Home({ singleProducts }) {
 						spaceBetween: 0,
 					},
 				},
-				injectStylesUrls: ['swiper/css/navigation'],
+
+				//injectStylesUrls: ['swiper/css/navigation'],
 			}
 
 			Object.assign(swiperElRef.current, params)
 
 			swiperElRef.current.initialize()
+			//swiperElRef.current.init()
 		}, [])
 
-		//return <div className="flex">asds</div>
 		return (
-			<swiper-container ref={swiperElRef}>
+			<swiper-container ref={swiperElRef} init="false">
 				{sortedProds.map(product => (
-					<swiper-slide key={product.name}>
+					<swiper-slide key={product.name} style={{ width: '140px' }}>
 						<div className="relative flex flex-col items-center justify-between space-y-2.5">
 							<LotteryFrame
 								type={product.lottery.country_code}
@@ -223,11 +207,7 @@ export default function Home({ singleProducts }) {
 								<strong>{product.price}M</strong>
 							</h3>
 							<Link href={`/lotteries/${product.id}`}>
-								<button
-									className="rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 px-8 py-2 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
-									type="button">
-									Play Now
-								</button>
+								<PlayButton />
 							</Link>
 
 							<span className="pb-2 text-xs">Meta text here</span>
@@ -235,91 +215,6 @@ export default function Home({ singleProducts }) {
 					</swiper-slide>
 				))}
 			</swiper-container>
-			//<Swiper
-			//	className="relative justify-center"
-			//	modules={[Navigation]}
-			//	onInit={swiper => {
-			//		swiper.params.navigation.prevEl = prevRef.current
-			//		swiper.params.navigation.nextEl = nextRef.current
-			//		swiper.navigation.init()
-			//		swiper.navigation.update()
-			//	}}
-			//	breakpoints={{
-			//		640: {
-			//			slidesPerView: 2,
-			//			spaceBetween: 10,
-			//		},
-			//		768: {
-			//			slidesPerView: 2,
-			//			spaceBetween: 20,
-			//		},
-			//		1024: {
-			//			slidesPerView: 3,
-			//			spaceBetween: 30,
-			//		},
-			//	}}
-			//	spaceBetween={10}
-			//	slidesPerView={1}>
-			//	{sortedProds.map(product => (
-			//		<SwiperSlide
-			//			key={product.name}
-			//			className="flex flex-col items-center justify-between space-y-2.5 rounded-lg border-l-8 border-r-8 border-yellow-300/80 bg-amber-100 py-6">
-			//			<Image
-			//				src={'/images/Australian6-45.png'}
-			//				width={80}
-			//				height={80}
-			//				alt="icon"
-			//			/>
-			//			<h3 className="px-2 text-center">
-			//				<span>{product.lotteryName}</span>{' '}
-			//				<strong>{product.price}M</strong>
-			//			</h3>
-			//			<Link href={`/lotteries/${product.id}`}>
-			//				<button
-			//					className="rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 py-2 px-8 text-sm text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
-			//					type="button">
-			//					Play Now
-			//				</button>
-			//			</Link>
-
-			//			<span>Meta text here</span>
-			//		</SwiperSlide>
-			//	))}
-			//	<button
-			//		type="button"
-			//		className="absolute top-1/3 z-50 flex h-16 w-11 items-center justify-center rounded-tr-lg rounded-br-lg bg-gray-200"
-			//		ref={prevRef}>
-			//		<svg
-			//			fill="none"
-			//			viewBox="0 0 24 24"
-			//			strokeWidth={1.5}
-			//			stroke="currentColor"
-			//			className="h-10 w-10 text-white">
-			//			<path
-			//				strokeLinecap="round"
-			//				strokeLinejoin="round"
-			//				d="M15.75 19.5L8.25 12l7.5-7.5"
-			//			/>
-			//		</svg>
-			//	</button>
-			//	<button
-			//		type="button"
-			//		className="absolute top-1/3 right-0 z-50 flex h-16 w-11 items-center justify-center rounded-tl-lg rounded-bl-lg bg-gray-200"
-			//		ref={nextRef}>
-			//		<svg
-			//			fill="none"
-			//			viewBox="0 0 24 24"
-			//			strokeWidth={1.5}
-			//			stroke="currentColor"
-			//			className="h-10 w-10 text-white">
-			//			<path
-			//				strokeLinecap="round"
-			//				strokeLinejoin="round"
-			//				d="M8.25 4.5l7.5 7.5-7.5 7.5"
-			//			/>
-			//		</svg>
-			//	</button>
-			//</Swiper>
 		)
 	}
 
@@ -370,12 +265,12 @@ export default function Home({ singleProducts }) {
 			<section className="py-0 md:py-12">
 				<div className="container mx-auto">
 					<h2 className="hidden text-center text-2xl font-bold uppercase text-teal-600 md:block">
-						Fell the excitement: Step into the world of
+						Feel the excitement: Step into the world of
 						distinguished lotteries online at jollylotto.com
 					</h2>
 
-					<div className="mx-auto mt-10 max-w-6xl">
-						<SwiperElm />
+					<div className="mx-auto mt-10 max-w-3xl">
+						<LotteryCards />
 					</div>
 				</div>
 			</section>
