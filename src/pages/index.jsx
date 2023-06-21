@@ -26,19 +26,19 @@ const sectionData = [
 		title: 'Pick Your Game',
 		content:
 			'Dive into the lottery world by selecting from a variety of games. Go with your go-to numbers or give our "Rapid Generator" a shot for spontaneous combination',
-		icon: <IconBoxesChecked className={'mx-auto w-16 md:w-20'} />,
+		icon: <IconBoxesChecked className={'mx-auto w-16 self-end md:w-20'} />,
 	},
 	{
 		title: 'Entry Acknowledgment',
 		content:
 			"Once we have processed your submission, you'll receive a prompt confirmation with your  lottery numbers and the dates you'll be playing.",
-		icon: <IconPaper className={'mx-auto w-14 md:w-16'} />,
+		icon: <IconPaper className={'mx-auto w-14 self-end md:w-16'} />,
 	},
 	{
 		title: 'Celebrate Your Triumph',
 		content:
 			"Get ready to celebrate as a lucky winner! We'll keep in the loop and swiftly deposit your winnings into your Lotto Bonanza account.",
-		icon: <IconMoneyEnvelope className={'mx-auto w-16 md:w-20'} />,
+		icon: <IconMoneyEnvelope className={'mx-auto w-16 self-end md:w-20'} />,
 	},
 ]
 
@@ -219,7 +219,7 @@ export default function Home({ singleProducts }) {
 	}
 
 	const SectionCard = ({ data }) => (
-		<div className="max-w-sm space-y-5 md:space-y-10">
+		<div className="grid max-w-sm space-y-5 md:space-y-10">
 			<h3 className="text-center text-2xl font-medium uppercase text-orange-400">
 				{data.title}
 			</h3>
