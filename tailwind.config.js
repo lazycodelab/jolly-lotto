@@ -1,15 +1,11 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
-
 module.exports = {
-	content: ['./src/**/*.{jsx,js}'],
+	content: ['./app/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,jsx}'],
 	theme: {
-		extend: {
-			fontFamily: {
-				heebo: ['Heebo', ...defaultTheme.fontFamily.sans],
-				lato: ['Lato', ...defaultTheme.fontFamily.sans],
-				'open-sans': ['"Open Sans"', ...defaultTheme.fontFamily.sans],
-				impact: ['Impact', ...defaultTheme.fontFamily.sans],
-			},
+		fontFamily: {
+			heebo: ['var(--font-heebo)'],
+			'open-sans': ['var(--font-open-sans)'],
+			lato: ['var(--font-lato)'],
+			impact: ['var(--font-impact)'],
 		},
 	},
 }

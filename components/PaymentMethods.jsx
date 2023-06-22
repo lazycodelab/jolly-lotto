@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import axios from '@/lib/axios'
+import axios from '../lib/axios'
 
 export default ({ setShowCardForm }) => {
 	const [methods, setMethods] = useState([])

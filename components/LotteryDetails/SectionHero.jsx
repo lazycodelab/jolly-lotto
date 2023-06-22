@@ -1,7 +1,8 @@
 import Countdown from 'react-countdown'
 import Image from 'next/image'
+import cx from 'classnames'
 
-export default ({ details }) => {
+export default ({ details, lotteryType }) => {
 	//const [cutoffTime, setCutoffTime] = useState(
 	//	Date.now() + details?.lottery?.cut_offs[0]?.hours * 60 * 60 * 1000,
 	//)
@@ -24,10 +25,10 @@ export default ({ details }) => {
 	}
 
 	return (
-		<section className="bg-orange-100 py-3">
+		<section className={cx('py-3', lotteryType.primaryColor)}>
 			<div className="container mx-auto flex max-w-6xl items-center justify-between px-10">
 				<Image
-					src="/images/OZLotto.png"
+					src={lotteryType.logo}
 					alt="OZ Lotto"
 					width={100}
 					height={80}

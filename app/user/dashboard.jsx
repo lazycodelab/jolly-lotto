@@ -1,12 +1,12 @@
-import Layout from '@/components/Layout'
-import { useAuth } from '@/hooks/auth'
+import Layout from '../../components/Layout'
+import { useAuth } from '../../hooks/auth'
 import Head from 'next/head'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import ErrorPage from 'next/error'
 import Link from 'next/link'
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
-import ProfileUpdate from '@/components/dashboard/profile-update'
+import ProfileUpdate from '../../components/dashboard/profile-update'
 
 export default () => {
 	const { user } = useAuth()

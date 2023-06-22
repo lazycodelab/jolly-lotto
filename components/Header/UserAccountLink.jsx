@@ -9,7 +9,7 @@ import {
 	WalletIcon,
 	UserPlusIcon,
 } from '@heroicons/react/24/solid'
-import { useAuth } from '@/hooks/auth'
+import { useAuth } from '../../hooks/auth'
 import Link from 'next/link'
 
 export default () => {

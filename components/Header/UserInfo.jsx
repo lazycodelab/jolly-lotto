@@ -1,5 +1,5 @@
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline'
-import { useAuth } from '@/hooks/auth'
+import { useAuth } from '../../hooks/auth'
 import IconWallet from '../Icons/IconWallet'
 import Link from 'next/link'
 

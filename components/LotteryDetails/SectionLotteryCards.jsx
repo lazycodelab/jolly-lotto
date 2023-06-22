@@ -1,7 +1,7 @@
-import { generateRandomNum } from '@/components/Helpers'
-import IconAdd from '@/components/Icons/IconAdd'
-import LineCard from '@/components/LotteryDetails/LineCard'
-import QuantityInput from '@/components/LotteryDetails/QuantityInput'
+import { generateRandomNum } from '../Helpers'
+import IconAdd from '../Icons/IconAdd'
+import LineCard from './LineCard'
+import QuantityInput from './QuantityInput'
 import { useEffect, useState } from 'react'
 import PaymentModal from '../PaymentModal'
 
