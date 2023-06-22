@@ -41,7 +41,7 @@ const openSans = Open_Sans({
 })
 
 const impact = localFont({
-	src: './fonts/impact.woff2',
+	src: '../public/fonts/impact.woff2',
 	variable: '--font-impact',
 })
 
