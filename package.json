@@ -21,7 +21,7 @@
 		"react-countdown": "^2.3.5",
 		"react-dom": "^18.2.0",
 		"swiper": "^9.4.1",
-		"swr": "^2.1.5"
+		"swr": "^2.2.0"
 	},
 	"devDependencies": {
 		"@babel/eslint-parser": "^7.22.5",

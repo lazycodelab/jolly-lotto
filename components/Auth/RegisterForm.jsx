@@ -35,7 +35,7 @@ export default () => {
 				city: data.city.value,
 				postalCode: data.post_code.value,
 				state: data.state.value,
-				country: data.country.value,
+				country: 'FR',
 			},
 			email: data.email.value,
 			phone: data.phone.value,

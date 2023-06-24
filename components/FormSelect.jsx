@@ -20,7 +20,7 @@ export default ({
 			<select
 				id={name}
 				name={name}
-				className="w-full border-2 border-slate-300 bg-zinc-100 px-2 text-sm ring-0 focus:ring-0"
+				className="w-full border-2 border-slate-300 bg-zinc-100 p-2 text-sm ring-0 focus:ring-0"
 				{...(isReq && { required: 'required' })}
 				{...(defaultValue && { defaultValue: '' })}>
 				{defaultValue && (

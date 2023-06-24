@@ -140,8 +140,6 @@ const symbols = {
 
 const LotteryCards = ({ prods }) => {
 	const swiperElRef = useRef(null)
-	//const prevRef = useRef(null)
-	//const nextRef = useRef(null)
 
 	useEffect(() => {
 		const params = {
@@ -177,7 +175,7 @@ const LotteryCards = ({ prods }) => {
 	return (
 		<swiper-container ref={swiperElRef} init="false">
 			{prods.map(product => (
-				<swiper-slide key={product.name} style={{ width: '140px' }}>
+				<swiper-slide key={product.name}>
 					<div className="relative flex flex-col items-center justify-between space-y-2.5">
 						<LotteryFrame
 							type={product.lottery.country_code}
@@ -205,6 +203,39 @@ const LotteryCards = ({ prods }) => {
 			))}
 		</swiper-container>
 	)
+}
+
+const LotteryPills = ({ prods }) => {
+	return prods.map(product => (
+		<div
+			key={product.name}
+			className="relative flex items-center justify-between space-x-2.5 rounded-lg border-x-8 border-x-[#ffb300] bg-[#fffdde] p-3 shadow-md">
+			{/*<LotteryFrame
+				type={product.lottery.country_code}
+				className="absolute -z-[1] h-full"
+			/>*/}
+			<Image
+				src={`/images/lotteries/${product.lottery.country_code}.png`}
+				width={80}
+				height={80}
+				alt="icon"
+			/>
+			<div className="flex flex-col items-center justify-center space-y-2">
+				<h3 className="text-center font-heebo text-sm text-cyan-900">
+					{product.lotteryName}
+				</h3>
+
+				<span className="font-impact text-3xl font-bold text-cyan-900">
+					{symbols[product.lottery.currency_code]}
+					{product.price}M
+				</span>
+				<span className="font-heebo text-xs">Meta text here</span>
+			</div>
+			<Link href={`/lotteries/${product.id}`}>
+				<PlayButton mobile />
+			</Link>
+		</div>
+	))
 }
 
 const SectionCard = ({ data }) => (
@@ -263,14 +294,17 @@ export default () => {
 
 			{/* Products section */}
 			<section className="py-0 md:py-12">
-				<div className="container mx-auto">
+				<div className="container mx-auto px-5">
 					<h2 className="hidden text-center text-2xl font-bold uppercase text-teal-600 md:block">
 						Feel the excitement: Step into the world of
 						distinguished lotteries online at jollylotto.com
 					</h2>
 
-					<div className="mx-auto mt-10 max-w-3xl">
+					<div className="mx-auto mt-10 hidden max-w-3xl md:block">
 						<LotteryCards prods={singleProducts} />
+					</div>
+					<div className="mx-auto mt-10 block max-w-3xl space-y-3 md:hidden">
+						<LotteryPills prods={singleProducts} />
 					</div>
 				</div>
 			</section>

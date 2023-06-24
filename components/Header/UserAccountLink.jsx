@@ -15,9 +15,11 @@ import Link from 'next/link'
 export default () => {
 	const { user, logout } = useAuth()
 
+	console.log('ww', user)
+
 	return (
 		<Menu as="div" className="relative">
-			{user && user.isSuccess === true ? (
+			{user && user.statusCode === 200 ? (
 				<Menu.Button
 					as="div"
 					className="flex items-center text-sm text-gray-700">

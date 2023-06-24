@@ -1,12 +1,11 @@
-import Layout from '../../components/Layout'
-import { useAuth } from '../../hooks/auth'
-import Head from 'next/head'
+'use client'
+import { useAuth } from '../../../hooks/auth'
 import { useRouter } from 'next/navigation'
 import ErrorPage from 'next/error'
 import Link from 'next/link'
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
-import ProfileUpdate from '../../components/dashboard/profile-update'
+import ProfileUpdate from '../../../components/dashboard/profile-update'
 
 export default () => {
 	const { user } = useAuth()
@@ -17,10 +16,7 @@ export default () => {
 	}
 
 	return (
-		<Layout>
-			<Head>
-				<title>Dashboard</title>
-			</Head>
+		<>
 			<nav className="bg-gray-200">
 				<div className="container mx-auto flex max-w-md items-center justify-center space-x-5 py-3">
 					<Link
@@ -132,6 +128,6 @@ export default () => {
 					</Disclosure>
 				</div>
 			</section>
-		</Layout>
+		</>
 	)
 }
