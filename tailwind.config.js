@@ -7,5 +7,10 @@ module.exports = {
 			lato: ['var(--font-lato)'],
 			impact: ['var(--font-impact)'],
 		},
+		extend: {
+			backgroundImage: {
+				'get-connected': "url('/images/get-connected-banner.png')",
+			},
+		},
 	},
 }

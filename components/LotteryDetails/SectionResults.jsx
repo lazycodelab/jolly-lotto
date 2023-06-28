@@ -1,7 +1,10 @@
+import FormInput from '@/FormInput'
+import PlayButton from '@/play-button'
 import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline'
 import classNames from 'classnames'
 import moment from 'moment'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 export default ({ results }) => {
@@ -184,8 +187,36 @@ export default ({ results }) => {
 					<Results />
 				</div>
 			</div>
-			<aside className="w-full max-w-sm bg-yellow-100">
-				<h4>Lorem ipsum dolor sit.</h4>
+			<aside className="relative hidden w-full max-w-sm bg-[#F3F6F7] bg-get-connected bg-[length:270px_130px] bg-left-bottom bg-no-repeat px-3 py-5 md:block">
+				<h4 className="text-center font-heebo text-lg text-cyan-900">
+					Get Connected
+				</h4>
+				<p className="text-center font-heebo text-sm text-[#24484B]">
+					Enter your name and email address below to receive
+					up-to-date weekly lottery results emails on the world&apos;s
+					top jackpots!
+				</p>
+
+				<form className="mt-2.5">
+					<div className="flex gap-x-5">
+						<FormInput label="First Name" />
+						<FormInput label="Last Name" />
+					</div>
+					<div>
+						<FormInput type="email" label="Email" />
+					</div>
+
+					<div className="flex justify-end">
+						<button className="mt-6 rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 px-7 py-3 font-heebo text-xl text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
+							Subscribe
+						</button>
+					</div>
+				</form>
+				{/*<Image
+					src="/images/get-connected-banner.png"
+					fill
+					style={{ objectFit: 'contain', bottom: 0 }}
+				/>*/}
 			</aside>
 		</section>
 	)
