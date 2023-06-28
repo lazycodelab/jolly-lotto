@@ -1,6 +1,9 @@
 import classNames from 'classnames'
 //import { generateRandomNum } from '../Helpers'
 import IconTrash from '../Icons/IconTrash'
+import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid'
+import { useState } from 'react'
+import { XMarkIcon } from '@heroicons/react/24/solid'
 
 export default ({
 	balls,
@@ -12,6 +15,8 @@ export default ({
 	quickPick,
 	completed,
 }) => {
+	const [modalState, setModalState] = useState(false)
+
 	const LotteryBalls = () => {
 		const b = []
 
@@ -126,47 +131,117 @@ export default ({
 	//	//return ballUI
 	//}
 
-	return (
-		<div
-			className={classNames('max-w-[225px] rounded-md border p-1.5', {
-				'border-slate-300 bg-zinc-50': completed === true,
-				'border-red-300 bg-red-100': completed === false,
-			})}>
-			<div className="flex items-stretch justify-between gap-x-1 pt-8">
+	const MobileCardModal = () => {
+		return (
+			<dialog
+				{...(modalState && {
+					open: true,
+				})}
+				className={classNames({
+					'fixed inset-0 !m-0 flex h-full w-full items-center justify-center bg-black/90':
+						modalState,
+				})}>
 				<button
 					type="button"
-					className="flex-1 rounded-xl bg-gradient-to-r from-orange-400 to-orange-500 px-2 py-1 text-xs font-medium text-white hover:from-orange-500 hover:to-orange-400"
-					onClick={() => quickPick(id)}>
-					Quick Pick
+					className="absolute right-5 top-10"
+					onClick={() => setModalState(false)}>
+					<XMarkIcon className="h-14 text-gray-200" />
 				</button>
-				<button
-					type="button"
-					className="rounded-xl bg-cyan-400 px-4 py-1 text-xs font-medium text-white hover:bg-cyan-300"
-					onClick={() => clearList(id)}>
-					Clear
-				</button>
-				<button
-					type="button"
-					className={classNames(
-						'rounded-xl px-4 py-1 text-xs font-medium text-white',
-						{
-							'bg-cyan-400 hover:bg-cyan-300': totalLines > 1,
-							'cursor-not-allowed bg-gray-300': totalLines <= 1,
-						},
-					)}
-					onClick={() => removeList(id)}>
-					<IconTrash className={'w-2.5'} />
-				</button>
-			</div>
-			<div className="mt-3">
-				<span className="block text-sm">
-					Select {balls.total} Numbers
+				<CardUI mobile />
+			</dialog>
+		)
+	}
+
+	const MobileLineCard = () => {
+		let b = []
+
+		for (let i = 0; i < balls.total; i++) {
+			const ui = (
+				<span
+					key={i}
+					className="flex h-6 w-6 cursor-pointer select-none items-center justify-center rounded border border-slate-200 bg-white text-xs">
+					{lotteryData.selectedBalls[i] ?? ''}
 				</span>
-				<div className="mt-2 flex flex-wrap gap-1.5">
-					<LotteryBalls />
-				</div>
+			)
+			b.push(ui)
+		}
+
+		return (
+			<div
+				className={classNames(
+					'flex items-center justify-around gap-x-1.5 rounded-md border p-1.5 md:hidden',
+					{
+						'border-slate-300 bg-zinc-50': completed === true,
+						'border-red-300 bg-[#FF9A9A]': completed === false,
+					},
+				)}>
+				<button type="button">
+					<TrashIcon className="w-4 text-gray-600" />
+				</button>
+				{b}
+				<button type="button" onClick={() => setModalState(true)}>
+					<PencilIcon className="w-4 text-gray-600" />
+				</button>
 			</div>
-			{/*<BonusBalls />*/}
-		</div>
+		)
+	}
+
+	const CardUI = ({ mobile = false }) => {
+		return (
+			<div
+				className={classNames(
+					'max-w-[225px] rounded-md border p-1.5 md:block',
+					{
+						'border-slate-300 bg-zinc-50': completed === true,
+						'border-red-300 bg-red-100': completed === false,
+						hidden: !mobile,
+					},
+				)}>
+				<div className="flex items-stretch justify-between gap-x-1 pt-8">
+					<button
+						type="button"
+						className="flex-1 rounded-xl bg-gradient-to-r from-orange-400 to-orange-500 px-2 py-1 text-xs font-medium text-white hover:from-orange-500 hover:to-orange-400"
+						onClick={() => quickPick(id)}>
+						Quick Pick
+					</button>
+					<button
+						type="button"
+						className="rounded-xl bg-cyan-400 px-4 py-1 text-xs font-medium text-white hover:bg-cyan-300"
+						onClick={() => clearList(id)}>
+						Clear
+					</button>
+					<button
+						type="button"
+						className={classNames(
+							'rounded-xl px-4 py-1 text-xs font-medium text-white',
+							{
+								'bg-cyan-400 hover:bg-cyan-300': totalLines > 1,
+								'cursor-not-allowed bg-gray-300':
+									totalLines <= 1,
+							},
+						)}
+						onClick={() => removeList(id)}>
+						<IconTrash className={'w-2.5'} />
+					</button>
+				</div>
+				<div className="mt-3">
+					<span className="block text-sm">
+						Select {balls.total} Numbers
+					</span>
+					<div className="mt-2 flex flex-wrap gap-1.5">
+						<LotteryBalls />
+					</div>
+				</div>
+				{/*<BonusBalls />*/}
+			</div>
+		)
+	}
+
+	return (
+		<>
+			<MobileLineCard />
+			<CardUI />
+			<MobileCardModal />
+		</>
 	)
 }

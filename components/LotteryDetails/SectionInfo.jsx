@@ -3,8 +3,8 @@ import Image from 'next/image'
 export default ({ lotteryType }) => {
 	return (
 		<section className={`mt-10 px-6 py-10 ${lotteryType.primaryColor}`}>
-			<div className="mx-auto flex max-w-6xl justify-between gap-x-5">
-				<div className="max-w-xl flex-1">
+			<div className="mx-auto flex flex-wrap justify-between md:max-w-6xl md:flex-nowrap md:gap-x-5">
+				<div className="md:max-w-xl md:flex-1">
 					<h2 className="text-2xl font-semibold text-teal-600">
 						Experience Australia&apos;s Oldest National Lottery
 					</h2>
@@ -14,8 +14,8 @@ export default ({ lotteryType }) => {
 						and unlock the potential to win incredible jackpots of
 						up to A$40 million!
 					</p>
-					<div className="mt-5 space-y-11">
-						<div className="flex items-center gap-x-5">
+					<div className="mt-5 space-y-8 md:space-y-11">
+						<div className="flex items-start gap-x-3 md:items-center md:gap-x-5">
 							<Image
 								src="/images/draw-list-icon1.svg"
 								alt="icon"
@@ -36,7 +36,7 @@ export default ({ lotteryType }) => {
 								</p>
 							</div>
 						</div>
-						<div className="flex items-center gap-x-5">
+						<div className="flex items-start gap-x-3 md:items-center md:gap-x-5">
 							<Image
 								src="/images/draw-list-icon1.svg"
 								alt="icon"
@@ -58,7 +58,7 @@ export default ({ lotteryType }) => {
 								</p>
 							</div>
 						</div>
-						<div className="flex items-center gap-x-5">
+						<div className="flex items-start gap-x-3 md:items-center md:gap-x-5">
 							<Image
 								src="/images/draw-list-icon1.svg"
 								alt="icon"
@@ -80,7 +80,7 @@ export default ({ lotteryType }) => {
 						</div>
 					</div>
 				</div>
-				<div className="max-w-xl flex-1">
+				<div className="w-full md:max-w-xl md:flex-1">
 					<Image
 						src="/images/oz-doc-img.png"
 						className="hidden md:block"

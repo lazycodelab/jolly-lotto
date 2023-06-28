@@ -15,6 +15,7 @@ import IconTick from '@/Icons/IconTick'
 import LotteryFrame from '@/lotteries/lottery-frame'
 import PlayButton from '@/play-button'
 import { getSingleProducts } from '../lib/api'
+import LotteryFramePill from '@/lotteries/lottery-frame-pill'
 
 const sectionData = [
 	{
@@ -209,11 +210,11 @@ const LotteryPills = ({ prods }) => {
 	return prods.map(product => (
 		<div
 			key={product.name}
-			className="relative flex items-center justify-between space-x-2.5 rounded-lg border-x-8 border-x-[#ffb300] bg-[#fffdde] p-3 shadow-md">
-			{/*<LotteryFrame
+			className="relative flex items-center justify-between space-x-2.5 p-3">
+			<LotteryFramePill
 				type={product.lottery.country_code}
-				className="absolute -z-[1] h-full"
-			/>*/}
+				className="absolute -z-[1] h-full w-full"
+			/>
 			<Image
 				src={`/images/lotteries/${product.lottery.country_code}.png`}
 				width={80}

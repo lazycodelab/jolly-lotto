@@ -26,7 +26,7 @@ export default ({ details, lotteryType }) => {
 
 	return (
 		<section className={cx('py-3', lotteryType.primaryColor)}>
-			<div className="container mx-auto flex max-w-6xl items-center justify-between px-10">
+			<div className="container mx-auto flex items-center justify-center gap-x-5 px-10 md:max-w-6xl md:justify-between">
 				<Image
 					src={lotteryType.logo}
 					alt="OZ Lotto"
@@ -34,10 +34,10 @@ export default ({ details, lotteryType }) => {
 					height={80}
 				/>
 				<div className="text-center">
-					<h2 className="text-lg font-semibold text-zinc-500 md:text-2xl">
+					<h2 className="text-base font-semibold text-zinc-500 md:text-2xl">
 						Next {details?.lotteryName} Lotto
 					</h2>
-					<h1 className="font-impact text-3xl font-bold text-cyan-900 md:text-7xl">
+					<h1 className="font-impact text-5xl font-bold text-cyan-900 md:text-7xl">
 						<small className="text-lg md:text-3xl">$</small>
 						{details?.price} Million
 					</h1>

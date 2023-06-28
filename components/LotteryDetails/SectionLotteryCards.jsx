@@ -82,12 +82,12 @@ export default ({ details }) => {
 
 	const AddQuickCard = () => (
 		<div
-			className="flex w-full max-w-[225px] cursor-pointer flex-col items-center justify-center rounded-md border border-slate-300 bg-zinc-50 p-1.5"
+			className="flex w-full items-center justify-center gap-x-2.5 rounded-md border border-slate-300 bg-zinc-50 p-1.5 md:max-w-[225px] md:cursor-pointer md:flex-col"
 			onClick={() =>
 				setLotteryLines(data => [...data, addLotteryLine()])
 			}>
-			<IconAdd className={'w-10 md:w-16'} />
-			<span className="mt-2.5 block text-base font-semibold text-cyan-900">
+			<IconAdd className={'w-5 md:w-16'} />
+			<span className="text-base font-medium text-cyan-900 md:mt-2.5 md:block md:font-semibold">
 				Add Line
 			</span>
 		</div>
@@ -132,7 +132,7 @@ export default ({ details }) => {
 		}
 
 		return (
-			<li className="flex items-center space-x-2">
+			<li className="flex items-center md:space-x-2">
 				<div className="flex items-center">
 					<input
 						id={id}
@@ -144,7 +144,7 @@ export default ({ details }) => {
 					/>
 					<label
 						htmlFor={id}
-						className="ml-3 min-w-0 flex-1 cursor-pointer text-gray-500 ">
+						className="ml-1.5 min-w-0 flex-1 cursor-pointer text-gray-500 md:ml-3 ">
 						{day}
 					</label>
 				</div>
@@ -156,14 +156,14 @@ export default ({ details }) => {
 		<section className="mt-8 px-6">
 			<div className="container mx-auto max-w-6xl">
 				<h2 className="text-2xl font-semibold text-teal-600">
-					Australia Lotto 6/45 Single Play
+					{details.lotteryName}
 				</h2>
 				<div className="mt-6 flex items-center justify-between">
 					<h3 className="text-base font-semibold">
 						Quickpick, Edit or Delete lines
 					</h3>
 
-					<div className="flex gap-x-1.5">
+					<div className="hidden md:flex md:gap-x-1.5">
 						<button
 							type="button"
 							className="rounded-md bg-cyan-400 px-5 py-2.5 text-xs font-semibold text-white shadow shadow-cyan-600"
@@ -178,7 +178,7 @@ export default ({ details }) => {
 						</button>
 					</div>
 				</div>
-				<div className="mb-20 mt-4 flex flex-wrap justify-center gap-x-1.5 gap-y-3 md:justify-start">
+				<div className="mt-4 space-y-3 md:mb-20 md:flex md:flex-wrap md:justify-center md:gap-x-1.5 md:gap-y-3">
 					{lotteryLines.map((line, idx) => (
 						<LineCard
 							id={idx}
@@ -195,7 +195,7 @@ export default ({ details }) => {
 					<AddQuickCard />
 				</div>
 			</div>
-			<div className="container mx-auto flex max-w-4xl flex-wrap items-start justify-center md:justify-between">
+			<div className="container mx-auto mt-10 flex max-w-4xl flex-wrap items-start justify-center md:mt-0 md:justify-between">
 				<div className="w-full md:max-w-sm md:flex-1">
 					<h4 className="text-base font-semibold text-cyan-900">
 						Duration
@@ -206,7 +206,7 @@ export default ({ details }) => {
 						<h4 className="text-base font-semibold text-cyan-900">
 							Select your Draw Days
 						</h4>
-						<ul>
+						<ul className="flex gap-x-2.5 md:block">
 							{drawDays.map(date => {
 								return (
 									<CutoffDay
