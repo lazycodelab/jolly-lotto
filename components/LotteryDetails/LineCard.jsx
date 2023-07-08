@@ -175,8 +175,14 @@ export default ({
 						'border-red-300 bg-[#FF9A9A]': completed === false,
 					},
 				)}>
-				<button type="button">
-					<TrashIcon className="w-4 text-gray-600" />
+				<button
+					type="button"
+					onClick={() => removeList(id)}
+					className={classNames({
+						'text-gray-600': totalLines > 1,
+						'cursor-not-allowed text-gray-300': totalLines <= 1,
+					})}>
+					<IconTrash className="w-3 fill-current" />
 				</button>
 				{b}
 				<button type="button" onClick={() => setModalState(true)}>
@@ -221,7 +227,7 @@ export default ({
 							},
 						)}
 						onClick={() => removeList(id)}>
-						<IconTrash className={'w-2.5'} />
+						<IconTrash className="w-2.5 fill-white" />
 					</button>
 				</div>
 				<div className="mt-3">

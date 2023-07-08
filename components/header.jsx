@@ -20,7 +20,7 @@ export default () => {
 				</div>
 
 				<Link href="/" className="w-32 flex-shrink-0">
-					<Logo className="ml-4 w-[125px] md:m-0 md:max-w-xs" />
+					<Logo className="ml-4 w-[100px] md:w-[125px] md:m-0" />
 				</Link>
 
 				<div className="flex-1">
