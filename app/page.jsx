@@ -1,7 +1,7 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
-import { register } from 'swiper/element'
-import { Navigation, Pagination } from 'swiper'
+import { register } from 'swiper/element/bundle'
+import { Navigation, Pagination } from 'swiper/modules'
 
 register()
 
@@ -15,7 +15,6 @@ import IconTick from '@/Icons/IconTick'
 import LotteryFrame from '@/lotteries/lottery-frame'
 import PlayButton from '@/play-button'
 import { getSingleProducts } from '../lib/api'
-import LotteryFramePill from '@/lotteries/lottery-frame-pill'
 
 const sectionData = [
 	{
@@ -207,36 +206,50 @@ const LotteryCards = ({ prods }) => {
 }
 
 const LotteryPills = ({ prods }) => {
-	return prods.map(product => (
-		<div
-			key={product.name}
-			className="relative flex items-center justify-between space-x-2.5 p-3">
-			<LotteryFramePill
-				type={product.lottery.country_code}
-				className="absolute -z-[1] h-full w-full"
-			/>
-			<Image
-				src={`/images/lotteries/${product.lottery.country_code}.png`}
-				width={80}
-				height={80}
-				alt="icon"
-			/>
-			<div className="flex flex-col items-center justify-center space-y-2">
-				<h3 className="text-center font-heebo text-sm text-cyan-900">
-					{product.lotteryName}
-				</h3>
+	const types = {
+		AU: {
+			primary: 'bg-[#FFFCCF]',
+			secondary: 'border-[#FFB300]',
+		},
+		ES: {
+			primary: 'bg-[#E5F2FF]',
+			secondary: 'border-[#2285E6]',
+		},
+		CA: {
+			primary: 'bg-[#FFE9E9]',
+			secondary: 'border-[#FF5454]',
+		},
+	}
 
-				<span className="font-impact text-3xl font-bold text-cyan-900">
-					{symbols[product.lottery.currency_code]}
-					{product.price}M
-				</span>
-				<span className="font-heebo text-xs">Meta text here</span>
+	return prods.map(product => {
+		const type = types[product.lottery.country_code]
+		return (
+			<div
+				key={product.name}
+				className={`${type.primary} flex items-center justify-between space-x-1 sm:space-x-2.5 rounded-md border-x-[12px] ${type.secondary} p-3 shadow-md`}>
+				<Image
+					src={`/images/lotteries/${product.lottery.country_code}.png`}
+					width={80}
+					height={80}
+					alt="icon"
+				/>
+				<div className="flex flex-col items-center justify-center space-y-2">
+					<h3 className="text-center font-heebo text-sm text-cyan-900">
+						{product.lotteryName}
+					</h3>
+
+					<span className="font-impact text-3xl font-bold text-cyan-900">
+						{symbols[product.lottery.currency_code]}
+						{product.price}M
+					</span>
+					<span className="font-heebo text-xs">Meta text here</span>
+				</div>
+				<Link href={`/lotteries/${product.id}`}>
+					<PlayButton mobile />
+				</Link>
 			</div>
-			<Link href={`/lotteries/${product.id}`}>
-				<PlayButton mobile />
-			</Link>
-		</div>
-	))
+		)
+	})
 }
 
 const SectionCard = ({ data }) => (
