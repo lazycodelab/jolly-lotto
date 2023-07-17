@@ -15,8 +15,6 @@ import Link from 'next/link'
 export default () => {
 	const { user, logout } = useAuth()
 
-	console.log('ww', user)
-
 	return (
 		<Menu as="div" className="relative">
 			{user && user.statusCode === 200 ? (
