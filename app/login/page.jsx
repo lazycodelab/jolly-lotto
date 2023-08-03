@@ -1,7 +1,7 @@
 'use client'
-import LoginForm from '../../components/Auth/LoginForm'
+import LoginForm from '@/Auth/LoginForm'
+import { useAuth } from 'hooks/auth'
 import { useRouter } from 'next/navigation'
-import { useAuth } from '../../hooks/auth'
 
 export default () => {
 	const { user } = useAuth()

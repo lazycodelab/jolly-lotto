@@ -1,9 +1,9 @@
-import { generateRandomNum } from '../Helpers'
-import IconAdd from '../Icons/IconAdd'
-import LineCard from './LineCard'
-import QuantityInput from './QuantityInput'
+import PaymentModal from '@/PaymentModal'
 import { useEffect, useState } from 'react'
-import PaymentModal from '../PaymentModal'
+import QuantityInput from './QuantityInput'
+import LineCard from './LineCard'
+import IconAdd from '@/Icons/IconAdd'
+import { generateRandomNum } from '@/Helpers'
 
 export default ({ details }) => {
 	const balls = details?.lottery?.balls ?? 0
@@ -65,10 +65,10 @@ export default ({ details }) => {
 			lines.map((line, idx) =>
 				idx === id
 					? {
-							...line,
-							selectedBalls: rng,
-							completed: true,
-					  }
+						...line,
+						selectedBalls: rng,
+						completed: true,
+					}
 					: { ...line },
 			),
 		)
@@ -98,10 +98,10 @@ export default ({ details }) => {
 			lines.map((line, idx) =>
 				idx === id
 					? {
-							...line,
-							selectedBalls: [],
-							completed: false,
-					  }
+						...line,
+						selectedBalls: [],
+						completed: false,
+					}
 					: { ...line },
 			),
 		)
@@ -227,18 +227,17 @@ export default ({ details }) => {
 					<div className="space-y-2 divide-y-2 divide-gray-300">
 						<div className="flex justify-between">
 							<span>
-								{` ${lotteryLines.length} ${
-									lotteryLines.length > 1 ? 'lines' : 'line'
-								} x
+								{` ${lotteryLines.length} ${lotteryLines.length > 1 ? 'lines' : 'line'
+									} x
 								${weeks} ${weeks > 1 ? 'draws' : 'draw'}`}
 							</span>
 							<span>
 								$
 								{Number(
 									price *
-										weeks *
-										lotteryLines.length *
-										selectedDrawDays,
+									weeks *
+									lotteryLines.length *
+									selectedDrawDays,
 								).toFixed(2)}
 							</span>
 						</div>
@@ -249,9 +248,9 @@ export default ({ details }) => {
 								$
 								{Number(
 									price *
-										weeks *
-										lotteryLines.length *
-										selectedDrawDays,
+									weeks *
+									lotteryLines.length *
+									selectedDrawDays,
 								).toFixed(2)}
 							</span>
 						</div>

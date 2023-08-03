@@ -1,7 +1,7 @@
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline'
-import { useAuth } from '../../hooks/auth'
-import IconWallet from '../Icons/IconWallet'
 import Link from 'next/link'
+import IconWallet from '@/Icons/IconWallet'
+import { useAuth } from 'hooks/auth'
 
 export default () => {
 	const { user } = useAuth()

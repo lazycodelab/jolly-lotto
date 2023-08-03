@@ -1,8 +1,7 @@
 'use client'
-import RegisterForm from '../../components/Auth/RegisterForm'
-import Layout from '../../components/Layout'
+import RegisterForm from '@/Auth/RegisterForm'
+import { useAuth } from 'hooks/auth'
 import Head from 'next/head'
-import { useAuth } from '../../hooks/auth'
 import { useRouter } from 'next/navigation'
 
 export default () => {

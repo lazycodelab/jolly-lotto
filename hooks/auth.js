@@ -129,14 +129,17 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 		setSuccess(false)
 
 		const { fund } = props
+		console.log(fund, '  ==> Fund From Auth Hook')
 
 		axios
 			.post('/add-funds', fund)
-			.then(() => {
+			.then(res => {
+				console.log(res, '  ==> Res')
 				mutate()
 				setSuccess(true)
 			})
 			.catch(error => {
+				console.log(error, '  ==> Error')
 				if (error.response.status !== 422) throw error
 
 				setErrors(error.response.data.errors)

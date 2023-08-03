@@ -9,8 +9,8 @@ import {
 	WalletIcon,
 	UserPlusIcon,
 } from '@heroicons/react/24/solid'
-import { useAuth } from '../../hooks/auth'
 import Link from 'next/link'
+import { useAuth } from 'hooks/auth'
 
 export default () => {
 	const { user, logout } = useAuth()
@@ -56,9 +56,8 @@ export default () => {
 							{({ active }) => (
 								<Link
 									href="/user/dashboard"
-									className={`${
-										active && 'bg-slate-100'
-									} group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-500`}>
+									className={`${active && 'bg-slate-100'
+										} group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-500`}>
 									<UserIcon className="mr-2 w-4 text-gray-500" />
 									Account
 								</Link>
@@ -67,9 +66,8 @@ export default () => {
 						<Menu.Item>
 							{({ active }) => (
 								<button
-									className={`${
-										active && 'bg-slate-100'
-									} group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-500`}>
+									className={`${active && 'bg-slate-100'
+										} group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-500`}>
 									<WalletIcon className="mr-2 w-4 text-gray-500" />
 									Wallet
 								</button>
@@ -80,9 +78,8 @@ export default () => {
 						<Menu.Item>
 							{({ active }) => (
 								<button
-									className={`${
-										active && 'bg-slate-100'
-									} group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-500`}>
+									className={`${active && 'bg-slate-100'
+										} group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-500`}>
 									<QueueListIcon className="mr-2 w-4 text-gray-500" />
 									Orders
 								</button>
@@ -91,9 +88,8 @@ export default () => {
 						<Menu.Item>
 							{({ active }) => (
 								<button
-									className={`${
-										active && 'bg-slate-100'
-									} group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-500`}>
+									className={`${active && 'bg-slate-100'
+										} group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-500`}>
 									<BellIcon className="mr-2 w-4 text-gray-500" />
 									Notification
 								</button>
@@ -105,9 +101,8 @@ export default () => {
 							{({ active }) => (
 								<button
 									onClick={() => logout()}
-									className={`${
-										active && 'bg-slate-100'
-									} group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-500`}>
+									className={`${active && 'bg-slate-100'
+										} group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-500`}>
 									<PowerIcon className="mr-2 w-4 text-gray-500" />
 									Logout
 								</button>

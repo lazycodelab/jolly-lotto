@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import FormInput from '../FormInput'
-import FormSelect from '../FormSelect'
 import cl from 'classnames'
-import { useAuth } from '../../hooks/auth'
+import { useAuth } from 'hooks/auth'
+import FormInput from '@/FormInput'
+import FormSelect from '@/FormSelect'
 
 export default ({ user }) => {
 	const [errors, setErrors] = useState(null)
