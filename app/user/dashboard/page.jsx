@@ -1,11 +1,11 @@
 'use client'
-import { useAuth } from '../../../hooks/auth'
 import { useRouter } from 'next/navigation'
 import ErrorPage from 'next/error'
 import Link from 'next/link'
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
-import ProfileUpdate from '../../../components/dashboard/profile-update'
+import profileUpdate from '@/dashboard/profile-update'
+import { useAuth } from 'hooks/auth'
 
 export default () => {
 	const { user } = useAuth()
@@ -54,9 +54,8 @@ export default () => {
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
 									<span>Profile</span>
 									<ChevronUpIcon
-										className={`${
-											open ? 'rotate-180 transform' : ''
-										} h-5 w-5 text-purple-500`}
+										className={`${open ? 'rotate-180 transform' : ''
+											} h-5 w-5 text-purple-500`}
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 py-10 text-sm text-gray-500">
@@ -75,9 +74,8 @@ export default () => {
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
 									<span>Order History</span>
 									<ChevronUpIcon
-										className={`${
-											open ? 'rotate-180 transform' : ''
-										} h-5 w-5 text-purple-500`}
+										className={`${open ? 'rotate-180 transform' : ''
+											} h-5 w-5 text-purple-500`}
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
@@ -94,9 +92,8 @@ export default () => {
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
 									<span>Limits</span>
 									<ChevronUpIcon
-										className={`${
-											open ? 'rotate-180 transform' : ''
-										} h-5 w-5 text-purple-500`}
+										className={`${open ? 'rotate-180 transform' : ''
+											} h-5 w-5 text-purple-500`}
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
@@ -113,9 +110,8 @@ export default () => {
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
 									<span>Payment Methods</span>
 									<ChevronUpIcon
-										className={`${
-											open ? 'rotate-180 transform' : ''
-										} h-5 w-5 text-purple-500`}
+										className={`${open ? 'rotate-180 transform' : ''
+											} h-5 w-5 text-purple-500`}
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">

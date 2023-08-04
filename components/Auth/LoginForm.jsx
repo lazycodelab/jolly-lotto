@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import FormInput from '../FormInput'
-import Logo from '../Logo'
-import { useAuth } from '../../hooks/auth'
 import Link from 'next/link'
 import cl from 'classnames'
+import Logo from '@/Logo'
+import FormInput from '@/FormInput'
+import { useAuth } from 'hooks/auth'
 
 export default () => {
 	const { login } = useAuth({ middleware: 'guest' })

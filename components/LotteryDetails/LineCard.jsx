@@ -1,9 +1,8 @@
 import classNames from 'classnames'
-//import { generateRandomNum } from '../Helpers'
-import IconTrash from '../Icons/IconTrash'
 import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/solid'
+import IconTrash from '@/Icons/IconTrash'
 
 export default ({
 	balls,
@@ -48,10 +47,10 @@ export default ({
 					lines.map((line, idx) =>
 						idx === id
 							? {
-									...line,
-									selectedBalls: r,
-									completed: false,
-							  }
+								...line,
+								selectedBalls: r,
+								completed: false,
+							}
 							: { ...line },
 					),
 				)
@@ -63,10 +62,10 @@ export default ({
 						lines.map((line, idx) =>
 							idx === id
 								? {
-										...line,
-										selectedBalls:
-											lotteryData.selectedBalls,
-								  }
+									...line,
+									selectedBalls:
+										lotteryData.selectedBalls,
+								}
 								: { ...line },
 						),
 					)
@@ -77,11 +76,11 @@ export default ({
 						lines.map((line, idx) =>
 							idx === id
 								? {
-										...line,
-										selectedBalls:
-											lotteryData.selectedBalls,
-										completed: true,
-								  }
+									...line,
+									selectedBalls:
+										lotteryData.selectedBalls,
+									completed: true,
+								}
 								: { ...line },
 						),
 					)

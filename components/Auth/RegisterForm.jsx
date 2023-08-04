@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import FormInput from '../FormInput'
-import FormSelect from '../FormSelect'
-import Logo from '../Logo'
-import { useAuth } from '../../hooks/auth'
 import Link from 'next/link'
 import cl from 'classnames'
 import moment from 'moment'
-import { getDays, getMonths, getYears } from '../Helpers'
+import FormInput from '@/FormInput'
+import FormSelect from '@/FormSelect'
+import { useAuth } from 'hooks/auth'
+import Logo from '@/Logo'
+import { getDays, getMonths, getYears } from '@/Helpers'
 
 export default () => {
 	const { register } = useAuth({ middleware: 'guest' })

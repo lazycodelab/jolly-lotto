@@ -1,6 +1,6 @@
-import IconUserGroup from '../Icons/IconUserGroup'
-import IconUserGroupAdd from '../Icons/IconUserGroupAdd'
-import SharesQtyInput from './SharesQtyInput'
+import IconUserGroup from "@/Icons/IconUserGroup"
+import SharesQtyInput from "./SharesQtyInput"
+import IconUserGroupAdd from "@/Icons/IconUserGroupAdd"
 
 export default ({ isSuper, data }) => {
 	return (

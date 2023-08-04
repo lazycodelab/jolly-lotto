@@ -1,10 +1,10 @@
 import React from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
+import IconTwitter from './Icons/IconTwitter'
+import IconFacebook from './Icons/IconFacebook'
 import IconEnvelope from './Icons/IconEnvelope'
 import IconPhone from './Icons/IconPhone'
-import Link from 'next/link'
-import IconFacebook from './Icons/IconFacebook'
-import IconTwitter from './Icons/IconTwitter'
 
 export default () => {
 	const MenuSection = ({ title, children, className }) => {

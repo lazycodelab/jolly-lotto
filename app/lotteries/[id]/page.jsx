@@ -1,17 +1,14 @@
 'use client'
-import SectionHero from '../../../components/LotteryDetails/SectionHero'
-import SectionInfo from '../../../components/LotteryDetails/SectionInfo'
-import SectionLotteryCards from '../../../components/LotteryDetails/SectionLotteryCards'
-import SectionResults from '../../../components/LotteryDetails/SectionResults'
-import {
-	getLotteryResults,
-	getProductByID,
-	getAllProducts,
-} from '../../../lib/api'
+import SectionHero from '@/LotteryDetails/SectionHero'
+import SectionInfo from '@/LotteryDetails/SectionInfo'
+import SectionLotteryCards from '@/LotteryDetails/SectionLotteryCards'
+import SectionResults from '@/LotteryDetails/SectionResults'
+import SectionSyndicate from '@/LotteryDetails/SectionSyndicate'
+
 import classNames from 'classnames'
+import { getAllProducts, getLotteryResults, getProductByID } from 'lib/api'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import SectionSyndicate from '../../../components/LotteryDetails/SectionSyndicate'
 
 const lotteryTypes = {
 	CA: {
@@ -115,8 +112,8 @@ export default ({ params }) => {
 				{activeTab === 'cards' ? (
 					<SectionLotteryCards details={details} />
 				) : details?.type === 5 &&
-				  details?.lottery?.syndicate_data &&
-				  activeTab === 'syndicate' ? (
+					details?.lottery?.syndicate_data &&
+					activeTab === 'syndicate' ? (
 					<SectionSyndicate
 						isSuper={details?.lottery?.syndicate_type}
 						data={details?.lottery?.syndicate_data}
