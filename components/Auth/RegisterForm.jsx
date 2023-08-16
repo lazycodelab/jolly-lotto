@@ -276,7 +276,7 @@ export default () => {
 									htmlFor="term-3"
 									className="cursor-pointer text-xs text-gray-500">
 									YES, I wish to receive offers and updates
-									from Lotteries.com. I understand that I can
+									from JollyLotto. I understand that I can
 									unsubscribe at any time, and update my
 									contact preferences by logging in to
 									&apos;My Account&apos;.
