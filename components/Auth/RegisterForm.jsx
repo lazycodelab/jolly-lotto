@@ -271,6 +271,7 @@ export default () => {
 									id="term-3"
 									type="checkbox"
 									name="marketing"
+									className="chk"
 								/>
 								<label
 									htmlFor="term-3"
