@@ -65,7 +65,7 @@ export default () => {
 				<form
 					method="POST"
 					onSubmit={handleSome}
-					className="mt-8 flex flex-wrap items-start justify-between gap-x-10 md:flex-nowrap">
+					className="mt-8 md:flex flex-wrap items-start justify-between gap-x-10 md:flex-nowrap">
 					<div className="flex-1 space-y-5">
 						<FormInput
 							type="email"
