@@ -94,10 +94,10 @@ export default () => {
 
 				<div className="mt-16 space-x-5 divide-x divide-cyan-900 text-center">
 					<FooterLink href={'/'}>Responsible Gaming</FooterLink>
-					<FooterLink href={'/'} className={'pl-5'}>
+					<FooterLink href={'/terms-and-conditions'} className={'pl-5'}>
 						Terms & Conditions
 					</FooterLink>
-					<FooterLink href={'/'} className={'pl-5'}>
+					<FooterLink href={'/privacy-policy'} className={'pl-5'}>
 						Privacy Policy
 					</FooterLink>
 					<FooterLink href={'/'} className={'pl-5'}>
