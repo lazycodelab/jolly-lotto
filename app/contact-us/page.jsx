@@ -1,6 +1,6 @@
 export const metadata = {
 	title: {
-		default: 'Login',
+		default: 'Contact Us',
 		template: '%s | Jolly Lotto',
 	},
 	description: 'Lorem ipsum dolor sit amet.',
@@ -15,10 +15,6 @@ export const metadata = {
 	],
 }
 
-export default ({ children }) => {
-	return (
-		<>
-			{children}
-		</>
-	)
+export default () => {
+	return <h1 className="text-center text-2xl my-[10rem]">Contact Us</h1>
 }

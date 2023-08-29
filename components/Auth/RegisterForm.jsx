@@ -299,11 +299,11 @@ export default () => {
 								type="submit"
 								{...(loading && { disabled: 'disabled' })}
 								className={cl(
-									'mt-5 w-full rounded-md px-14 py-3 text-lg font-semibold text-white shadow-md',
+									'mt-5 w-full rounded-[13px] px-14 py-3 text-lg font-semibold text-white',
 									{
-										'cursor-not-allowed bg-slate-300':
+										'cursor-not-allowed bg-[#C2D4D5] shadow-[0px_2px_0px_#A2A2A2]':
 											loading === true,
-										'bg-gradient-to-r from-orange-400 to-orange-500 shadow-orange-700 hover:from-orange-500 hover:to-orange-400':
+										'bg-gradient-to-r from-orange-400 to-orange-500 hover:from-[#FFB027] hover:to-[#FFB027] active:from-[#24484B] active:to-[#24484B] shadow-[0px_2px_0px_#D27421] active:shadow-[0px_2px_0px_#000000]':
 											loading !== true,
 									},
 								)}>
@@ -312,7 +312,7 @@ export default () => {
 							<Link
 								href="/login"
 								type="button"
-								className="w-full rounded-md bg-cyan-400 px-5 py-2.5 text-center text-lg font-medium text-white shadow shadow-cyan-600">
+								className="w-full rounded-[13px] bg-[#00D4E3] hover:bg-[#27E6F3] active:bg-[#24484B] px-5 py-2.5 text-center text-lg font-medium text-white shadow-[0px_2px_0px_#00ACB8] active:shadow-[0px_2px_0px_#000000]">
 								Sign In Here
 							</Link>
 						</div>

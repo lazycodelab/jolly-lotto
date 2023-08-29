@@ -93,14 +93,14 @@ export default () => {
 				</div>
 
 				<div className="mt-16 space-x-5 divide-x divide-cyan-900 text-center">
-					<FooterLink href={'/'}>Responsible Gaming</FooterLink>
+					<a href="https://www.casino.org/responsible-gambling/" target='_blank' className="text-teal-900 underline">Responsible Gaming</a>
 					<FooterLink href={'/terms-and-conditions'} className={'pl-5'}>
 						Terms & Conditions
 					</FooterLink>
 					<FooterLink href={'/privacy-policy'} className={'pl-5'}>
 						Privacy Policy
 					</FooterLink>
-					<FooterLink href={'/'} className={'pl-5'}>
+					<FooterLink href={'/contact-us'} className={'pl-5'}>
 						Contact Us
 					</FooterLink>
 				</div>

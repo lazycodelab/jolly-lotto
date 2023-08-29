@@ -28,7 +28,7 @@ export default () => {
 			<nav className="space-x-10 text-sm">
 				<NavLink href="/designer">Lotteries</NavLink>
 				<NavLink href="/contact">Lottery Results</NavLink>
-				<NavLink href="/contact">Contact Us</NavLink>
+				<NavLink href="/contact-us">Contact Us</NavLink>
 			</nav>
 			<div className="hidden items-center gap-x-2 md:flex">
 				<Link href="/">
