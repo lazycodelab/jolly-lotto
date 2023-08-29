@@ -29,38 +29,38 @@ export default () => {
 				<div className="grid grid-cols-2 gap-y-8 md:grid-cols-3 md:grid-rows-2">
 					<MenuSection title={'Play Lottos Online'}>
 						<li>
-							<FooterLink href={'#'}>
+							<FooterLink href={'/about-us'}>
 								About Jolly Lotto
 							</FooterLink>
 						</li>
 					</MenuSection>
 					<MenuSection title="Play Lotteries Online">
 						<li>
-							<FooterLink href="/">Australian 6/45</FooterLink>
+							<FooterLink href="/lotteries/1">Australian 6/45</FooterLink>
 						</li>
 						<li>
-							<FooterLink href="/">Euro Millions</FooterLink>
+							<FooterLink href="/lotteries/3">Euro Millions</FooterLink>
 						</li>
 						<li>
-							<FooterLink href="/">Canadian 6/49</FooterLink>
+							<FooterLink href="/lotteries/2">Canadian 6/49</FooterLink>
 						</li>
 					</MenuSection>
 					<MenuSection title="Lotto Results">
 						<li>
-							<FooterLink href="/">Australian 6/45</FooterLink>
+							<FooterLink href="/lotteries/1">Australian 6/45</FooterLink>
 						</li>
 						<li>
-							<FooterLink href="/">Euro Millions</FooterLink>
+							<FooterLink href="/lotteries/3">Euro Millions</FooterLink>
 						</li>
 						<li>
-							<FooterLink href="/">Canadian 6/49</FooterLink>
+							<FooterLink href="/lotteries/2">Canadian 6/49</FooterLink>
 						</li>
 					</MenuSection>
 					<MenuSection
 						title="Need Help"
 						className={'flex items-center space-x-5'}>
 						<li className="w-20">
-							<a href="#" className="underline">
+							<a href="mailto:contact@jollylotto.com" className="underline">
 								<IconEnvelope
 									className={'w-6 fill-current text-teal-900'}
 								/>
@@ -94,10 +94,10 @@ export default () => {
 
 				<div className="mt-16 space-x-5 divide-x divide-cyan-900 text-center">
 					<FooterLink href={'/'}>Responsible Gaming</FooterLink>
-					<FooterLink href={'/'} className={'pl-5'}>
+					<FooterLink href={'/terms-and-conditions'} className={'pl-5'}>
 						Terms & Conditions
 					</FooterLink>
-					<FooterLink href={'/'} className={'pl-5'}>
+					<FooterLink href={'/privacy-policy'} className={'pl-5'}>
 						Privacy Policy
 					</FooterLink>
 					<FooterLink href={'/'} className={'pl-5'}>
