@@ -8,6 +8,8 @@ import CustomFormSelect from '@/CustomFormSelect'
 import { useAuth } from 'hooks/auth'
 import Logo from '@/Logo'
 import { getDays, getMonths, getYears } from '@/Helpers'
+import 'components/Auth/registrationLoader.css'
+
 
 export default () => {
 	const { register } = useAuth({ middleware: 'guest' })
@@ -65,7 +67,7 @@ export default () => {
 				isAllowPhoneCall: false,
 			},
 		}
-		register({ setErrors, userData })
+		// register({ setErrors, userData })
 	}
 
 	useEffect(() => {
@@ -80,15 +82,24 @@ export default () => {
 
 	return (
 		<div className="container mx-auto my-10 items-center bg-white shadow-lg md:max-w-2xl">
-			<div className="py-2">
+			<div className="pt-2">
 				<Logo className="mx-auto w-20" />
 				<span className="mt-2 block h-[2px] w-full bg-gradient-to-r from-sky-400 via-rose-400 to-lime-400"></span>
 			</div>
 
-			<div
-				className={cl('relative p-8', {
-					'cursor-wait after:absolute after:inset-0 after:z-30 after:h-full after:w-full after:animate-pulse after:bg-black/70':loading,
-				})}>
+			<div className={`relative p-8`}>
+			{/* <div className={cl('relative p-8', {
+				'cursor-wait after:absolute after:inset-0 after:z-30 after:h-full after:w-full after:bg-[#c7c7c74d]':loading,
+			})}> */}
+				{/* Registration Loader */}
+				{/* <div className={`loadingSpinnerWrapper z-[31] ${!loading && 'hidden'}`}>
+					<div className="loading-spinner-ripple">
+						<div className="registrationLoader w-full h-full">
+							<div></div>
+							<div></div>
+						</div>
+					</div>
+				</div> */}
 				<Link href="/login" className="text-sm text-cyan-500 underline">
 					&larr; Sign In Here
 				</Link>
@@ -315,7 +326,7 @@ export default () => {
 								type="submit"
 								{...(loading && { disabled: 'disabled' })}
 								className={cl(
-									'mt-5 w-full rounded-[13px] px-14 py-3 text-lg font-semibold text-white',
+									'mt-5 w-full rounded-[13px] px-14 py-3 text-lg font-semibold text-white relative',
 									{
 										'cursor-not-allowed bg-[#C2D4D5] shadow-[0px_2px_0px_#A2A2A2]':
 											loading === true,
@@ -324,6 +335,11 @@ export default () => {
 									},
 								)}>
 								Create New Account
+								<div className={`loading-spinner-rolling ${loading !== false ? 'inline' : 'hidden'}`}>
+									<div className="registrationLoader">
+										<div></div>
+									</div>
+								</div>
 							</button>
 							<Link
 								href="/login"

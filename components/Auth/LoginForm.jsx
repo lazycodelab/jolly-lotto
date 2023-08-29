@@ -34,7 +34,7 @@ export default () => {
 
 	return (
 		<div className="container mx-auto my-10 max-w-2xl items-center bg-white shadow-lg">
-			<div className="py-2">
+			<div className="pt-2">
 				<Logo className="mx-auto w-20" />
 				<span className="mt-2 block h-[2px] w-full bg-gradient-to-r from-sky-400 via-rose-400 to-lime-400"></span>
 			</div>
