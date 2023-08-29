@@ -21,7 +21,7 @@ export default ({
 				id={name}
 				type={type}
 				name={name}
-				className="w-full border-2 border-slate-300 bg-zinc-100 p-2 text-sm ring-0 focus:ring-0"
+				className="w-full border-2 border-slate-300 bg-zinc-100 p-2 text-sm ring-0 focus:ring-0 hover:border-[#00D4E3] focus:bg-[#EDFBFC]"
 				{...(isReq && { required: 'required' })}
 				{...(placeholder && { placeholder })}
 				{...(disabled && { disabled })}

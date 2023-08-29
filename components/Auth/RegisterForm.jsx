@@ -4,6 +4,7 @@ import cl from 'classnames'
 import moment from 'moment'
 import FormInput from '@/FormInput'
 import FormSelect from '@/FormSelect'
+import CustomFormSelect from '@/CustomFormSelect'
 import { useAuth } from 'hooks/auth'
 import Logo from '@/Logo'
 import { getDays, getMonths, getYears } from '@/Helpers'
@@ -12,21 +13,36 @@ export default () => {
 	const { register } = useAuth({ middleware: 'guest' })
 	const [errors, setErrors] = useState(null)
 	const [loading, setLoading] = useState(false)
+	// For Custom Form Select
+	const [selectedCountry, setSelectedCountry] = useState('UK');
+	const [selectedCurreny, setSelectedCurreny] = useState('USD');
+	const [selectedTitle, setSelectedTitle] = useState('Mr.');
+	const [selectedPhoneCountry, setSelectedPhoneCountry] = useState('UK');
+	const [selectPlayLimit, setSelectPlayLimit] = useState('1 Week');
+	const [selectDepositLimit, setSelectDepositLimit] = useState('1 Week');
+	const countries = {
+		UK: 'United Kingdom',
+		US: 'United States',
+		CA: 'Canada',
+		NZ: 'New Zealand',
+		JP: 'Japan',
+		AU: 'Australia',
+		ZR: 'Zimbabwe',
+	}
 
 	const handleSome = e => {
 		e.preventDefault()
 		setLoading(true)
 
 		const data = e.target
-		const birthDate =
-			data.year.value + '-' + data.month.value + '-' + data.day.value
-		const age = moment().diff(birthDate, 'years')
+		const birthDate = data.year.value + '-' + data.month.value + '-' + data.day.value;
+		const age = moment().diff(birthDate, 'years');
 
 		const userData = {
 			password: data.password.value,
 			password_confirmation: data.password_confirmation.value,
 			minimumLegalAge: age,
-			prefix: data.title.value,
+			prefix: selectedTitle,
 			firstName: data.first_name.value,
 			lastName: data.last_name.value,
 			birthDate: birthDate,
@@ -35,11 +51,12 @@ export default () => {
 				city: data.city.value,
 				postalCode: data.post_code.value,
 				state: data.state.value,
-				country: 'FR',
+				country: countries[selectedCountry],
 			},
 			email: data.email.value,
 			phone: data.phone.value,
-			currencyCode: data.currency.value,
+			phoneCountryCode: selectedPhoneCountry,
+			currencyCode: selectedCurreny,
 			notification: {
 				isAllowEmail: true,
 				isAllowMarketingEmail: data.marketing.value ?? false,
@@ -48,7 +65,6 @@ export default () => {
 				isAllowPhoneCall: false,
 			},
 		}
-
 		register({ setErrors, userData })
 	}
 
@@ -71,8 +87,7 @@ export default () => {
 
 			<div
 				className={cl('relative p-8', {
-					'cursor-wait after:absolute after:inset-0 after:z-30 after:h-full after:w-full after:animate-pulse after:bg-black/70':
-						loading,
+					'cursor-wait after:absolute after:inset-0 after:z-30 after:h-full after:w-full after:animate-pulse after:bg-black/70':loading,
 				})}>
 				<Link href="/login" className="text-sm text-cyan-500 underline">
 					&larr; Sign In Here
@@ -122,18 +137,17 @@ export default () => {
 							placeholder="Confirm Password"
 							isReq={true}
 						/>
-						<div className="flex gap-x-3">
-							<FormSelect
-								label="Title"
-								isReq={true}
-								options={['Mr.', 'Mrs.']}
-							/>
-							<FormInput
-								label="First Name"
-								placeholder="First Name"
-								isReq={true}
-							/>
-						</div>
+						<CustomFormSelect 
+							label="Title"
+							options={['Mr.', 'Mrs.']}
+							setFunction={setSelectedTitle}
+							selectedValue={selectedTitle}
+						/>
+						<FormInput
+							label="First Name"
+							placeholder="First Name"
+							isReq={true}
+						/>
 						<FormInput
 							label="Last Name"
 							placeholder="Last Name"
@@ -166,33 +180,27 @@ export default () => {
 								noMarker
 							/>
 						</div>
-						<div className="flex items-end gap-x-3">
-							<FormSelect
-								label="Phone"
-								options={['UK', 'AUS']}
-								isReq={true}
-							/>
+						<div className="flex-grow items-end gap-x-3">
 							<FormInput
 								type="tel"
-								label=""
+								label="Phone"
 								placeholder="Phone Number"
+							/>
+							<CustomFormSelect 
+								label=""
+								options={['UK', 'AUS']}
+								setFunction={setSelectedPhoneCountry}
+								selectedValue={selectedPhoneCountry}
 							/>
 						</div>
 					</div>
 
 					<div className="flex-1 space-y-5">
-						<FormSelect
+						<CustomFormSelect 
 							label="Country"
-							options={{
-								UK: 'United Kingdom',
-								US: 'United States',
-								CA: 'Canada',
-								NZ: 'New Zealand',
-								JP: 'Japan',
-								AU: 'Australia',
-								ZR: 'Zimbabwe',
-							}}
-							isReq={true}
+							options={countries}
+							setFunction={setSelectedCountry}
+							selectedValue={selectedCountry}
 						/>
 						<FormInput label="Address" isReq={true} />
 						<FormInput
@@ -205,9 +213,8 @@ export default () => {
 							<FormInput label="Post Code" isReq={true} />
 						</div>
 
-						<FormSelect
+						<CustomFormSelect 
 							label="Currency"
-							isReq={true}
 							options={[
 								'USD',
 								'EUR',
@@ -218,6 +225,8 @@ export default () => {
 								'CAD',
 								'ZAR',
 							]}
+							setFunction={setSelectedCurreny}
+							selectedValue={selectedCurreny}
 						/>
 
 						<div className="space-y-3">
@@ -243,21 +252,28 @@ export default () => {
 							</div>
 						</div>
 
-						<div className="flex items-end gap-x-3">
+						<div className="flex-grow items-end gap-x-3">
 							<FormInput label="Play Limit (Optional)" />
-
-							<FormSelect
-								label={''}
+							<CustomFormSelect 
+								label={""}
 								options={['1 Week', '2 Weeks']}
+								setFunction={setSelectPlayLimit}
+								selectedValue={selectPlayLimit}
 							/>
 						</div>
 
-						<div className="flex items-end gap-x-3">
+						<div className="flex-grow items-end gap-x-3">
 							<FormInput label="Deposit Limit (Optional)" />
 
-							<FormSelect
+							{/* <FormSelect
 								label={''}
 								options={['1 Week', '2 Weeks']}
+							/> */}
+							<CustomFormSelect 
+								label={""}
+								options={['1 Week', '2 Weeks']}
+								setFunction={setSelectDepositLimit}
+								selectedValue={selectDepositLimit}
 							/>
 						</div>
 
