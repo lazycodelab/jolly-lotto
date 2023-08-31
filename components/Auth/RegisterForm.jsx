@@ -4,29 +4,50 @@ import cl from 'classnames'
 import moment from 'moment'
 import FormInput from '@/FormInput'
 import FormSelect from '@/FormSelect'
+import CustomFormSelect from '@/CustomFormSelect'
 import { useAuth } from 'hooks/auth'
 import Logo from '@/Logo'
 import { getDays, getMonths, getYears } from '@/Helpers'
+
 
 export default () => {
 	const { register } = useAuth({ middleware: 'guest' })
 	const [errors, setErrors] = useState(null)
 	const [loading, setLoading] = useState(false)
+	// For Custom Form Select
+	const [selectedCountry, setSelectedCountry] = useState('UK');
+	const [selectedCurreny, setSelectedCurreny] = useState('USD');
+	const [selectedTitle, setSelectedTitle] = useState('Mr.');
+	const [selectedPhoneCountry, setSelectedPhoneCountry] = useState('UK');
+	const [selectPlayLimit, setSelectPlayLimit] = useState('1 Week');
+	const [selectDepositLimit, setSelectDepositLimit] = useState('1 Week');
+	const [selectBirthDate, setSelectBirthDate] = useState('1');
+	const [selectBirthMonth, setSelectBirthMonth] = useState('January');
+	const [selectBirthYear, setSelectBirthYear] = useState('1963');
+	const countries = {
+		UK: 'United Kingdom',
+		US: 'United States',
+		CA: 'Canada',
+		NZ: 'New Zealand',
+		JP: 'Japan',
+		AU: 'Australia',
+		ZR: 'Zimbabwe',
+	}
 
 	const handleSome = e => {
 		e.preventDefault()
 		setLoading(true)
 
 		const data = e.target
-		const birthDate =
-			data.year.value + '-' + data.month.value + '-' + data.day.value
-		const age = moment().diff(birthDate, 'years')
+		// const birthDate = data.year.value + '-' + data.month.value + '-' + data.day.value;
+		const birthDate = selectBirthYear + '-' + selectBirthMonth + '-' + selectBirthDate;
+		const age = moment().diff(birthDate, 'years');
 
 		const userData = {
 			password: data.password.value,
 			password_confirmation: data.password_confirmation.value,
 			minimumLegalAge: age,
-			prefix: data.title.value,
+			prefix: selectedTitle,
 			firstName: data.first_name.value,
 			lastName: data.last_name.value,
 			birthDate: birthDate,
@@ -35,11 +56,12 @@ export default () => {
 				city: data.city.value,
 				postalCode: data.post_code.value,
 				state: data.state.value,
-				country: 'FR',
+				country: countries[selectedCountry],
 			},
 			email: data.email.value,
 			phone: data.phone.value,
-			currencyCode: data.currency.value,
+			phoneCountryCode: selectedPhoneCountry,
+			currencyCode: selectedCurreny,
 			notification: {
 				isAllowEmail: true,
 				isAllowMarketingEmail: data.marketing.value ?? false,
@@ -48,8 +70,7 @@ export default () => {
 				isAllowPhoneCall: false,
 			},
 		}
-
-		register({ setErrors, userData })
+		// register({ setErrors, userData })
 	}
 
 	useEffect(() => {
@@ -64,16 +85,15 @@ export default () => {
 
 	return (
 		<div className="container mx-auto my-10 items-center bg-white shadow-lg md:max-w-2xl">
-			<div className="py-2">
+			<div className="pt-2">
 				<Logo className="mx-auto w-20" />
 				<span className="mt-2 block h-[2px] w-full bg-gradient-to-r from-sky-400 via-rose-400 to-lime-400"></span>
 			</div>
 
-			<div
-				className={cl('relative p-8', {
-					'cursor-wait after:absolute after:inset-0 after:z-30 after:h-full after:w-full after:animate-pulse after:bg-black/70':
-						loading,
-				})}>
+			<div className={`relative p-8`}>
+			{/* <div className={cl('relative p-8', {
+				'cursor-wait after:absolute after:inset-0 after:z-30 after:h-full after:w-full after:bg-[#c7c7c74d]':loading,
+			})}> */}
 				<Link href="/login" className="text-sm text-cyan-500 underline">
 					&larr; Sign In Here
 				</Link>
@@ -122,18 +142,17 @@ export default () => {
 							placeholder="Confirm Password"
 							isReq={true}
 						/>
-						<div className="flex gap-x-3">
-							<FormSelect
-								label="Title"
-								isReq={true}
-								options={['Mr.', 'Mrs.']}
-							/>
-							<FormInput
-								label="First Name"
-								placeholder="First Name"
-								isReq={true}
-							/>
-						</div>
+						<CustomFormSelect 
+							label="Title"
+							options={['Mr.', 'Mrs.']}
+							setFunction={setSelectedTitle}
+							selectedValue={selectedTitle}
+						/>
+						<FormInput
+							label="First Name"
+							placeholder="First Name"
+							isReq={true}
+						/>
 						<FormInput
 							label="Last Name"
 							placeholder="Last Name"
@@ -141,58 +160,53 @@ export default () => {
 							infoText="Please, check your spam folder if you don't receive
 							a confirmation."
 						/>
-						<div className="flex items-end gap-x-3">
-							<FormSelect
-								label="Date of Birth"
-								name="day"
-								isReq={true}
-								defaultValue="Day"
-								options={getDays()}
-							/>
-							<FormSelect
-								label=""
-								isReq={true}
-								name="month"
-								defaultValue="Month"
-								options={getMonths()}
-								noMarker
-							/>
-							<FormSelect
-								label=""
-								isReq={true}
-								name="year"
-								defaultValue="Year"
-								options={getYears()}
-								noMarker
-							/>
+						<div className="flex flex-col gap-x-3">
+							<div className='flex-auto'>
+								<CustomFormSelect 
+									label="Date Of Birth"
+									options={getDays()}
+									setFunction={setSelectBirthDate}
+									selectedValue={selectBirthDate}
+								/>
+							</div>
+							<div className='flex-auto'>
+								<CustomFormSelect 
+									label=""
+									options={getMonths()}
+									setFunction={setSelectBirthMonth}
+									selectedValue={selectBirthMonth}
+								/>
+							</div>
+							<div className='flex-1'>
+								<CustomFormSelect 
+									label=""
+									options={getYears()}
+									setFunction={setSelectBirthYear}
+									selectedValue={selectBirthYear}
+								/>
+							</div>
 						</div>
-						<div className="flex items-end gap-x-3">
-							<FormSelect
-								label="Phone"
-								options={['UK', 'AUS']}
-								isReq={true}
-							/>
+						<div className="flex-grow items-end gap-x-3">
 							<FormInput
 								type="tel"
-								label=""
+								label="Phone"
 								placeholder="Phone Number"
+							/>
+							<CustomFormSelect 
+								label=""
+								options={['UK', 'AUS']}
+								setFunction={setSelectedPhoneCountry}
+								selectedValue={selectedPhoneCountry}
 							/>
 						</div>
 					</div>
 
 					<div className="flex-1 space-y-5">
-						<FormSelect
+						<CustomFormSelect 
 							label="Country"
-							options={{
-								UK: 'United Kingdom',
-								US: 'United States',
-								CA: 'Canada',
-								NZ: 'New Zealand',
-								JP: 'Japan',
-								AU: 'Australia',
-								ZR: 'Zimbabwe',
-							}}
-							isReq={true}
+							options={countries}
+							setFunction={setSelectedCountry}
+							selectedValue={selectedCountry}
 						/>
 						<FormInput label="Address" isReq={true} />
 						<FormInput
@@ -205,9 +219,8 @@ export default () => {
 							<FormInput label="Post Code" isReq={true} />
 						</div>
 
-						<FormSelect
+						<CustomFormSelect 
 							label="Currency"
-							isReq={true}
 							options={[
 								'USD',
 								'EUR',
@@ -218,6 +231,8 @@ export default () => {
 								'CAD',
 								'ZAR',
 							]}
+							setFunction={setSelectedCurreny}
+							selectedValue={selectedCurreny}
 						/>
 
 						<div className="space-y-3">
@@ -243,21 +258,28 @@ export default () => {
 							</div>
 						</div>
 
-						<div className="flex items-end gap-x-3">
+						<div className="flex-grow items-end gap-x-3">
 							<FormInput label="Play Limit (Optional)" />
-
-							<FormSelect
-								label={''}
+							<CustomFormSelect 
+								label={""}
 								options={['1 Week', '2 Weeks']}
+								setFunction={setSelectPlayLimit}
+								selectedValue={selectPlayLimit}
 							/>
 						</div>
 
-						<div className="flex items-end gap-x-3">
+						<div className="flex-grow items-end gap-x-3">
 							<FormInput label="Deposit Limit (Optional)" />
 
-							<FormSelect
+							{/* <FormSelect
 								label={''}
 								options={['1 Week', '2 Weeks']}
+							/> */}
+							<CustomFormSelect 
+								label={""}
+								options={['1 Week', '2 Weeks']}
+								setFunction={setSelectDepositLimit}
+								selectedValue={selectDepositLimit}
 							/>
 						</div>
 
@@ -299,20 +321,37 @@ export default () => {
 								type="submit"
 								{...(loading && { disabled: 'disabled' })}
 								className={cl(
-									'mt-5 w-full rounded-md px-14 py-3 text-lg font-semibold text-white shadow-md',
+									'mt-5 w-full rounded-[13px] px-14 py-3 text-lg font-semibold text-white relative',
 									{
-										'cursor-not-allowed bg-slate-300':
+										'cursor-not-allowed bg-[#C2D4D5] shadow-[0px_2px_0px_#A2A2A2]':
 											loading === true,
-										'bg-gradient-to-r from-orange-400 to-orange-500 shadow-orange-700 hover:from-orange-500 hover:to-orange-400':
+										'bg-gradient-to-r from-orange-400 to-orange-500 hover:from-[#FFB027] hover:to-[#FFB027] active:from-[#24484B] active:to-[#24484B] shadow-[0px_2px_0px_#D27421] active:shadow-[0px_2px_0px_#000000]':
 											loading !== true,
 									},
 								)}>
+								<div className={`${!loading && 'hidden'}`}>
+									<div className='absolute left-6 top-[0.9rem]'>
+										<svg 
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="#FFFFFF"
+											strokeWidth='2'
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											className='animate-spin h-6 w-6'>
+											<path d="M21 12a9 9 0 11-6.219-8.56" />
+										</svg>
+									</div>
+								</div>
 								Create New Account
 							</button>
 							<Link
 								href="/login"
 								type="button"
-								className="w-full rounded-md bg-cyan-400 px-5 py-2.5 text-center text-lg font-medium text-white shadow shadow-cyan-600">
+								className="w-full rounded-[13px] bg-[#00D4E3] hover:bg-[#27E6F3] active:bg-[#24484B] px-5 py-2.5 text-center text-lg font-medium text-white shadow-[0px_2px_0px_#00ACB8] active:shadow-[0px_2px_0px_#000000]">
 								Sign In Here
 							</Link>
 						</div>

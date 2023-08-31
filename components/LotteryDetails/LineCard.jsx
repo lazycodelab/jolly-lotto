@@ -91,10 +91,11 @@ export default ({
 		return (
 			<span
 				className={classNames(
-					'flex h-6 w-6 cursor-pointer select-none items-center justify-center rounded border border-slate-200 text-xs',
+					'flex h-6 w-6 cursor-pointer select-none items-center justify-center rounded border border-slate-200 text-xs hover:bg-[#FFA319] hover:text-white active:border-cyan-400',
 					{
 						'bg-white': !isSelected,
 						'bg-green-500 text-white': isSelected,
+						'text-gray-400':completed,
 					},
 				)}
 				onClick={handleToggleSelected}>
@@ -195,14 +196,14 @@ export default ({
 		return (
 			<div
 				className={classNames(
-					'max-w-[225px] rounded-md border p-1.5 md:block',
+					'max-w-[235px] rounded-md border-2 p-3 py-6 md:block',
 					{
-						'border-slate-300 bg-zinc-50': completed === true,
-						'border-red-300 bg-red-100': completed === false,
+						'border-slate-300 bg-zinc-50 hover:bg-[#EDFBFC] hover:border-[#00AEB9] hover:scale-105 transition-transform': completed === true,
+						'border-red-300 bg-[#FF9A9A]': completed === false,
 						hidden: !mobile,
 					},
 				)}>
-				<div className="flex items-stretch justify-between gap-x-1 pt-8">
+				<div className="flex items-stretch justify-between gap-x-1 pt-0">
 					<button
 						type="button"
 						className="flex-1 rounded-xl bg-gradient-to-r from-orange-400 to-orange-500 px-2 py-1 text-xs font-medium text-white hover:from-orange-500 hover:to-orange-400"
@@ -230,7 +231,7 @@ export default ({
 					</button>
 				</div>
 				<div className="mt-3">
-					<span className="block text-sm">
+					<span className={`block text-sm ${completed === true ? 'text-gray-400' : ''}`}>
 						Select {balls.total} Numbers
 					</span>
 					<div className="mt-2 flex flex-wrap gap-1.5">
