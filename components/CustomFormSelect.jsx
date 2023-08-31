@@ -1,48 +1,3 @@
-// import Image from 'next/image';
-
-// export default ({
-// 	label,	
-// 	options = [],
-//     handleFunction = () => {},
-//     selectedValue = null,
-//     toggleFunction = () => {},
-//     isOpen = false,
-// }) => {
-
-// 	return (
-// 		<div className="relative w-100">
-//             <div className='flex flex-1 flex-col gap-y-1'>
-//                 <label className="text-sm font-medium text-gray-800">
-//                     {label}
-//                     <sup className="text-red-500">*</sup>
-//                 </label>
-//                 <button type='button' className="flex w-full hover:border-[#00D4E3] items-center text-sm border-2 border-slate-300 justify-between bg-zinc-100 p-2 ring-0 focus:ring-0 pr-0" onClick={() => toggleFunction()}>
-//                     <span>{options[selectedValue]}</span>
-//                     <Image
-//                         src="/resources/emailImages/arrow.svg"
-//                         width={17}
-//                         alt="arrow"
-//                         height={17}
-//                         className={`transform ${isOpen && `rotate-180`}`}
-//                     />
-//                 </button>
-//             </div>
-//             <ul className={`z-[5] absolute w-full bg-gray-50 ring-1 ring-gray-300 ${!isOpen && `hidden`}`}>
-//                 {
-//                     Object.keys(options).map(k => {
-//                         const _textValue = options[k]
-//                         let _o = k
-//                         _o = k.toString()
-//                         _o = k.padStart(2, '0')
-//                         return (
-//                             <li className={`cursor-pointer select-none p-2 hover:bg-white active:bg-[#24484B] active:text-white ${selectedValue == k ? 'text-[#00AEB9] bg-gray-200' : ''}`} key={k} onClick={() => handleFunction(k)}>{_textValue}</li>
-//                         )
-//                     })
-//                 }
-//             </ul>
-//         </div>
-// 	)
-// }
 import React, { Fragment } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
@@ -80,7 +35,7 @@ export default ({
                                 <Listbox.Option key={k}
                                     className={({ active }) =>
                                         `relative active:bg-[#24484B] active:text-white cursor-pointer select-none py-2 pl-10 pr-4 ${
-                                        active ? 'bg-white' : 'text-gray-900 bg-gray-100'
+                                        active ? 'bg-gray-100' : 'text-gray-900 bg-white'
                                         }`
                                     }
                                     value={options[selectedValue] != undefined ? k : _textValue}

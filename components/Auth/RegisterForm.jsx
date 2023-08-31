@@ -8,7 +8,6 @@ import CustomFormSelect from '@/CustomFormSelect'
 import { useAuth } from 'hooks/auth'
 import Logo from '@/Logo'
 import { getDays, getMonths, getYears } from '@/Helpers'
-import 'components/Auth/registrationLoader.css'
 
 
 export default () => {
@@ -22,6 +21,9 @@ export default () => {
 	const [selectedPhoneCountry, setSelectedPhoneCountry] = useState('UK');
 	const [selectPlayLimit, setSelectPlayLimit] = useState('1 Week');
 	const [selectDepositLimit, setSelectDepositLimit] = useState('1 Week');
+	const [selectBirthDate, setSelectBirthDate] = useState('1');
+	const [selectBirthMonth, setSelectBirthMonth] = useState('January');
+	const [selectBirthYear, setSelectBirthYear] = useState('1963');
 	const countries = {
 		UK: 'United Kingdom',
 		US: 'United States',
@@ -37,7 +39,8 @@ export default () => {
 		setLoading(true)
 
 		const data = e.target
-		const birthDate = data.year.value + '-' + data.month.value + '-' + data.day.value;
+		// const birthDate = data.year.value + '-' + data.month.value + '-' + data.day.value;
+		const birthDate = selectBirthYear + '-' + selectBirthMonth + '-' + selectBirthDate;
 		const age = moment().diff(birthDate, 'years');
 
 		const userData = {
@@ -91,15 +94,6 @@ export default () => {
 			{/* <div className={cl('relative p-8', {
 				'cursor-wait after:absolute after:inset-0 after:z-30 after:h-full after:w-full after:bg-[#c7c7c74d]':loading,
 			})}> */}
-				{/* Registration Loader */}
-				{/* <div className={`loadingSpinnerWrapper z-[31] ${!loading && 'hidden'}`}>
-					<div className="loading-spinner-ripple">
-						<div className="registrationLoader w-full h-full">
-							<div></div>
-							<div></div>
-						</div>
-					</div>
-				</div> */}
 				<Link href="/login" className="text-sm text-cyan-500 underline">
 					&larr; Sign In Here
 				</Link>
@@ -166,30 +160,31 @@ export default () => {
 							infoText="Please, check your spam folder if you don't receive
 							a confirmation."
 						/>
-						<div className="flex items-end gap-x-3">
-							<FormSelect
-								label="Date of Birth"
-								name="day"
-								isReq={true}
-								defaultValue="Day"
-								options={getDays()}
-							/>
-							<FormSelect
-								label=""
-								isReq={true}
-								name="month"
-								defaultValue="Month"
-								options={getMonths()}
-								noMarker
-							/>
-							<FormSelect
-								label=""
-								isReq={true}
-								name="year"
-								defaultValue="Year"
-								options={getYears()}
-								noMarker
-							/>
+						<div className="flex flex-col gap-x-3">
+							<div className='flex-auto'>
+								<CustomFormSelect 
+									label="Date Of Birth"
+									options={getDays()}
+									setFunction={setSelectBirthDate}
+									selectedValue={selectBirthDate}
+								/>
+							</div>
+							<div className='flex-auto'>
+								<CustomFormSelect 
+									label=""
+									options={getMonths()}
+									setFunction={setSelectBirthMonth}
+									selectedValue={selectBirthMonth}
+								/>
+							</div>
+							<div className='flex-1'>
+								<CustomFormSelect 
+									label=""
+									options={getYears()}
+									setFunction={setSelectBirthYear}
+									selectedValue={selectBirthYear}
+								/>
+							</div>
 						</div>
 						<div className="flex-grow items-end gap-x-3">
 							<FormInput
@@ -334,12 +329,24 @@ export default () => {
 											loading !== true,
 									},
 								)}>
-								Create New Account
-								<div className={`loading-spinner-rolling ${loading !== false ? 'inline' : 'hidden'}`}>
-									<div className="registrationLoader">
-										<div></div>
+								<div className={`${!loading && 'hidden'}`}>
+									<div className='absolute left-6 top-[0.9rem]'>
+										<svg 
+											xmlns="http://www.w3.org/2000/svg"
+											width="24"
+											height="24"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="#FFFFFF"
+											strokeWidth='2'
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											className='animate-spin h-6 w-6'>
+											<path d="M21 12a9 9 0 11-6.219-8.56" />
+										</svg>
 									</div>
 								</div>
+								Create New Account
 							</button>
 							<Link
 								href="/login"

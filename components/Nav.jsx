@@ -1,9 +1,10 @@
+'use client';
 //import { ShoppingCartIcon } from '@heroicons/react/solid'
 import classNames from 'classnames'
 import Link from 'next/link'
 import IconEnvelopeCircle from './Icons/IconEnvelopeCircle'
 import IconPhoneCircle from './Icons/IconPhoneCircle'
-
+import NavDropdown from './NavDropdown';
 
 export default () => {
 	const NavLink = ({ href, cta, className, children, ...props }) => {
@@ -26,7 +27,8 @@ export default () => {
 	return (
 		<div className="hidden items-center justify-between md:flex">
 			<nav className="space-x-10 text-sm">
-				<NavLink href="/designer">Lotteries</NavLink>
+				{/* <NavLink href="/designer">Lotteries</NavLink> */}
+				<NavDropdown />
 				<NavLink href="/contact">Lottery Results</NavLink>
 				<NavLink href="/contact-us">Contact Us</NavLink>
 			</nav>
