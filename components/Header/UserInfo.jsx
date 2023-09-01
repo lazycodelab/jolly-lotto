@@ -27,7 +27,7 @@ export default () => {
 					<IconWallet
 						className={'mr-2 w-4 fill-current text-gray-500'}
 					/>
-					Balance: <strong>$0.00</strong>
+					Balance:&nbsp;<strong>{user.wallet.currency.symbol}{user.wallet.available}</strong>
 				</a>
 			</>
 		)

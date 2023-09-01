@@ -155,7 +155,7 @@ export default ({ results }) => {
 	}
 
 	return (
-		<section className="container mx-auto mt-8 flex max-w-6xl flex-wrap space-x-5 px-6">
+		<section className="container mx-auto my-8 flex max-w-6xl flex-wrap space-x-5 px-6">
 			<div className="flex-1">
 				<h2 className="text-2xl font-semibold text-teal-600">
 					Play German Lotto Single Play
@@ -207,16 +207,11 @@ export default ({ results }) => {
 					</div>
 
 					<div className="flex justify-end">
-						<button className="mt-6 rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 px-7 py-3 font-heebo text-xl text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
+						<button type='button' className="mt-6 rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 px-7 py-3 font-heebo text-xl text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
 							Subscribe
 						</button>
 					</div>
 				</form>
-				{/*<Image
-					src="/images/get-connected-banner.png"
-					fill
-					style={{ objectFit: 'contain', bottom: 0 }}
-				/>*/}
 			</aside>
 		</section>
 	)

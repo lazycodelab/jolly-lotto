@@ -27,7 +27,6 @@ export default () => {
 	return (
 		<div className="hidden items-center justify-between md:flex">
 			<nav className="space-x-10 text-sm">
-				{/* <NavLink href="/designer">Lotteries</NavLink> */}
 				<NavDropdown />
 				<NavLink href="/contact">Lottery Results</NavLink>
 				<NavLink href="/contact-us">Contact Us</NavLink>
@@ -36,9 +35,9 @@ export default () => {
 				<Link href="/">
 					<IconPhoneCircle className="w-6 fill-current text-gray-500" />
 				</Link>
-				<Link href="/">
+				<a href="mailto:contact@jollylotto.com">
 					<IconEnvelopeCircle className="w-6 fill-current text-gray-500" />
-				</Link>
+				</a>
 			</div>
 		</div>
 	)

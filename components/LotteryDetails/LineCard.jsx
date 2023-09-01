@@ -3,6 +3,7 @@ import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import IconTrash from '@/Icons/IconTrash'
+import { generateRandomNum } from '@/Helpers'
 
 export default ({
 	balls,
@@ -15,6 +16,32 @@ export default ({
 	completed,
 }) => {
 	const [modalState, setModalState] = useState(false)
+
+	// const [selectedBonusBalls, setSelectedBonusBalls] = useState(
+	// 	lotteryData.selectedBonusBalls || generateRandomNum(balls.bonus[0].ballNumber, balls.bonus[0].maxNumber) // Initialize with existing selected bonus balls if available
+	// );
+	// const [bonusBallsCompleted, setBonusBallsCompleted] = useState(true);
+	
+	// // Function to handle bonus number selection
+	// const handleToggleBonusSelected = (number) => {
+	// 	if (selectedBonusBalls.includes(number)) {
+	// 		setSelectedBonusBalls((prev) => prev.filter((x) => x !== number));
+	// 	} else {
+	// 		if (selectedBonusBalls.length < balls.bonus[0].ballNumber) {
+	// 			setSelectedBonusBalls((prev) => [...prev, number]);
+	// 			selectedBonusBalls.length === balls.bonus[0].ballNumber ? setBonusBallsCompleted(true) : setBonusBallsCompleted(false);
+	// 		} else {
+	// 			setBonusBallsCompleted(true);
+	// 		}
+	// 	}
+	// 	console.log(selectedBonusBalls.length);
+	// 	if(selectedBonusBalls.length == balls.bonus[0].ballNumber) { 
+	// 		setBonusBallsCompleted(true);
+	// 	} else {
+	// 		setBonusBallsCompleted(false);
+	// 	}
+	// };
+
 
 	const LotteryBalls = () => {
 		const b = []
@@ -36,54 +63,83 @@ export default ({
 		)
 	}
 
-	const BallUI = ({ number }) => {
+	const BallUI = ({ number , isBonusBall = null}) => {
 		//const isSelected = selectedBalls.includes(number)
-		const isSelected = lotteryData.selectedBalls.includes(number)
+		const isSelected = isBonusBall != true ? lotteryData.selectedBalls.includes(number) : lotteryData.selectedBonusBalls.includes(number);
 
 		const handleToggleSelected = () => {
 			if (isSelected) {
-				const r = lotteryData.selectedBalls.filter(x => x !== number)
+				// const r = isBonusBall != true ? lotteryData.selectedBalls.filter(x => x !== number) : lotteryData.selectedBonusBalls.filter(x => x !== number);
 				setLines(lines =>
 					lines.map((line, idx) =>
 						idx === id
 							? {
 								...line,
-								selectedBalls: r,
+								selectedBalls: lotteryData.selectedBalls.filter(x => x !== number),
+								bonusSelectedBalls: lotteryData.selectedBonusBalls.filter(x => x !== number),
 								completed: false,
 							}
 							: { ...line },
 					),
 				)
 			} else {
-				if (lotteryData.selectedBalls.length < balls.total) {
-					lotteryData.selectedBalls.push(number)
-
-					setLines(lines =>
-						lines.map((line, idx) =>
-							idx === id
-								? {
-									...line,
-									selectedBalls:
-										lotteryData.selectedBalls,
-								}
-								: { ...line },
-						),
-					)
-				}
-
-				if (lotteryData.selectedBalls.length === balls.total) {
-					setLines(lines =>
-						lines.map((line, idx) =>
-							idx === id
-								? {
-									...line,
-									selectedBalls:
-										lotteryData.selectedBalls,
-									completed: true,
-								}
-								: { ...line },
-						),
-					)
+				if (isBonusBall != true) {
+					if (lotteryData.selectedBalls.length < balls.total) {
+						lotteryData.selectedBalls.push(number)
+	
+						setLines(lines =>
+							lines.map((line, idx) =>
+								idx === id
+									? {
+										...line,
+										selectedBalls: lotteryData.selectedBalls,
+										selectedBonusBalls: lotteryData.selectedBonusBalls,
+									}
+									: { ...line },
+							),
+						)
+					}
+	
+					if (lotteryData.selectedBalls.length === balls.total) {
+						setLines(lines =>
+							lines.map((line, idx) =>
+								idx === id
+									? {
+										...line,
+										selectedBalls: lotteryData.selectedBalls,
+										completed: true,
+									}
+									: { ...line },
+							),
+						)
+					}
+				} else {
+					if (lotteryData.selectedBonusBalls.length < balls.bonus[0].ballNumber) {
+						lotteryData.selectedBonusBalls.push(number)
+	
+						setLines(lines =>
+							lines.map((line, idx) =>
+								idx === id
+									? {
+										...line,
+										selectedBonusBalls: lotteryData.selectedBonusBalls,
+									}
+									: { ...line },
+							),
+						)
+					} else if (lotteryData.selectedBonusBalls.length === balls.bonus[0].ballNumber) {
+						setLines(lines =>
+							lines.map((line, idx) =>
+								idx === id
+									? {
+										...line,
+										selectedBonusBalls: lotteryData.selectedBonusBalls,
+										completed: true,
+									}
+									: { ...line },
+							),
+						)
+					}
 				}
 			}
 		}
@@ -104,32 +160,56 @@ export default ({
 		)
 	}
 
-	//const BonusBalls = () => {
-	//	const ballUI = []
-	//	if (balls.bonus.length > 1) return null
+	// const BonusBallUI = ({ number, selectedBonusBalls, toggleSelected }) => {
+	// 	const isSelected = selectedBonusBalls.includes(number);
 
-	//	// @todo: we always take the first bonus ball type.
-	//	const bonusBall = balls.bonus[0]
+	// 	return (
+	// 		<span
+	// 		className={classNames(
+	// 			'flex h-6 w-6 cursor-pointer select-none items-center justify-center rounded border border-slate-200 text-xs hover:bg-[#FFA319] hover:text-white active:border-cyan-400',
+	// 			{
+	// 				'bg-amber-100': !isSelected,
+	// 				'bg-green-500 text-white': isSelected,
+	// 				'text-gray-400':bonusBallsCompleted,
+	// 			},
+	// 		)}
+	// 		onClick={() => toggleSelected(number)}>
+	// 			{number}
+	// 		</span>
+	// 	)
+	// }
 
-	//	const rng = generateRandomNum(bonusBall.ballNumber, bonusBall.maxNumber)
-	//	// need to know which card it 	belongs to.
-	//	// then set state for that card index.
-	//	//setLotteryLines((state) => (state[0]['selected'] = ballsToSelect))
+	const BonusBalls = () => {
+		if (!balls.bonus) return null;
+		const ballUI = [];
 
-	//	//for ( let i = 1; i <= bonusBall.maxNumber; i++ ) {
-	//	//    <span className="flex h-6 w-6 cursor-pointer items-center justify-center rounded border border-slate-200 bg-amber-100 text-xs">
-	//	//		1
-	//	//	</span>
-	//	//	ballUI.push(<BallUI number={i} isSelected={rng.has(i)} key={i} />)
-	//	//}
+		// @todo: we always take the first bonus ball type.
+		const bonusBall = balls.bonus[0]
 
-	//	//<div className="mt-3">
-	//	//		<span className="block text-sm">Select 2 Super</span>
-	//	//		<div className="mt-2 flex flex-wrap gap-1.5">
-	//	//		</div>
-	//	//	</div>
-	//	//return ballUI
-	//}
+		const rng = generateRandomNum(bonusBall.ballNumber, bonusBall.maxNumber)
+		// need to know which card it 	belongs to.
+		// then set state for that card index.
+		// setLines((state) => (state[0]['selected'] = bonusBall.ballNumber))
+
+		for ( let i = 1; i <= bonusBall.maxNumber; i++ ) {
+			// ballUI.push(
+		   	// <span className="flex h-6 w-6 cursor-pointer items-center justify-center rounded border border-slate-200 bg-amber-100 text-xs" key={i}>
+			// 	{i}
+			// </span>
+			// )
+			ballUI.push(<BallUI number={i} key={i} isBonusBall={true}/>)
+			// ballUI.push(<BonusBallUI number={i} key={i} selectedBonusBalls={selectedBonusBalls} toggleSelected={handleToggleBonusSelected} />)
+		}
+
+		return ( 
+			<div className="mt-3">
+				<span className="block text-sm">Select {bonusBall.ballNumber} {bonusBall.name}</span>
+				<div className="mt-2 flex flex-wrap gap-1.5">
+					{ballUI}
+				</div>
+			</div>
+		) 
+	}
 
 	const MobileCardModal = () => {
 		return (
@@ -238,7 +318,7 @@ export default ({
 						<LotteryBalls />
 					</div>
 				</div>
-				{/*<BonusBalls />*/}
+				<BonusBalls />
 			</div>
 		)
 	}
