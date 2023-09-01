@@ -1,13 +1,14 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import ErrorPage from 'next/error'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import cx from 'classnames'
 import { useAuth } from 'hooks/auth'
 import FormInput from '@/FormInput'
 import FormSelect from '@/FormSelect'
 import PaymentMethods from '@/PaymentMethods'
 import { getMonths, getYears } from '@/Helpers'
+import axios from 'lib/axios'
 
 export default () => {
 	const { user, addFunds, addMethod } = useAuth()
@@ -15,22 +16,57 @@ export default () => {
 	const [showBillingForm, setShowBillingForm] = useState(false)
 	const [errors, setErrors] = useState(false)
 	const [success, setSuccess] = useState(false)
+	// For Add Payment Method Card Form
 	const [showCardForm, setShowCardForm] = useState(false)
+	// For Payment Methods
+	const [methods, setMethods] = useState([])
+	const [selected, setSelected] = useState();
+	const [selectedCard, setSelectedCard] = useState(0);
+	// For Funds
+	const [addFundsAmount, setAddFundsAmount] = useState(5);
+	const [isFundsBelowMin, setIsFundsBelowMin] = useState(false);
+
+	useEffect(() => {
+		axios.get('/payment/gateways').then(({ data }) => {
+			setMethods(data);
+			setSelected(data[0]?.cardHolder);
+		})
+	}, [])
 
 	if (!router.isFallback && !user) {
 		return <ErrorPage title="Unauthorized" statusCode={401} />
 	}
 
-	console.log(user);
 
-	console.log('ss', success)
+	const handlePaymentAmount = (amount) => {
+		setAddFundsAmount(amount);
+	}
+
 	const handleAddPayment = () => {
-		const fund = {
+		if(isFundsBelowMin == true) { 
+			setErrors({amount: ['Amount should be greater than 5']});
+			return; 
+		} else {
+			setErrors(false);
+		}
+		if (methods[selectedCard] == undefined || methods[selectedCard] == null) {
+			setErrors({card: ['Please select a card to add funds to wallet']});
+			return;
+		} else {
+			setErrors(false);
+		}
+		const paymentPayload = {
 			id: user.profile.id,
 			mode: 'card',
-			amount: 20,
-		}
-		addFunds({ setErrors, setSuccess, fund })
+			amount: addFundsAmount,
+			paymentMethodCode:methods[selectedCard].paymentMethodCode,
+			cardHolder:methods[selectedCard].cardHolder,
+			cardNumber:methods[selectedCard].cardNumber,
+			cardCVV:methods[selectedCard].cvv,
+			expiryMonth:methods[selectedCard].month,
+			expiryYear:methods[selectedCard].year,
+		};
+		addFunds({ setErrors, setSuccess, paymentPayload })
 	}
 
 	const handleAddNewMethod = e => {
@@ -44,12 +80,9 @@ export default () => {
 				method[field.name] = field.value
 			}
 		}
-
-		console.log('xxxx', method)
-
+		
 		addMethod({ setErrors, setSuccess, method })
 	}
-
 	return (
 		<section className="mx-auto max-w-5xl py-5">
 			<h2 className="text-center text-2xl font-bold">
@@ -76,22 +109,22 @@ export default () => {
 						Select amount to add to wallet.
 					</p>
 					<ul className="mt-2 flex gap-x-1">
-						<li className="cursor-pointer rounded bg-cyan-500 px-3 py-2 text-center font-bold text-white hover:bg-cyan-600">
+						<li className="cursor-pointer rounded bg-cyan-500 px-3 py-2 text-center font-bold text-white hover:bg-cyan-600" onClick={() => handlePaymentAmount(40)}>
 							40
 						</li>
-						<li className="cursor-pointer rounded bg-cyan-500 px-3 py-2 text-center font-bold text-white hover:bg-cyan-600">
+						<li className="cursor-pointer rounded bg-cyan-500 px-3 py-2 text-center font-bold text-white hover:bg-cyan-600" onClick={() => handlePaymentAmount(50)}>
 							50
 						</li>
-						<li className="cursor-pointer rounded bg-cyan-500 px-3 py-2 text-center font-bold text-white hover:bg-cyan-600">
+						<li className="cursor-pointer rounded bg-cyan-500 px-3 py-2 text-center font-bold text-white hover:bg-cyan-600" onClick={() => handlePaymentAmount(75)}>
 							75
 						</li>
-						<li className="cursor-pointer rounded bg-cyan-500 px-3 py-2 text-center font-bold text-white hover:bg-cyan-600">
+						<li className="cursor-pointer rounded bg-cyan-500 px-3 py-2 text-center font-bold text-white hover:bg-cyan-600" onClick={() => handlePaymentAmount(100)}>
 							100
 						</li>
-						<li className="cursor-pointer rounded bg-cyan-500 px-3 py-2 text-center font-bold text-white hover:bg-cyan-600">
+						<li className="cursor-pointer rounded bg-cyan-500 px-3 py-2 text-center font-bold text-white hover:bg-cyan-600" onClick={() => handlePaymentAmount(200)}>
 							200
 						</li>
-						<li className="cursor-pointer rounded bg-cyan-500 px-3 py-2 text-center font-bold text-white hover:bg-cyan-600">
+						<li className="cursor-pointer rounded bg-cyan-500 px-3 py-2 text-center font-bold text-white hover:bg-cyan-600" onClick={() => handlePaymentAmount(500)}>
 							500
 						</li>
 					</ul>
@@ -101,8 +134,15 @@ export default () => {
 					</p>
 					<input
 						type="text"
-						placeholder="$5.00"
-						className="w-full ring ring-cyan-500"
+						placeholder="£5.00"
+						className={`w-full border-2 border-slate-300 bg-zinc-100 p-2 text-sm ring-0 focus:ring-0 ${isFundsBelowMin ? 'border-red-500 focus:border-red-500 active:border-red-500 bg-red-200' : 'hover:border-[#00D4E3] focus:bg-[#EDFBFC]'}`}
+						value={addFundsAmount}
+						onChange={(e) => 
+							{ 
+								setAddFundsAmount(e.target.value); 
+								setIsFundsBelowMin(e.target.value < 5 ? true : false);
+							}
+						}
 					/>
 				</div>
 
@@ -110,7 +150,9 @@ export default () => {
 					<p className="font-medium">
 						Select a New Payment Method
 					</p>
-					<PaymentMethods setShowCardForm={setShowCardForm} />
+					<PaymentMethods methods={methods} setMethods={setMethods} selected={selected} setSelected={setSelected} setShowCardForm={setShowCardForm} setSelectedCard={setSelectedCard}/>
+					
+					{/* <PaymentMethods setShowCardForm={setShowCardForm} /> */}
 
 					<form
 						className={cx('mt-3', {
