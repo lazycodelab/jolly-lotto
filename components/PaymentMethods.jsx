@@ -11,7 +11,7 @@ export default ({ setShowCardForm }) => {
 		// get all the methods here.
 		axios.get('/payment/gateways').then(({ data }) => {
 			setMethods(data)
-			setSelected(data[0].cardHolder)
+			setSelected(data[0]?.cardHolder)
 		})
 	}, [])
 

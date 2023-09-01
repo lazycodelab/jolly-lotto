@@ -4,7 +4,7 @@ import ErrorPage from 'next/error'
 import Link from 'next/link'
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
-import profileUpdate from '@/dashboard/profile-update'
+import ProfileUpdate from '@/dashboard/ProfileUpdate'
 import { useAuth } from 'hooks/auth'
 
 export default () => {

@@ -52,21 +52,25 @@ export default ({ details }) => {
 
 	const addLotteryLine = () => {
 		const rng = generateRandomNum(balls.total, balls.max)
+		const bonusRng = balls.bonus?.length > 0 ? generateRandomNum(balls.bonus[0].ballNumber, balls.bonus[0].maxNumber) : [];
 
 		return {
 			completed: true,
 			selectedBalls: rng,
+			selectedBonusBalls: bonusRng,
 		}
 	}
 
 	const quickPickBalls = id => {
 		const rng = generateRandomNum(balls.total, balls.max)
+		const bonusRng = balls.bonus?.length > 0 ? generateRandomNum(balls.bonus[0].ballNumber, balls.bonus[0].maxNumber) : [];
 		setLotteryLines(lines =>
 			lines.map((line, idx) =>
 				idx === id
 					? {
 						...line,
 						selectedBalls: rng,
+						selectedBonusBalls: bonusRng,
 						completed: true,
 					}
 					: { ...line },
@@ -100,6 +104,7 @@ export default ({ details }) => {
 					? {
 						...line,
 						selectedBalls: [],
+						selectedBonusBalls: [],
 						completed: false,
 					}
 					: { ...line },

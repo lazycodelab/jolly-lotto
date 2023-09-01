@@ -33,14 +33,24 @@ export default () => {
 		AU: 'Australia',
 		ZR: 'Zimbabwe',
 	}
+	const allMonths = getMonths();
+	const getSelectedMonthKey = (month) => {
+		let targetMonthKey = '01';
+		for (const key in allMonths) {
+			if (allMonths[key] === month) {
+				targetMonthKey = key;
+			 	break;
+			}
+		}
+		return targetMonthKey.padStart(2, '0');
+	}
 
 	const handleSome = e => {
 		e.preventDefault()
 		setLoading(true)
 
-		const data = e.target
-		// const birthDate = data.year.value + '-' + data.month.value + '-' + data.day.value;
-		const birthDate = selectBirthYear + '-' + selectBirthMonth + '-' + selectBirthDate;
+		const data = e.target;
+		const birthDate = selectBirthYear + '-' + getSelectedMonthKey(selectBirthMonth) + '-' + selectBirthDate.padStart(2, '0');
 		const age = moment().diff(birthDate, 'years');
 
 		const userData = {
@@ -56,7 +66,8 @@ export default () => {
 				city: data.city.value,
 				postalCode: data.post_code.value,
 				state: data.state.value,
-				country: countries[selectedCountry],
+				// country: countries[selectedCountry],
+				country: 'FR',
 			},
 			email: data.email.value,
 			phone: data.phone.value,
@@ -70,7 +81,7 @@ export default () => {
 				isAllowPhoneCall: false,
 			},
 		}
-		// register({ setErrors, userData })
+		register({ setErrors, userData });
 	}
 
 	useEffect(() => {
@@ -172,7 +183,7 @@ export default () => {
 							<div className='flex-auto'>
 								<CustomFormSelect 
 									label=""
-									options={getMonths()}
+									options={allMonths}
 									setFunction={setSelectBirthMonth}
 									selectedValue={selectBirthMonth}
 								/>
