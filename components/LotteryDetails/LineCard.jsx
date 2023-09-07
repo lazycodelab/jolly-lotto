@@ -75,7 +75,6 @@ export default ({
 					}
 	
 					if (lotteryData.selectedBalls.length === balls.total) {
-						console.log('balls completed');
 						setLines(lines =>
 							lines.map((line, idx) =>
 								idx === id
@@ -104,7 +103,6 @@ export default ({
 						)
 					} 
 					if (lotteryData.selectedBonusBalls.length === balls.bonus[0].ballNumber) {
-						console.log('bonus balls completed');
 						setLines(lines =>
 							lines.map((line, idx) =>
 								idx === id
