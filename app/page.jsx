@@ -94,10 +94,28 @@ const HeroSlider = ({ prods }) => {
 			<swiper-container ref={swiperElRef} init="false">
 				{prods.map(product => (
 					<swiper-slide key={product.name}>
-						<div className="bg-[#dafcfe]">
+						<div className="bg-[#dafcfe] relative">
+							<div className='absolute left-0 h-full'>
+								<Image
+									className="object-cover h-full w-full mix-blend-darken lg:opacity-100 opacity-60"
+									src="/images/banner-left-side.png"
+									width={800}
+									height={290}
+									alt="banner-left"
+								/>
+							</div>
+							<div className='absolute right-0 h-full'>
+								<Image
+									className="object-cover h-full w-full mix-blend-darken lg:opacity-100 opacity-60"
+									src="/images/banner-right-side.png"
+									width={800}
+									height={290}
+									alt="banner-left"
+								/>
+							</div>
 							<div className="mx-auto flex max-w-6xl flex-wrap md:flex-nowrap md:items-center md:justify-between">
 								<Image
-									className="order-2 block md:order-1"
+									className="order-2 block md:order-1 relative -left-8 md:left-0"
 									width={800}
 									src="/images/banner-man-1.png"
 									alt="banner"
@@ -234,11 +252,11 @@ const LotteryPills = ({ prods }) => {
 					alt="icon"
 				/>
 				<div className="flex flex-col items-center justify-center space-y-2">
-					<h3 className="text-center font-heebo text-sm text-cyan-900">
+					<h3 className="text-center font-heebo text-xs md:text-sm text-cyan-900">
 						{product.lotteryName}
 					</h3>
 
-					<span className="font-impact text-3xl font-bold text-cyan-900">
+					<span className="font-impact text-2xl md:text-3xl font-bold text-cyan-900">
 						{symbols[product.lottery.currency_code]}
 						{product.price}M
 					</span>

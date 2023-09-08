@@ -17,32 +17,6 @@ export default ({
 }) => {
 	const [modalState, setModalState] = useState(false)
 
-	// const [selectedBonusBalls, setSelectedBonusBalls] = useState(
-	// 	lotteryData.selectedBonusBalls || generateRandomNum(balls.bonus[0].ballNumber, balls.bonus[0].maxNumber) // Initialize with existing selected bonus balls if available
-	// );
-	// const [bonusBallsCompleted, setBonusBallsCompleted] = useState(true);
-	
-	// // Function to handle bonus number selection
-	// const handleToggleBonusSelected = (number) => {
-	// 	if (selectedBonusBalls.includes(number)) {
-	// 		setSelectedBonusBalls((prev) => prev.filter((x) => x !== number));
-	// 	} else {
-	// 		if (selectedBonusBalls.length < balls.bonus[0].ballNumber) {
-	// 			setSelectedBonusBalls((prev) => [...prev, number]);
-	// 			selectedBonusBalls.length === balls.bonus[0].ballNumber ? setBonusBallsCompleted(true) : setBonusBallsCompleted(false);
-	// 		} else {
-	// 			setBonusBallsCompleted(true);
-	// 		}
-	// 	}
-	// 	console.log(selectedBonusBalls.length);
-	// 	if(selectedBonusBalls.length == balls.bonus[0].ballNumber) { 
-	// 		setBonusBallsCompleted(true);
-	// 	} else {
-	// 		setBonusBallsCompleted(false);
-	// 	}
-	// };
-
-
 	const LotteryBalls = () => {
 		const b = []
 
@@ -76,7 +50,7 @@ export default ({
 							? {
 								...line,
 								selectedBalls: lotteryData.selectedBalls.filter(x => x !== number),
-								bonusSelectedBalls: lotteryData.selectedBonusBalls.filter(x => x !== number),
+								selectedBonusBalls: lotteryData.selectedBonusBalls.filter(x => x !== number),
 								completed: false,
 							}
 							: { ...line },
@@ -107,7 +81,7 @@ export default ({
 									? {
 										...line,
 										selectedBalls: lotteryData.selectedBalls,
-										completed: true,
+										completed: balls.bonus?.length > 0 ? lotteryData.selectedBonusBalls.length === balls.bonus[0].ballNumber ? true : false : true,
 									}
 									: { ...line },
 							),
@@ -116,25 +90,26 @@ export default ({
 				} else {
 					if (lotteryData.selectedBonusBalls.length < balls.bonus[0].ballNumber) {
 						lotteryData.selectedBonusBalls.push(number)
-	
 						setLines(lines =>
 							lines.map((line, idx) =>
 								idx === id
 									? {
 										...line,
+										selectedBalls: lotteryData.selectedBalls,
 										selectedBonusBalls: lotteryData.selectedBonusBalls,
 									}
 									: { ...line },
 							),
 						)
-					} else if (lotteryData.selectedBonusBalls.length === balls.bonus[0].ballNumber) {
+					} 
+					if (lotteryData.selectedBonusBalls.length === balls.bonus[0].ballNumber) {
 						setLines(lines =>
 							lines.map((line, idx) =>
 								idx === id
 									? {
 										...line,
 										selectedBonusBalls: lotteryData.selectedBonusBalls,
-										completed: true,
+										completed: lotteryData.selectedBalls.length === balls.total ? true : false,
 									}
 									: { ...line },
 							),
@@ -149,7 +124,8 @@ export default ({
 				className={classNames(
 					'flex h-6 w-6 cursor-pointer select-none items-center justify-center rounded border border-slate-200 text-xs hover:bg-[#FFA319] hover:text-white active:border-cyan-400',
 					{
-						'bg-white': !isSelected,
+						'bg-white': !isSelected && !isBonusBall,
+						'bg-[#FFF2A7]': !isSelected && isBonusBall,
 						'bg-green-500 text-white': isSelected,
 						'text-gray-400':completed,
 					},
@@ -159,25 +135,6 @@ export default ({
 			</span>
 		)
 	}
-
-	// const BonusBallUI = ({ number, selectedBonusBalls, toggleSelected }) => {
-	// 	const isSelected = selectedBonusBalls.includes(number);
-
-	// 	return (
-	// 		<span
-	// 		className={classNames(
-	// 			'flex h-6 w-6 cursor-pointer select-none items-center justify-center rounded border border-slate-200 text-xs hover:bg-[#FFA319] hover:text-white active:border-cyan-400',
-	// 			{
-	// 				'bg-amber-100': !isSelected,
-	// 				'bg-green-500 text-white': isSelected,
-	// 				'text-gray-400':bonusBallsCompleted,
-	// 			},
-	// 		)}
-	// 		onClick={() => toggleSelected(number)}>
-	// 			{number}
-	// 		</span>
-	// 	)
-	// }
 
 	const BonusBalls = () => {
 		if (!balls.bonus) return null;
@@ -203,7 +160,7 @@ export default ({
 
 		return ( 
 			<div className="mt-3">
-				<span className="block text-sm">Select {bonusBall.ballNumber} {bonusBall.name}</span>
+				<span className={`block text-sm ${completed === true ? 'text-gray-400' : ''}`}>Select {bonusBall.ballNumber} {bonusBall.name}</span>
 				<div className="mt-2 flex flex-wrap gap-1.5">
 					{ballUI}
 				</div>

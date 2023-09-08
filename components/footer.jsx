@@ -7,6 +7,7 @@ import IconEnvelope from './Icons/IconEnvelope'
 import IconPhone from './Icons/IconPhone'
 
 export default () => {
+	const copyrightSymbol = String.fromCodePoint(0x000a9);
 	const MenuSection = ({ title, children, className }) => {
 		return (
 			<div>
@@ -92,17 +93,24 @@ export default () => {
 					</MenuSection>
 				</div>
 
-				<div className="mt-16 space-x-5 divide-x divide-cyan-900 text-center">
+				<div className="mt-14 space-y-3 md:space-x-5 flex flex-col md:block md:divide-x md:divide-cyan-900 text-center">
 					<a href="https://www.casino.org/responsible-gambling/" target='_blank' className="text-teal-900 underline">Responsible Gaming</a>
-					<FooterLink href={'/terms-and-conditions'} className={'pl-5'}>
+					<FooterLink href={'/terms-and-conditions'} className={'md:pl-5'}>
 						Terms & Conditions
 					</FooterLink>
-					<FooterLink href={'/privacy-policy'} className={'pl-5'}>
+					<FooterLink href={'/privacy-policy'} className={'md:pl-5'}>
 						Privacy Policy
 					</FooterLink>
-					<FooterLink href={'/contact-us'} className={'pl-5'}>
+					<FooterLink href={'/contact-us'} className={'md:pl-5'}>
 						Contact Us
 					</FooterLink>
+				</div>
+
+				<div className="mt-10">
+					<p className="text-teal-900 text-sm md:text-base text-center mb-3">jollylotto.com (Ralseft Limited) strictly prohibits access and services to those under the legal age of eighteen (18) years old.</p>
+					<p className="text-teal-900 text-sm md:text-base text-center mb-3">We encourage responsible gambling and if you feel that you have a problem with gambling contact us and we will assist in locating assistance in your jurisdiction – For the UK please visit GamCare’s website for help and advice at <a href="https://www.gamcare.org.uk" target='_blank' className="text-teal-900 underline">www.gamcare.org.uk</a>. For Ireland go to the responsible play website <a href="https://www.responsibleplay.ie" target='_blank' className="text-teal-900 underline">www.responsibleplay.ie</a> or alternatively <a href="https://www.problemgambling.ie" target='_blank' className="text-teal-900 underline">www.problemgambling.ie</a>.</p>
+					<p className="text-teal-900 text-sm md:text-base text-center mb-3">jollylotto.com is owned and operated by Ralseft Limited and its wholly owned subsidiary Ralseft Limited N.V. licenced and regulated By Gaming Curacao under licence 365/JAZ Sub-Licence GLH-OCCHKTW0701192020</p>
+					<p className="text-teal-900 text-sm md:text-base text-center mb-3">Copyright {copyrightSymbol} {new Date().getFullYear()}, Ralseft Limited: JollyLotto. E.&O.E.</p>
 				</div>
 
 				<div className="mt-10 flex flex-wrap items-center justify-center gap-10">
