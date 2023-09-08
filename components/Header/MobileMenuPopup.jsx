@@ -16,7 +16,7 @@ export default () => {
 
 	return (
 		<Menu as="div" className="">
-			<Menu.Button className="flex items-center text-sm text-gray-700">
+			<Menu.Button className="flex items-center text-sm text-white rounded p-1 bg-[#99e5eb]">
 				<Bars3Icon className="h-6 w-6" aria-hidden="true" />
 			</Menu.Button>
 			<Transition
