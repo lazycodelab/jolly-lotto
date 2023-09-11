@@ -68,11 +68,11 @@ const HeroSlider = ({ prods }) => {
 		const params = {
 			modules: [Pagination],
 			init: false,
-			on: {
-				init: () => {
-					console.log('hero loaded')
-				},
-			},
+			// on: {
+			// 	init: () => {
+			// 		console.log('hero loaded')
+			// 	},
+			// },
 			pagination: {
 				el: 'div[data-hero-pagination]',
 				clickable: true,
@@ -120,6 +120,7 @@ const HeroSlider = ({ prods }) => {
 									src="/images/banner-man-1.png"
 									alt="banner"
 									height={290}
+									priority
 								/>
 								<div className="order-1 my-3 w-full space-y-3 px-3 text-center md:order-2 md:px-0 md:py-5 md:text-center">
 									<h2 className="text-2xl font-medium text-teal-900">
@@ -162,11 +163,11 @@ const LotteryCards = ({ prods }) => {
 	useEffect(() => {
 		const params = {
 			modules: [Navigation],
-			on: {
-				init: swiper => {
-					console.log('loaded', swiper)
-				},
-			},
+			// on: {
+			// 	init: swiper => {
+			// 		console.log('loaded', swiper)
+			// 	},
+			// },
 			breakpoints: {
 				640: {
 					slidesPerView: 2,
@@ -204,6 +205,7 @@ const LotteryCards = ({ prods }) => {
 							width={80}
 							height={80}
 							alt="icon"
+							style={{ width: 'auto', height: 'auto' }}
 						/>
 						<h3 className="px-2 text-center">
 							<span className="text-xs">

@@ -1,4 +1,4 @@
-import { ArrowDownTrayIcon } from '@heroicons/react/24/outline'
+import { ArrowDownTrayIcon, UserIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import IconWallet from '@/Icons/IconWallet'
 import { useAuth } from 'hooks/auth'
@@ -10,9 +10,12 @@ export default () => {
 		user &&
 		user.statusCode === 200 && (
 			<>
-				<div className="flex flex-col text-right text-xs">
-					<span>Current Time: 4:25 PM</span>
+				<div className="flex md:flex-col flex-row items-center text-right text-xs">
+					<span className='md:block hidden'>Current Time: 4:25 PM</span>
 					<span>Current Session: 00:14:55</span>
+					<div className='flex md:hidden items-center text-sm text-white rounded p-1 bg-[#99e5eb] ms-2'>
+						<UserIcon className="h-6 w-6" />
+					</div>
 				</div>
 				<Link
 					href="/user/add-funds"
@@ -27,6 +30,7 @@ export default () => {
 					<IconWallet
 						className={'mr-2 w-4 fill-current text-gray-500'}
 					/>
+					{/* Balance:&nbsp;<strong>$ 0.11</strong> */}
 					Balance:&nbsp;<strong>{user.wallet.currency.symbol}{user.wallet.available}</strong>
 				</a>
 			</>

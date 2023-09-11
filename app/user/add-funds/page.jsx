@@ -26,11 +26,16 @@ export default () => {
 	const [addFundsAmount, setAddFundsAmount] = useState(5);
 	const [isFundsBelowMin, setIsFundsBelowMin] = useState(false);
 
+
 	useEffect(() => {
-		axios.get('/payment/gateways').then(({ data }) => {
-			setMethods(data);
-			setSelected(data[0]?.cardHolder);
-		})
+		if (!router.isFallback && !user) {
+			router.push('/login')
+		} else {
+			axios.get('/payment/gateways').then(({ data }) => {
+				setMethods(data);
+				setSelected(data[0]?.cardHolder);
+			})
+		}
 	}, [])
 
 	if (!router.isFallback && !user) {

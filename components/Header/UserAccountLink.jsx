@@ -20,9 +20,10 @@ export default () => {
 			{user && user.statusCode === 200 ? (
 				<Menu.Button
 					as="div"
-					className="flex items-center text-sm text-gray-700 cursor-pointer select-none">
+					className="md:flex hidden items-center text-sm text-gray-700 cursor-pointer select-none">
 					<UserIcon className="mr-1 w-4 text-gray-500" />
-					{user.profile.firstName}
+					{/* {user.profile.firstName} */}
+					Nisarg Kavi
 					<ChevronDownIcon className="h-4 w-4" aria-hidden="true" />
 				</Menu.Button>
 			) : (

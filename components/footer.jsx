@@ -118,6 +118,7 @@ export default () => {
 						src="/images/footer/lock-icon.png"
 						width={180}
 						height={50}
+						style={{ width: 'auto', height: 'auto' }}
 						alt="SSL"
 					/>
 					<Image

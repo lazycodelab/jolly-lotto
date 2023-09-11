@@ -1,11 +1,8 @@
 'use client'
 import SectionHero from '@/LotteryDetails/SectionHero'
-import SectionInfo from '@/LotteryDetails/SectionInfo'
-import SectionLotteryCards from '@/LotteryDetails/SectionLotteryCards'
 import SectionResults from '@/LotteryDetails/SectionResults'
-import SectionSyndicate from '@/LotteryDetails/SectionSyndicate'
-
 import Link from 'next/link'
+
 import classNames from 'classnames'
 import { getAllProducts, getLotteryResults, getProductByID } from 'lib/api'
 import { useRouter } from 'next/navigation'
@@ -31,7 +28,7 @@ const lotteryTypes = {
 
 export default ({ params }) => {
 	const router = useRouter()
-	const [activeTab, setActiveTab] = useState('cards')
+	const [activeTab, setActiveTab] = useState('results')
 
 	//if (!router.isFallback) {
 	//	return (
@@ -43,7 +40,7 @@ export default ({ params }) => {
 	//}
 
 	const [details, setDetails] = useState()
-	const [results, setResults] = useState({})
+	const [results, setResults] = useState([])
 	const [lotteryType, setLotteryType] = useState()
 
 	useEffect(() => {
@@ -58,10 +55,6 @@ export default ({ params }) => {
 		}
 
 		fetchProductData(params.id)
-
-		// results = details?.lottery
-		// 	? await getLotteryResults(details?.lottery?.id)
-		// 	: results
 	}, [])
 
 	return (
@@ -70,17 +63,11 @@ export default ({ params }) => {
 				<SectionHero lotteryType={lotteryType} details={details} />
 				<div className={lotteryType.secondaryColor}>
 					<div className="container mx-auto flex max-w-6xl items-center">
-						<span
-							className={classNames(
-								'cursor-pointer border-b-2 px-12 py-3 text-center text-base font-semibold text-cyan-900',
-								{
-									'border-cyan-900': activeTab === 'cards',
-									'border-orange-50': activeTab !== 'cards',
-								},
-							)}
-							onClick={() => setActiveTab('cards')}>
-							Single Play
-						</span>
+                        <Link href={`/lotteries/${params.id}`}>
+                            <span className='cursor-pointer border-b-2 px-12 py-3 text-center text-base font-semibold text-cyan-900 border-orange-50'>
+                                Single Play
+                            </span>
+                        </Link>
 						{details?.type === 5 && (
 							<span
 								className={classNames(
@@ -96,43 +83,15 @@ export default ({ params }) => {
 								Syndicate Play
 							</span>
 						)}
-						<Link href={`/lotteries/${params.id}/results`}>
-							<span className='cursor-pointer border-b-2 px-12 py-3 text-center text-base font-semibold text-cyan-900 border-orange-50'>
-								Results
-							</span>
-						</Link>
-						{/* <span
-							className={classNames(
-								'cursor-pointer border-b-2 px-12 py-3 text-center text-base font-semibold text-cyan-900',
-								{
-									'border-cyan-900': activeTab === 'results',
-									'border-orange-50': activeTab !== 'results',
-								},
-							)}
-							onClick={() => setActiveTab('results')}>
+						<span
+							className='cursor-pointer border-b-2 px-12 py-3 text-center text-base font-semibold text-cyan-900 border-cyan-900'>
 							Results
-						</span> */}
+						</span>
 					</div>
 				</div>
 
-				{activeTab === 'cards' ? (
-					<SectionLotteryCards details={details} />
-				) : details?.type === 5 &&
-					details?.lottery?.syndicate_data &&
-					activeTab === 'syndicate' ? (
-					<SectionSyndicate
-						isSuper={details?.lottery?.syndicate_type}
-						data={details?.lottery?.syndicate_data}
-					/>
-				) : (
-					<SectionResults results={results} />
-				)}
-
-				{
-					activeTab !== 'results' ? (
-						<SectionInfo lotteryType={lotteryType} />
-					) : null
-				}
+				
+                <SectionResults results={results} />
 			</>
 		) : (
 			<div className="container mx-auto flex justify-center max-w-6xl items-center">
@@ -148,25 +107,3 @@ export default ({ params }) => {
 	)
 }
 
-//export const getStaticProps = async ({ params }) => {
-//	let results = {}
-//	const details = await getProductByID(params.id)
-
-//	results = details?.lottery
-//		? await getLotteryResults(details?.lottery?.id)
-//		: results
-
-//	return {
-//		props: { details, results },
-//	}
-//}
-
-//export const getStaticPaths = async () => {
-//	//const posts = await getSingleProducts()
-//	const products = await getAllProducts()
-
-//	return {
-//		paths: products.map(post => `/lotteries/${post.id}`) || [],
-//		fallback: true,
-//	}
-//}
