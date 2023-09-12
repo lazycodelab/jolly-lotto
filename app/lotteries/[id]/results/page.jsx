@@ -91,7 +91,7 @@ export default ({ params }) => {
 				</div>
 
 				
-                <SectionResults results={results} />
+                <SectionResults results={results} details={details} />
 			</>
 		) : (
 			<div className="container mx-auto flex justify-center max-w-6xl items-center">

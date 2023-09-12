@@ -34,10 +34,9 @@ export default () => {
                                                 <div className="my-auto">
                                                     <Image
                                                         src={`/images/lotteries/AU.png`}
-                                                        width={65}
-                                                        height={65}
+                                                        width={75}
+                                                        height={75}
                                                         alt="icon"
-                                                        style={{ width: 'auto', height: 'auto' }}
                                                     />
                                                 </div>
                                                 <div className="my-auto leading-normal ms-3">
@@ -55,10 +54,9 @@ export default () => {
                                                 <div className="my-auto">
                                                     <Image
                                                         src={`/images/lotteries/CA.png`}
-                                                        width={65}
-                                                        height={65}
+                                                        width={75}
+                                                        height={75}
                                                         alt="icon"
-                                                        style={{ width: 'auto', height: 'auto' }}
                                                     />
                                                 </div>
                                                 <div className="my-auto leading-normal ms-3">
@@ -76,10 +74,9 @@ export default () => {
                                                 <div className="my-auto">
                                                     <Image
                                                         src={`/images/lotteries/ES.png`}
-                                                        width={65}
-                                                        height={65}
+                                                        width={75}
+                                                        height={75}
                                                         alt="icon"
-                                                        style={{ width: 'auto', height: 'auto' }}
                                                     />
                                                 </div>
                                                 <div className="my-auto leading-normal ms-3">

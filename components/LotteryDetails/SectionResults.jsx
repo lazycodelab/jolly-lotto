@@ -4,10 +4,9 @@ import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline'
 import classNames from 'classnames'
 import moment from 'moment'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
-export default ({ results }) => {
+export default ({ results,details }) => {
 	const [months, setMonths] = useState([])
 	const [selectedMonth, setSelectedMonth] = useState()
 
@@ -158,10 +157,10 @@ export default ({ results }) => {
 		<section className="container mx-auto my-8 flex max-w-6xl flex-wrap space-x-5 px-6">
 			<div className="flex-1">
 				<h2 className="text-2xl font-semibold text-teal-600">
-					Play German Lotto Single Play
+					Play {details?.lotteryName} Lotto
 				</h2>
 				<h6 className="text-sm text-cyan-900">
-					German Lotto Single Play
+					{details?.lotteryName}
 				</h6>
 
 				<div className="mt-4">
