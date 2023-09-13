@@ -34,8 +34,8 @@ export default () => {
                                                 <div className="my-auto">
                                                     <Image
                                                         src={`/images/lotteries/AU.png`}
-                                                        width={80}
-                                                        height={80}
+                                                        width={75}
+                                                        height={75}
                                                         alt="icon"
                                                     />
                                                 </div>
@@ -54,8 +54,8 @@ export default () => {
                                                 <div className="my-auto">
                                                     <Image
                                                         src={`/images/lotteries/CA.png`}
-                                                        width={80}
-                                                        height={80}
+                                                        width={75}
+                                                        height={75}
                                                         alt="icon"
                                                     />
                                                 </div>
@@ -74,8 +74,8 @@ export default () => {
                                                 <div className="my-auto">
                                                     <Image
                                                         src={`/images/lotteries/ES.png`}
-                                                        width={80}
-                                                        height={80}
+                                                        width={75}
+                                                        height={75}
                                                         alt="icon"
                                                     />
                                                 </div>

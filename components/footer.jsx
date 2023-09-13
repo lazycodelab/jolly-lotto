@@ -48,13 +48,13 @@ export default () => {
 					</MenuSection>
 					<MenuSection title="Lotto Results">
 						<li>
-							<FooterLink href="/lotteries/1">Australian 6/45</FooterLink>
+							<FooterLink href="/lotteries/1/results">Australian 6/45</FooterLink>
 						</li>
 						<li>
-							<FooterLink href="/lotteries/3">Euro Millions</FooterLink>
+							<FooterLink href="/lotteries/3/results">Euro Millions</FooterLink>
 						</li>
 						<li>
-							<FooterLink href="/lotteries/2">Canadian 6/49</FooterLink>
+							<FooterLink href="/lotteries/2/results">Canadian 6/49</FooterLink>
 						</li>
 					</MenuSection>
 					<MenuSection
@@ -118,6 +118,7 @@ export default () => {
 						src="/images/footer/lock-icon.png"
 						width={180}
 						height={50}
+						style={{ width: 'auto', height: 'auto' }}
 						alt="SSL"
 					/>
 					<Image

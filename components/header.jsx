@@ -8,7 +8,7 @@ import UserAccountLink from './Header/UserAccountLink'
 
 export default () => {
 	return (
-		<header className="border-b border-b-gray-200 px-1 py-2 md:px-6 md:py-3">
+		<header className="border-b border-b-[#C2D4D5] md:border-b-gray-200 px-1 py-2 md:px-6 md:py-3">
 			<div className="container mx-auto flex items-center justify-center md:max-w-6xl md:space-x-20">
 				{/*<div className="container mx-auto flex max-w-6xl">*/}
 				{/*<Navigation />*/}

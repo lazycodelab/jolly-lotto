@@ -6,10 +6,17 @@ import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
 import ProfileUpdate from '@/dashboard/ProfileUpdate'
 import { useAuth } from 'hooks/auth'
+import React , { useEffect } from 'react'
 
 export default () => {
 	const { user } = useAuth()
 	const router = useRouter()
+
+	useEffect(() => {
+		if (!router.isFallback && !user) {
+			router.push('/login')
+		}
+	}, [])
 
 	if (!router.isFallback && !user) {
 		return <ErrorPage title="Unauthorized" statusCode={401} />

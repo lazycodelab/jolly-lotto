@@ -4,10 +4,9 @@ import { Disclosure, Transition } from '@headlessui/react'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline'
 import classNames from 'classnames'
 import moment from 'moment'
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
-export default ({ results }) => {
+export default ({ results,details }) => {
 	const [months, setMonths] = useState([])
 	const [selectedMonth, setSelectedMonth] = useState()
 
@@ -149,7 +148,9 @@ export default ({ results }) => {
 					<span className="flex-1 font-bold">Numbers</span>
 					<span className="flex-1 font-bold"></span>
 				</div>
-				{rows}
+				{
+					months.length === 0 ? <div className="flex justify-center items-center h-20">No Result Data</div> : rows
+				}
 			</div>
 		)
 	}
@@ -158,10 +159,10 @@ export default ({ results }) => {
 		<section className="container mx-auto my-8 flex max-w-6xl flex-wrap space-x-5 px-6">
 			<div className="flex-1">
 				<h2 className="text-2xl font-semibold text-teal-600">
-					Play German Lotto Single Play
+					Play {details?.lotteryName} Lotto
 				</h2>
 				<h6 className="text-sm text-cyan-900">
-					German Lotto Single Play
+					{details?.lotteryName}
 				</h6>
 
 				<div className="mt-4">
@@ -171,12 +172,17 @@ export default ({ results }) => {
 					<select
 						className="w-full border border-gray-200 bg-gray-100 p-2 text-sm focus:ring-0"
 						onChange={e => setSelectedMonth(e.target.value)}
-						value={selectedMonth}>
-						{months.map(month => (
-							<option key={month} value={month}>
-								{month}
-							</option>
-						))}
+						value={selectedMonth}
+						{...(months.length === 0 && { defaultValue:'NORESULT' })}
+						>
+						{
+							months.length === 0 ? <option disabled value='NORESULT'>No Result Data</option> : 
+							months.map(month => (
+								<option key={month} value={month}>
+									{month}
+								</option>
+							))
+						}
 					</select>
 				</div>
 
