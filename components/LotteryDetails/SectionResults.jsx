@@ -148,7 +148,9 @@ export default ({ results,details }) => {
 					<span className="flex-1 font-bold">Numbers</span>
 					<span className="flex-1 font-bold"></span>
 				</div>
-				{rows}
+				{
+					months.length === 0 ? <div className="flex justify-center items-center h-20">No Result Data</div> : rows
+				}
 			</div>
 		)
 	}
@@ -170,12 +172,17 @@ export default ({ results,details }) => {
 					<select
 						className="w-full border border-gray-200 bg-gray-100 p-2 text-sm focus:ring-0"
 						onChange={e => setSelectedMonth(e.target.value)}
-						value={selectedMonth}>
-						{months.map(month => (
-							<option key={month} value={month}>
-								{month}
-							</option>
-						))}
+						value={selectedMonth}
+						{...(months.length === 0 && { defaultValue:'NORESULT' })}
+						>
+						{
+							months.length === 0 ? <option disabled value='NORESULT'>No Result Data</option> : 
+							months.map(month => (
+								<option key={month} value={month}>
+									{month}
+								</option>
+							))
+						}
 					</select>
 				</div>
 
