@@ -56,12 +56,13 @@ export default () => {
 										<div className="px-1 py-1">
 											<Menu.Item>
 												{({ active }) => (
-													<button
+													<Link
+													href="/user/add-funds"
 														className={`${active && 'bg-slate-100'
 															} group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-500`}>
 														<WalletIcon className="mr-2 w-4 text-gray-500" />
 														Add Funds
-													</button>
+													</Link>
 												)}
 											</Menu.Item>
 										</div>
