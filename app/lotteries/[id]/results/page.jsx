@@ -4,8 +4,7 @@ import SectionResults from '@/LotteryDetails/SectionResults'
 import Link from 'next/link'
 
 import classNames from 'classnames'
-import { getAllProducts, getLotteryResults, getProductByID } from 'lib/api'
-import { useRouter } from 'next/navigation'
+import { getLotteryResults, getProductByID } from 'lib/api'
 import { useEffect, useState } from 'react'
 
 const lotteryTypes = {
@@ -27,17 +26,8 @@ const lotteryTypes = {
 }
 
 export default ({ params }) => {
-	const router = useRouter()
 	const [activeTab, setActiveTab] = useState('results')
 
-	//if (!router.isFallback) {
-	//	return (
-	//		<ErrorPage
-	//			title="Data not available for this product"
-	//			statusCode={404}
-	//		/>
-	//	)
-	//}
 
 	const [details, setDetails] = useState()
 	const [results, setResults] = useState('')

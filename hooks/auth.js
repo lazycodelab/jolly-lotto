@@ -166,6 +166,32 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 			})
 	}
 
+	const buyLottery = async ({ setErrors,setSuccess , ...props }) => {
+		await csrf()
+		setErrors(null)
+		setSuccess(null)
+
+		const { lotteryData } = props
+
+		axios
+			.post('lotteries/checkout', lotteryData)
+			.then((res) => {
+				mutate()
+				// response in axios
+				if(res.data.status === 'error') {
+					console.log(res.data.message);
+					setErrors({lotteryCard: [res.data.message]})
+				} else {
+					setSuccess({lotteryCard: [res.data.message]})
+				}
+			})
+			.catch(error => {
+				// if (error.response.status !== 422) throw error
+				console.log(error);
+				setErrors(error.response.data.errors)
+			})
+	}
+
 	useEffect(() => {
 		if (middleware === 'guest' && redirectIfAuthenticated && user)
 			router.push(redirectIfAuthenticated)
@@ -188,5 +214,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 		resetPassword,
 		resendEmailVerification,
 		logout,
+		buyLottery,
 	}
 }

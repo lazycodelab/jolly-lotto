@@ -9,7 +9,6 @@ export default ({ details }) => {
 	const balls = details?.lottery?.balls ?? 0
 	const [weeks, setWeeks] = useState(1)
 	const [lotteryLines, setLotteryLines] = useState([])
-	//const [price, setPrice] = useState(details?.prices?.price)
 	const price = details?.prices?.price
 	const [drawDays, setDrawDays] = useState([])
 	const [selectedDrawDays, setSelectedDrawDays] = useState(0)
@@ -262,7 +261,7 @@ export default ({ details }) => {
 					</div>
 					{/* confirm button */}
 
-					<PaymentModal />
+					<PaymentModal paymentAmount={Number(price *weeks *lotteryLines.length *selectedDrawDays).toFixed(2)} lotteryDetails={details} drawDays={drawDays} selectedDrawDays={selectedDrawDays} lotteryCard={lotteryLines} />
 				</div>
 			</div>
 		</section>

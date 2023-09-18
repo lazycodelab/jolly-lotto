@@ -2,13 +2,11 @@
 import SectionHero from '@/LotteryDetails/SectionHero'
 import SectionInfo from '@/LotteryDetails/SectionInfo'
 import SectionLotteryCards from '@/LotteryDetails/SectionLotteryCards'
-import SectionResults from '@/LotteryDetails/SectionResults'
 import SectionSyndicate from '@/LotteryDetails/SectionSyndicate'
 
 import Link from 'next/link'
 import classNames from 'classnames'
-import { getAllProducts, getLotteryResults, getProductByID } from 'lib/api'
-import { useRouter } from 'next/navigation'
+import { getProductByID } from 'lib/api'
 import { useEffect, useState } from 'react'
 
 const lotteryTypes = {
@@ -30,20 +28,8 @@ const lotteryTypes = {
 }
 
 export default ({ params }) => {
-	const router = useRouter()
 	const [activeTab, setActiveTab] = useState('cards')
-
-	//if (!router.isFallback) {
-	//	return (
-	//		<ErrorPage
-	//			title="Data not available for this product"
-	//			statusCode={404}
-	//		/>
-	//	)
-	//}
-
 	const [details, setDetails] = useState()
-	const [results, setResults] = useState({})
 	const [lotteryType, setLotteryType] = useState()
 
 	useEffect(() => {
@@ -51,17 +37,12 @@ export default ({ params }) => {
 			const d = await getProductByID(id)
 			const lotteryType = d.lottery.country_code
 			setLotteryType(lotteryTypes[lotteryType])
+			// Removing bonus ball from the data for 6/49
+			if (d.id === 2) delete d.lottery.balls.bonus;
 			setDetails(d)
-
-			const results = await getLotteryResults(d.lottery.id)
-			setResults(results)
 		}
 
 		fetchProductData(params.id)
-
-		// results = details?.lottery
-		// 	? await getLotteryResults(details?.lottery?.id)
-		// 	: results
 	}, [])
 
 	return (
@@ -100,18 +81,7 @@ export default ({ params }) => {
 							<span className='cursor-pointer border-b-2 px-12 py-3 text-center text-base font-semibold text-cyan-900 border-orange-50'>
 								Results
 							</span>
-						</Link>
-						{/* <span
-							className={classNames(
-								'cursor-pointer border-b-2 px-12 py-3 text-center text-base font-semibold text-cyan-900',
-								{
-									'border-cyan-900': activeTab === 'results',
-									'border-orange-50': activeTab !== 'results',
-								},
-							)}
-							onClick={() => setActiveTab('results')}>
-							Results
-						</span> */}
+						</Link>			
 					</div>
 				</div>
 
@@ -124,15 +94,9 @@ export default ({ params }) => {
 						isSuper={details?.lottery?.syndicate_type}
 						data={details?.lottery?.syndicate_data}
 					/>
-				) : (
-					<SectionResults results={results} />
-				)}
+				) : null}
 
-				{
-					activeTab !== 'results' ? (
-						<SectionInfo lotteryType={lotteryType} />
-					) : null
-				}
+				<SectionInfo lotteryType={lotteryType} />
 			</>
 		) : (
 			<div className="container mx-auto flex justify-center max-w-6xl items-center">
@@ -147,26 +111,3 @@ export default ({ params }) => {
 		)
 	)
 }
-
-//export const getStaticProps = async ({ params }) => {
-//	let results = {}
-//	const details = await getProductByID(params.id)
-
-//	results = details?.lottery
-//		? await getLotteryResults(details?.lottery?.id)
-//		: results
-
-//	return {
-//		props: { details, results },
-//	}
-//}
-
-//export const getStaticPaths = async () => {
-//	//const posts = await getSingleProducts()
-//	const products = await getAllProducts()
-
-//	return {
-//		paths: products.map(post => `/lotteries/${post.id}`) || [],
-//		fallback: true,
-//	}
-//}

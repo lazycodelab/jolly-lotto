@@ -24,15 +24,13 @@ export default () => {
 					<ArrowDownTrayIcon className="w-4 text-white" />
 					Add Funds
 				</Link>
-				<a
-					href="#"
+				<div
 					className="hidden items-center text-sm text-gray-700 md:flex">
 					<IconWallet
 						className={'mr-2 w-4 fill-current text-gray-500'}
 					/>
-					{/* Balance:&nbsp;<strong>$ 0.11</strong> */}
 					Balance:&nbsp;<strong>{user.wallet.currency.symbol}{user.wallet.available}</strong>
-				</a>
+				</div>
 			</>
 		)
 	)
