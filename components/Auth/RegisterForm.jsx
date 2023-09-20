@@ -19,8 +19,8 @@ export default () => {
 	const [selectedCurreny, setSelectedCurreny] = useState('USD');
 	const [selectedTitle, setSelectedTitle] = useState('Mr.');
 	const [selectedPhoneCountry, setSelectedPhoneCountry] = useState('UK');
-	const [selectPlayLimit, setSelectPlayLimit] = useState('1 Week');
-	const [selectDepositLimit, setSelectDepositLimit] = useState('1 Week');
+	// const [selectPlayLimit, setSelectPlayLimit] = useState('1 Week');
+	// const [selectDepositLimit, setSelectDepositLimit] = useState('1 Week');
 	const [selectBirthDate, setSelectBirthDate] = useState('1');
 	const [selectBirthMonth, setSelectBirthMonth] = useState('January');
 	const [selectBirthYear, setSelectBirthYear] = useState('1963');
@@ -197,19 +197,6 @@ export default () => {
 								/>
 							</div>
 						</div>
-						<div className="flex-grow items-end gap-x-3">
-							<FormInput
-								type="tel"
-								label="Phone"
-								placeholder="Phone Number"
-							/>
-							<CustomFormSelect 
-								label=""
-								options={['UK', 'AUS']}
-								setFunction={setSelectedPhoneCountry}
-								selectedValue={selectedPhoneCountry}
-							/>
-						</div>
 					</div>
 
 					<div className="flex-1 space-y-5">
@@ -246,7 +233,7 @@ export default () => {
 							selectedValue={selectedCurreny}
 						/>
 
-						<div className="space-y-3">
+						{/* <div className="space-y-3">
 							<h4 className="text-sm font-medium text-gray-800">
 								Set Limits <sup className="text-red-500">*</sup>
 							</h4>
@@ -267,9 +254,22 @@ export default () => {
 									I would like to set the limits.
 								</label>
 							</div>
+						</div> */}
+						<div className="flex-grow items-end gap-x-3">
+							<FormInput
+								type="tel"
+								label="Phone"
+								placeholder="Phone Number"
+							/>
+							<CustomFormSelect 
+								label=""
+								options={['UK', 'AUS']}
+								setFunction={setSelectedPhoneCountry}
+								selectedValue={selectedPhoneCountry}
+							/>
 						</div>
 
-						<div className="flex-grow items-end gap-x-3">
+						{/* <div className="flex-grow items-end gap-x-3">
 							<FormInput label="Play Limit (Optional)" />
 							<CustomFormSelect 
 								label={""}
@@ -281,18 +281,13 @@ export default () => {
 
 						<div className="flex-grow items-end gap-x-3">
 							<FormInput label="Deposit Limit (Optional)" />
-
-							{/* <FormSelect
-								label={''}
-								options={['1 Week', '2 Weeks']}
-							/> */}
 							<CustomFormSelect 
 								label={""}
 								options={['1 Week', '2 Weeks']}
 								setFunction={setSelectDepositLimit}
 								selectedValue={selectDepositLimit}
 							/>
-						</div>
+						</div> */}
 
 						<div className="space-y-3">
 							<p className="text-xs text-gray-500">
