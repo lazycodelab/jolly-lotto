@@ -65,10 +65,9 @@ export default () => {
 											} h-5 w-5 text-purple-500`}
 									/>
 								</Disclosure.Button>
-								<Disclosure.Panel className="px-4 py-10 text-sm text-gray-500">
+								<Disclosure.Panel className="px-4 pb-10 text-sm text-gray-500">
 									<div>
 										<h3>Personal Details</h3>
-
 										<ProfileUpdate user={user} />
 									</div>
 								</Disclosure.Panel>

@@ -3,6 +3,8 @@ import cl from 'classnames'
 import { useAuth } from 'hooks/auth'
 import FormInput from '@/FormInput'
 import FormSelect from '@/FormSelect'
+import moment from 'moment'
+import CustomFormSelect from '@/CustomFormSelect'
 
 export default ({ user }) => {
 	const [errors, setErrors] = useState(null)
@@ -10,6 +12,7 @@ export default ({ user }) => {
 	const [loading, setLoading] = useState(false)
 	const [success, setSuccess] = useState(false)
 	const profileData = user.profile
+	const [selectedCountry, setSelectedCountry] = useState(profileData.billingAddress.country);
 
 	useEffect(() => {
 		if (errors || success) {
@@ -25,9 +28,26 @@ export default ({ user }) => {
 		e.preventDefault()
 		setLoading(true)
 
+		const currentData = {
+			id: profileData.id,
+			country: profileData.billingAddress.country,
+			prefix: profileData.prefix || '00',
+			firstName: profileData.firstName,
+			lastName: profileData.lastName,
+			birthDate: moment(profileData.birthDate).format('DD-MM-YYYY'),
+			billingAddress: {
+				street: profileData.billingAddress.street,
+				city: profileData.billingAddress.city,
+				postalCode: profileData.billingAddress.postalCode,
+				state: profileData.billingAddress.state || '',
+			},
+			email: profileData.email,
+			phone: profileData.phone,
+		}
+		
 		const userData = {
 			id: profileData.id,
-			country: e.target.country.value,
+			country: selectedCountry,
 			prefix: e.target.title.value,
 			firstName: e.target.first_name.value,
 			lastName: e.target.last_name.value,
@@ -42,8 +62,17 @@ export default ({ user }) => {
 			phone: e.target.phone.value,
 		}
 
-		updateProfile({ setErrors, setSuccess, userData })
-		//setLoading(false)
+		JSON.stringify(currentData) === JSON.stringify(userData) ? setErrors({ same: ['No changes made'] }) : updateProfile({ setErrors, setSuccess, userData })
+	}
+
+	const countries = {
+		GB: 'United Kingdom',
+		US: 'United States',
+		CA: 'Canada',
+		NZ: 'New Zealand',
+		JP: 'Japan',
+		AU: 'Australia',
+		ZR: 'Zimbabwe',
 	}
 
 	return (
@@ -97,29 +126,35 @@ export default ({ user }) => {
 						<FormInput
 							name="birth_date"
 							label="Date of birth"
-							value={profileData.birthDate}
+							value={moment(profileData.birthDate).format('DD-MM-YYYY')}
 						/>
 						<FormInput label="Phone" value={profileData.phone} />
 					</div>
 				</div>
 
 				<div className="flex-1 space-y-5">
-					<FormSelect
+					{/* <FormSelect
 						label="Country"
-						options={[
+						options={{[
 							'United Kingdom',
 							'United States',
 							'Canada',
 							'Uganda',
-						]}
+						]}}
 						isReq={true}
+					/> */}
+					<CustomFormSelect 
+						label="Country"
+						options={countries}
+						setFunction={setSelectedCountry}
+						selectedValue={selectedCountry}
 					/>
-					<FormInput label="Address" />
+					<FormInput label="Address" value={profileData.billingAddress.street}/>
 					<div className="flex gap-x-3">
-						<FormInput label="City" />
-						<FormInput label="State" />
+						<FormInput label="City" value={profileData.billingAddress.city}/>
+						<FormInput label="State" value={profileData.billingAddress.state}/>
 					</div>
-					<FormInput label="Post Code" isReq={true} />
+					<FormInput label="Post Code" isReq={true} value={profileData.billingAddress.postalCode}/>
 
 					<div className="flex justify-end">
 						<button
@@ -136,6 +171,12 @@ export default ({ user }) => {
 										loading !== true,
 								},
 							)}>
+							{loading && (
+								<svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block">
+									<circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25" fill="none" />
+									<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+								</svg>
+							)}
 							Update
 						</button>
 					</div>

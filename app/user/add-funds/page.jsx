@@ -74,6 +74,50 @@ export default () => {
 		addFunds({ setErrors, setSuccess, paymentPayload })
 	}
 
+	const cardValidation = () => {
+		function validateCVV(cvv) {
+			const cvvPattern = /^[0-9]{3,4}$/;
+			return cvvPattern.test(cvv);
+		}
+		function validateLuhnAlgorithm(cardNumber) {
+			let sum = 0;
+			let isEven = false;
+		
+			for (let i = cardNumber.length - 1; i >= 0; i--) {
+				let digit = parseInt(cardNumber.charAt(i), 10);
+		
+				if (isEven) {
+					digit *= 2;
+					if (digit > 9) {
+						digit -= 9;
+					}
+				}
+				sum += digit;
+				isEven = !isEven;
+			}
+			return sum % 10 === 0;
+		}
+		function validateExpirationDate(expirationMonth, expirationYear) {
+			const currentDate = new Date();
+			const currentYear = currentDate.getFullYear().toString();
+			const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+			console.log(currentYear, currentMonth, expirationYear, expirationMonth);
+		
+			if (expirationYear > currentYear) {
+				return true;
+			} else if (expirationYear === currentYear && expirationMonth >= currentMonth) {
+				return true;
+			}
+			return false;
+		}
+
+		return {
+			validateCVV: validateCVV,
+			validateLuhnAlgorithm: validateLuhnAlgorithm,
+			validateExpirationDate: validateExpirationDate,
+		};
+	}
+
 	const handleAddNewMethod = e => {
 		e.preventDefault()
 
@@ -85,7 +129,40 @@ export default () => {
 				method[field.name] = field.value
 			}
 		}
-		
+		if (method.cardNumber !== '') {
+			if (!cardValidation().validateLuhnAlgorithm(method.cardNumber)) {
+				setErrors({cvv: ['Invalid Card Number']})
+				return;
+			} else {
+				setErrors(false)
+			}
+		} else {
+			setErrors({cvv: ['Please enter a valid card number']})
+			return;
+		}
+		if (method.cardHolder === '') {
+			setErrors({cvv: ['Please enter cardholder name']})
+			return;
+		} else {
+			setErrors(false)
+		}
+		if (method.cvv !== '') {
+			if (!cardValidation().validateCVV(method.cvv)) {
+				setErrors({cvv: ['Invalid CVV']})
+				return;
+			} else {
+				setErrors(false)
+			}
+		} else {
+			setErrors({cvv: ['Please enter a valid cvv']})
+			return;
+		}
+		if (!cardValidation().validateExpirationDate(method.month, method.year)) {
+			setErrors({cvv: ['Invalid Expiry Date']})
+			return;
+		} else {
+			setErrors(false)
+		}
 		addMethod({ setErrors, setSuccess, method })
 	}
 	return (
@@ -156,8 +233,6 @@ export default () => {
 						Select a New Payment Method
 					</p>
 					<PaymentMethods methods={methods} setMethods={setMethods} selected={selected} setSelected={setSelected} setShowCardForm={setShowCardForm} setSelectedCard={setSelectedCard}/>
-					
-					{/* <PaymentMethods setShowCardForm={setShowCardForm} /> */}
 
 					<form
 						className={cx('mt-3', {
