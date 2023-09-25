@@ -128,18 +128,27 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 		setErrors(null)
 		setSuccess(false)
 
-		const { fund } = props
-		console.log(fund, '  ==> Fund From Auth Hook')
-
+		const { paymentPayload,setAddingFunds,setWalletBalance } = props
 		axios
-			.post('/add-funds', fund)
+			.post('/add-funds', paymentPayload)
 			.then(res => {
 				console.log(res, '  ==> Res')
 				mutate()
-				setSuccess(true)
+				if(res.data.status === 'success') {
+					setSuccess({PaymentResponse: [res.data.message]})
+					// Temporarily set the wallet balance in local storage.
+					const prevBalance = localStorage.getItem('walletBalance')
+					localStorage.setItem('walletBalance', Number(prevBalance)+Number(paymentPayload.amount))
+					setWalletBalance(Number(prevBalance)+Number(paymentPayload.amount))
+				} else {
+					console.log(res);
+					setErrors({PaymentResponse: [res.data.message]})
+				}
+				setAddingFunds(false)
 			})
 			.catch(error => {
 				console.log(error, '  ==> Error')
+				setAddingFunds(false)
 				if (error.response.status !== 422) throw error
 
 				setErrors(error.response.data.errors)
@@ -152,20 +161,32 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 		setErrors(null)
 		setSuccess(false)
 
-		const { method } = props
+		const { method , form, setShowCardForm, setAddingNewMethod, fetchPaymentMethods} = props
 
 		axios
 			.post('payment/gateways/new', method)
-			.then(() => {
+			.then((res) => {
 				mutate()
 				setSuccess(true)
+				if(res.data.status === 'success') {
+					form.reset()
+					setShowCardForm(false)
+					setSuccess({PaymentResponse: [res.data.message]})
+					fetchPaymentMethods()
+				} else {
+					console.log(res);
+					setErrors({PaymentResponse: [res.data.message]})
+				}
+				setAddingNewMethod(false)
 			})
 			.catch(error => {
+				setAddingNewMethod(false)
 				if (error.response.status !== 422) throw error
 
 				setErrors(error.response.data.errors)
 			})
 	}
+
 
 	const buyLottery = async ({ setErrors,setSuccess , ...props }) => {
 		await csrf()

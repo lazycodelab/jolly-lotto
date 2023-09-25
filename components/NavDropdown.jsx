@@ -4,13 +4,13 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default () => {
+export default ({navTitle , navType}) => {
     return (
         <Menu as="div" className="relative inline-block text-left">
             {({ open }) => (
                 <>
                     <Menu.Button className={`inline-flex w-full p-2 justify-center text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white ${open && 'bg-[#F2FEFF] border-[#C2D4D5] border-1 border-t border-l border-r'}`}>
-                        Lotteries
+                        {navTitle}
                         <ChevronDownIcon
                             className="ml-1 h-5 w-5"
                             aria-hidden="true"
@@ -29,7 +29,7 @@ export default () => {
                             <div className="flex flex-col">
                                 <Menu.Item>
                                     {({ active }) => (
-                                        <Link href={'/lotteries/1'}>
+                                        <Link href={`/lotteries/1${navType === 'results' ? '/results' : ''}`}>
                                             <div className={`max-w-sm w-full lg:max-w-full lg:flex cursor-pointer px-4 py-1.5 ${active ? 'bg-[#24484b] transition-colors' : ''}`}>
                                                 <div className="my-auto">
                                                     <Image
@@ -49,7 +49,7 @@ export default () => {
                                 </Menu.Item>
                                 <Menu.Item>
                                     {({active}) => (
-                                        <Link href={'/lotteries/2'}>
+                                        <Link href={`/lotteries/2${navType === 'results' ? '/results' : ''}`}>
                                             <div className={`max-w-sm w-full lg:max-w-full lg:flex cursor-pointer px-4 py-1.5 ${active ? 'bg-[#24484b] transition-colors text-white' : ''}`}>
                                                 <div className="my-auto">
                                                     <Image
@@ -69,7 +69,7 @@ export default () => {
                                 </Menu.Item>
                                 <Menu.Item>
                                     {({active}) => (
-                                        <Link href={'/lotteries/3'}>
+                                        <Link href={`/lotteries/3${navType === 'results' ? '/results' : ''}`}>
                                             <div className={`max-w-sm w-full lg:max-w-full lg:flex cursor-pointer px-4 py-1.5 ${active ? 'bg-[#24484b] transition-colors text-white' : ''}`}>
                                                 <div className="my-auto">
                                                     <Image

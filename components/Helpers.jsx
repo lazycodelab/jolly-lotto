@@ -60,3 +60,21 @@ export const getYears = () => {
 
 	return years
 }
+
+
+/**
+ *
+ * @returns Object
+ */
+export const getNextYears = () => {
+	let years = []
+
+	const currentYear = new Date().getFullYear()
+	const nextYears = currentYear + 30
+
+	for (let i = currentYear; i <= nextYears; i++) {
+		years[i] = i
+	}
+
+	return years
+}

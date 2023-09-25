@@ -2,9 +2,20 @@ import { ArrowDownTrayIcon, UserIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import IconWallet from '@/Icons/IconWallet'
 import { useAuth } from 'hooks/auth'
+import { useEffect } from 'react'
+import { useGlobalContext } from "@/../context/appProvider";
 
 export default () => {
 	const { user } = useAuth()
+	const { walletBalance } = useGlobalContext();
+
+	useEffect(() => {
+		if (user) {
+			if (localStorage.getItem('walletBalance') === null || localStorage.getItem('walletBalance') === undefined) {
+				localStorage.setItem('walletBalance', user.wallet.available)
+			}
+		}
+	}, [])
 
 	return (
 		user &&
@@ -29,7 +40,8 @@ export default () => {
 					<IconWallet
 						className={'mr-2 w-4 fill-current text-gray-500'}
 					/>
-					Balance:&nbsp;<strong>{user.wallet.currency.symbol}{user.wallet.available}</strong>
+					Balance:&nbsp;<strong>{user.wallet.currency.symbol}{walletBalance}</strong>
+					{/* Balance:&nbsp;<strong>{user.wallet.currency.symbol}{user.wallet.available}</strong> */}
 				</div>
 			</>
 		)

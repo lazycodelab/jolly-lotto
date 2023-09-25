@@ -27,8 +27,9 @@ export default () => {
 	return (
 		<div className="hidden items-center justify-between md:flex">
 			<nav className="space-x-10 text-sm">
-				<NavDropdown />
-				<NavLink href="/contact">Lottery Results</NavLink>
+				<NavDropdown navTitle={"Lotteries"} navType={"products"}/>
+				<NavDropdown navTitle={"Lottery Results"} navType={"results"}/>
+				{/* <NavLink href="/contact">Lottery Results</NavLink> */}
 				<NavLink href="/contact-us">Contact Us</NavLink>
 			</nav>
 			<div className="hidden items-center gap-x-2 md:flex">
