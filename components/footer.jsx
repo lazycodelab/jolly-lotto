@@ -1,12 +1,14 @@
-import React from 'react'
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
 import IconTwitter from './Icons/IconTwitter'
 import IconFacebook from './Icons/IconFacebook'
 import IconEnvelope from './Icons/IconEnvelope'
 import IconPhone from './Icons/IconPhone'
+import { useGlobalContext } from '@/../context/appProvider'
 
 export default () => {
+	const { lotteryProducts } = useGlobalContext()
 	const copyrightSymbol = String.fromCodePoint(0x000a9);
 	const MenuSection = ({ title, children, className }) => {
 		return (
@@ -36,26 +38,22 @@ export default () => {
 						</li>
 					</MenuSection>
 					<MenuSection title="Play Lotteries Online">
-						<li>
-							<FooterLink href="/lotteries/1">Australian 6/45</FooterLink>
-						</li>
-						<li>
-							<FooterLink href="/lotteries/3">Euro Millions</FooterLink>
-						</li>
-						<li>
-							<FooterLink href="/lotteries/2">Canadian 6/49</FooterLink>
-						</li>
+						{
+							lotteryProducts.map((product,index) => (
+								<li key={index}>
+									<FooterLink href={`/lotteries/${product.id}`}>{product.lotteryName}</FooterLink>
+								</li>
+							))
+						}
 					</MenuSection>
 					<MenuSection title="Lotto Results">
-						<li>
-							<FooterLink href="/lotteries/1/results">Australian 6/45</FooterLink>
-						</li>
-						<li>
-							<FooterLink href="/lotteries/3/results">Euro Millions</FooterLink>
-						</li>
-						<li>
-							<FooterLink href="/lotteries/2/results">Canadian 6/49</FooterLink>
-						</li>
+						{
+							lotteryProducts.map((product,index) => (
+								<li key={index}>
+									<FooterLink href={`/lotteries/${product.id}/results`}>{product.lotteryName}</FooterLink>
+								</li>
+							))
+						}
 					</MenuSection>
 					<MenuSection
 						title="Need Help"

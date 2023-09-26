@@ -78,3 +78,10 @@ export const getNextYears = () => {
 
 	return years
 }
+
+export const symbols = {
+	USD: '$',
+	AUD: 'AU$',
+	CAD: 'CA$',
+	EUR: '€',
+}
