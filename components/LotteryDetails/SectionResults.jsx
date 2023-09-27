@@ -53,13 +53,24 @@ export default ({ results,details }) => {
 										${row.jackpot}
 									</span>
 									<div className="flex flex-1 space-x-3">
-										{row.board.split(',').map(n => (
-											<span
-												key={n}
-												className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-300 text-xs">
-												{n}
-											</span>
-										))}
+										{
+											row.board.replace(/[:;].*/, '').split(',').map(n => (
+												<span
+													key={n}
+													className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-300 text-xs">
+													{n}
+												</span>
+											)) 
+										}
+										{
+											row.board.includes(':') || row.board.includes(';') ? row.board.replace(/.*[:;]/, '').split(' ').map(n => (
+												<span
+													key={n}
+													className="flex h-6 w-6 items-center justify-center rounded-full bg-yellow-200 text-xs">
+													{n}
+												</span>
+											)) : ''
+										}
 									</div>
 									<span className="flex items-center">
 										{open ? (
