@@ -4,6 +4,7 @@ import 'tailwindcss/tailwind.css'
 
 import Header from '@/header'
 import Footer from '@/footer'
+import { AppProvider } from "@/../context/appProvider";
 
 export const metadata = {
 	title: {
@@ -47,13 +48,15 @@ const impact = localFont({
 
 export default ({ children }) => {
 	return (
-		<html lang="en">
-			<body
-				className={`${heebo.variable} ${lato.variable} ${openSans.variable} ${impact.variable} relative`}>
-				<Header />
-				<main>{children}</main>
-				<Footer />
-			</body>
-		</html>
+		<AppProvider>
+			<html lang="en">
+				<body
+					className={`${heebo.variable} ${lato.variable} ${openSans.variable} ${impact.variable} relative`}>
+					<Header />
+					<main>{children}</main>
+					<Footer />
+				</body>
+			</html>
+		</AppProvider>
 	)
 }

@@ -3,14 +3,17 @@ import React, { Fragment } from 'react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import Image from 'next/image';
 import Link from 'next/link';
+import { useGlobalContext } from '@/../context/appProvider';
+import { symbols } from '@/Helpers'
 
-export default () => {
+export default ({navTitle , navType}) => {
+    const { lotteryProducts } = useGlobalContext()
     return (
         <Menu as="div" className="relative inline-block text-left">
             {({ open }) => (
                 <>
                     <Menu.Button className={`inline-flex w-full p-2 justify-center text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white ${open && 'bg-[#F2FEFF] border-[#C2D4D5] border-1 border-t border-l border-r'}`}>
-                        Lotteries
+                        {navTitle}
                         <ChevronDownIcon
                             className="ml-1 h-5 w-5"
                             aria-hidden="true"
@@ -27,66 +30,30 @@ export default () => {
                     >
                         <Menu.Items className="absolute rounded-t-none pt-2 pb-4 min-h-[300px] min-w-[400px] border-1 border-[#C2D4D5] z-10 left-0 mt-0 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-[#F2FEFF] ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <div className="flex flex-col">
-                                <Menu.Item>
-                                    {({ active }) => (
-                                        <Link href={'/lotteries/1'}>
-                                            <div className={`max-w-sm w-full lg:max-w-full lg:flex cursor-pointer px-4 py-1.5 ${active ? 'bg-[#24484b] transition-colors' : ''}`}>
-                                                <div className="my-auto">
-                                                    <Image
-                                                        src={`/images/lotteries/AU.png`}
-                                                        width={75}
-                                                        height={75}
-                                                        alt="icon"
-                                                    />
-                                                </div>
-                                                <div className="my-auto leading-normal ms-3">
-                                                    <p className={`font-bold text-base transition-colors ${active ? 'text-white' : 'text-[#24484B]'}`}>Australian 6/45</p>
-                                                    <p className={`text-base transition-colors ${active ? 'text-white' : 'text-[#656565]'}`}>AU$ 83 Million</p>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    )}
-                                </Menu.Item>
-                                <Menu.Item>
-                                    {({active}) => (
-                                        <Link href={'/lotteries/2'}>
-                                            <div className={`max-w-sm w-full lg:max-w-full lg:flex cursor-pointer px-4 py-1.5 ${active ? 'bg-[#24484b] transition-colors text-white' : ''}`}>
-                                                <div className="my-auto">
-                                                    <Image
-                                                        src={`/images/lotteries/CA.png`}
-                                                        width={75}
-                                                        height={75}
-                                                        alt="icon"
-                                                    />
-                                                </div>
-                                                <div className="my-auto leading-normal ms-3">
-                                                    <p className={`font-bold text-base transition-colors ${active ? 'text-white' : 'text-[#24484B]'}`}>Canadian 6/49</p>
-                                                    <p className={`text-base transition-colors ${active ? 'text-white' : 'text-[#656565]'}`}>CA$ 7.4 Million</p>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    )}
-                                </Menu.Item>
-                                <Menu.Item>
-                                    {({active}) => (
-                                        <Link href={'/lotteries/3'}>
-                                            <div className={`max-w-sm w-full lg:max-w-full lg:flex cursor-pointer px-4 py-1.5 ${active ? 'bg-[#24484b] transition-colors text-white' : ''}`}>
-                                                <div className="my-auto">
-                                                    <Image
-                                                        src={`/images/lotteries/ES.png`}
-                                                        width={75}
-                                                        height={75}
-                                                        alt="icon"
-                                                    />
-                                                </div>
-                                                <div className="my-auto leading-normal ms-3">
-                                                    <p className={`font-bold text-base transition-colors ${active ? 'text-white' : 'text-[#24484B]'}`}>Euromillions</p>
-                                                    <p className={`text-base transition-colors ${active ? 'text-white' : 'text-[#656565]'}`}>€53 Million</p>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    )}
-                                </Menu.Item>
+                                {
+                                    lotteryProducts.map((product,index) => (
+                                        <Menu.Item key={index}>
+                                            {({ active }) => (
+                                                <Link href={`/lotteries/${product.id}${navType === 'results' ? '/results' : ''}`}>
+                                                    <div className={`max-w-sm w-full lg:max-w-full lg:flex cursor-pointer px-4 py-1.5 ${active ? 'bg-[#24484b] transition-colors' : ''}`}>
+                                                        <div className="my-auto">
+                                                            <Image
+                                                                src={`/images/lotteries/${product.lottery.country_code}.png`}
+                                                                width={75}
+                                                                height={75}
+                                                                alt="icon"
+                                                            />
+                                                        </div>
+                                                        <div className="my-auto leading-normal ms-3">
+                                                            <p className={`font-bold text-base transition-colors ${active ? 'text-white' : 'text-[#24484B]'}`}>{product.lotteryName}</p>
+                                                            <p className={`text-base transition-colors ${active ? 'text-white' : 'text-[#656565]'}`}>{symbols[product.lottery.currency_code]}{product.price} MILLION</p>
+                                                        </div>
+                                                    </div>
+                                                </Link>
+                                            )}
+                                        </Menu.Item>
+                                    ))
+                                }
                                 <p className='underline text-[#00AEB9] text-center pt-4 cursor-pointer'>View More</p>
                             </div>
                         </Menu.Items>

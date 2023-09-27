@@ -2,6 +2,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { register } from 'swiper/element/bundle'
 import { Navigation, Pagination } from 'swiper/modules'
+import { useGlobalContext } from '@/../context/appProvider'
+import { symbols } from '@/Helpers'
 
 register()
 
@@ -14,7 +16,6 @@ import IconMoneyEnvelope from '@/Icons/IconMoneyEnvelope'
 import IconTick from '@/Icons/IconTick'
 import LotteryFrame from '@/lotteries/lottery-frame'
 import PlayButton from '@/play-button'
-import { getSingleProducts } from '../lib/api'
 
 const sectionData = [
 	{
@@ -127,7 +128,7 @@ const HeroSlider = ({ prods }) => {
 										{product.lotteryName}
 									</h2>
 									<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
-										${product.price} MILLION
+										{symbols[product.lottery.currency_code]}{product.price} MILLION
 									</h2>
 									<Link href={`/lotteries/${product.id}`}>
 										<button
@@ -149,14 +150,6 @@ const HeroSlider = ({ prods }) => {
 		</>
 	)
 }
-
-const symbols = {
-	USD: '$',
-	AUD: 'AU$',
-	CAD: 'CA$',
-	EUR: '€',
-}
-
 const getNextDrawTime = (drawDates) => {
 	const now = new Date();
 
@@ -426,27 +419,12 @@ const QualityCard = ({ data }) => (
 )
 
 export default () => {
-	const [singleProducts, setSingleProducts] = useState([])
-
-	useEffect(() => {
-		const fetchSingleProducts = async () => {
-			let products = await getSingleProducts()
-			// Removing any test products.
-			products = products
-				.filter(prod => !prod.name.includes('test'))
-				.sort((a, b) => b.price - a.price)
-			//const sortedProds = singleProducts
-			setSingleProducts(products)
-		}
-
-		fetchSingleProducts()
-	}, [])
-
+	const { lotteryProducts } = useGlobalContext()
 	return (
 		<>
 			{/* Hero section */}
 			<section>
-				<HeroSlider prods={singleProducts} />
+				<HeroSlider prods={lotteryProducts} />
 			</section>
 
 			{/* Products section */}
@@ -458,10 +436,10 @@ export default () => {
 					</h2>
 
 					<div className="mx-auto mt-10 hidden max-w-3xl md:block">
-						<LotteryCards prods={singleProducts} />
+						<LotteryCards prods={lotteryProducts} />
 					</div>
 					<div className="mx-auto mt-10 block max-w-3xl space-y-3 md:hidden">
-						<LotteryPills prods={singleProducts} />
+						<LotteryPills prods={lotteryProducts} />
 					</div>
 				</div>
 			</section>

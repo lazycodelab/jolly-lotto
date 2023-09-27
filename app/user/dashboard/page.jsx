@@ -5,8 +5,11 @@ import Link from 'next/link'
 import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
 import ProfileUpdate from '@/dashboard/ProfileUpdate'
+import ProfileLimit from '@/dashboard/ProfileLimit'
 import { useAuth } from 'hooks/auth'
 import React , { useEffect } from 'react'
+import ProfileOrders from '@/dashboard/ProfileOrders'
+import ProfilePaymentMethods from '@/dashboard/ProfilePaymentMethods'
 
 export default () => {
 	const { user } = useAuth()
@@ -85,9 +88,7 @@ export default () => {
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
-									If youre unhappy with your purchase for any
-									reason, email us within 90 days and well
-									refund you in full, no questions asked.
+									<ProfileOrders />
 								</Disclosure.Panel>
 							</>
 						)}
@@ -103,9 +104,7 @@ export default () => {
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
-									If youre unhappy with your purchase for any
-									reason, email us within 90 days and well
-									refund you in full, no questions asked.
+									<ProfileLimit />
 								</Disclosure.Panel>
 							</>
 						)}
@@ -121,9 +120,7 @@ export default () => {
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
-									If youre unhappy with your purchase for any
-									reason, email us within 90 days and well
-									refund you in full, no questions asked.
+									<ProfilePaymentMethods />
 								</Disclosure.Panel>
 							</>
 						)}

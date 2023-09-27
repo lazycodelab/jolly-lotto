@@ -7,11 +7,13 @@ import { useAuth } from 'hooks/auth'
 import FormInput from '@/FormInput'
 import FormSelect from '@/FormSelect'
 import PaymentMethods from '@/PaymentMethods'
-import { getMonths, getYears } from '@/Helpers'
+import { getMonths, getNextYears} from '@/Helpers'
 import axios from 'lib/axios'
+import { useGlobalContext } from "@/../context/appProvider";
 
 export default () => {
 	const { user, addFunds, addMethod } = useAuth()
+	const { setWalletBalance } = useGlobalContext();
 	const router = useRouter()
 	const [showBillingForm, setShowBillingForm] = useState(false)
 	const [errors, setErrors] = useState(false)
@@ -20,21 +22,29 @@ export default () => {
 	const [showCardForm, setShowCardForm] = useState(false)
 	// For Payment Methods
 	const [methods, setMethods] = useState([])
+	const [isFeteched, setIsFeteched] = useState(false);
 	const [selected, setSelected] = useState();
 	const [selectedCard, setSelectedCard] = useState(0);
+	const [addingNewMethod, setAddingNewMethod] = useState(false);
 	// For Funds
 	const [addFundsAmount, setAddFundsAmount] = useState(5);
 	const [isFundsBelowMin, setIsFundsBelowMin] = useState(false);
+	const [addingFunds, setAddingFunds] = useState(false);
 
+	const fetchPaymentMethods = () => {
+		setIsFeteched(false)
+		axios.get('/payment/gateways').then(({ data }) => {
+			setMethods(data);
+			setSelected(data[0]?.cardHolder);
+			setIsFeteched(true)
+		})
+	}
 
 	useEffect(() => {
 		if (!router.isFallback && !user) {
 			router.push('/login')
 		} else {
-			axios.get('/payment/gateways').then(({ data }) => {
-				setMethods(data);
-				setSelected(data[0]?.cardHolder);
-			})
+			fetchPaymentMethods()
 		}
 	}, [])
 
@@ -60,8 +70,8 @@ export default () => {
 		} else {
 			setErrors(false);
 		}
+		setAddingFunds(true);
 		const paymentPayload = {
-			id: user.profile.id,
 			mode: 'card',
 			amount: addFundsAmount,
 			paymentMethodCode:methods[selectedCard].paymentMethodCode,
@@ -71,7 +81,7 @@ export default () => {
 			expiryMonth:methods[selectedCard].month,
 			expiryYear:methods[selectedCard].year,
 		};
-		addFunds({ setErrors, setSuccess, paymentPayload })
+		addFunds({ setErrors, setSuccess, paymentPayload, setAddingFunds, setWalletBalance })
 	}
 
 	const cardValidation = () => {
@@ -101,7 +111,6 @@ export default () => {
 			const currentDate = new Date();
 			const currentYear = currentDate.getFullYear().toString();
 			const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-			console.log(currentYear, currentMonth, expirationYear, expirationMonth);
 		
 			if (expirationYear > currentYear) {
 				return true;
@@ -120,7 +129,6 @@ export default () => {
 
 	const handleAddNewMethod = e => {
 		e.preventDefault()
-
 		const form = e.target
 		const method = {}
 
@@ -163,7 +171,8 @@ export default () => {
 		} else {
 			setErrors(false)
 		}
-		addMethod({ setErrors, setSuccess, method })
+		setAddingNewMethod(true)
+		addMethod({ setErrors, setSuccess, method, form, setShowCardForm, setAddingNewMethod, fetchPaymentMethods})
 	}
 	return (
 		<section className="mx-auto max-w-5xl py-5">
@@ -180,6 +189,15 @@ export default () => {
 					<ul>
 						{Object.keys(errors)?.map(key => (
 							<li key={key}>{errors[key][0]}</li>
+						))}
+					</ul>
+				</div>
+			)}
+			{success && (
+				<div className="mt-3 border-2 border-green-300 bg-green-300/60 px-3 py-2 text-sm text-slate-900">
+					<ul>
+						{Object.keys(success)?.map(key => (
+							<li key={key}>{success[key][0]}</li>
 						))}
 					</ul>
 				</div>
@@ -232,7 +250,14 @@ export default () => {
 					<p className="font-medium">
 						Select a New Payment Method
 					</p>
-					<PaymentMethods methods={methods} setMethods={setMethods} selected={selected} setSelected={setSelected} setShowCardForm={setShowCardForm} setSelectedCard={setSelectedCard}/>
+					{
+						isFeteched === true ? (
+							<PaymentMethods methods={methods} setMethods={setMethods} selected={selected} setSelected={setSelected} setShowCardForm={setShowCardForm} setSelectedCard={setSelectedCard}/>
+						) :
+						(
+							<p className='text-center text-lg mt-2'>Loading...</p>
+						)
+					}
 
 					<form
 						className={cx('mt-3', {
@@ -257,7 +282,7 @@ export default () => {
 							<FormSelect
 								name="year"
 								label="Expiry Year"
-								options={getYears()}
+								options={getNextYears()}
 							/>
 						</div>
 						<div className="mt-2 flex items-center gap-x-2">
@@ -278,7 +303,26 @@ export default () => {
 						</div>
 						<button
 							type="submit"
-							className="mt-5 rounded-md bg-gradient-to-r from-orange-400 to-orange-500 px-7 py-1.5 text-base text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
+							className={`mt-5 relative rounded-md px-8 py-2 ${addingNewMethod ? 'bg-slate-400 cursor-not-allowed' : 'bg-gradient-to-r from-orange-400 to-orange-500 shadow-orange-700 hover:from-orange-500 hover:to-orange-400'} w-full py-1.5 text-base text-white shadow-md`}
+							{...(addingNewMethod && { disabled: true })}
+							>
+							{addingNewMethod && (
+								<div className='absolute'>
+									<svg 
+										xmlns="http://www.w3.org/2000/svg"
+										width="24"
+										height="24"
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="#FFFFFF"
+										strokeWidth='2'
+										strokeLinecap='round'
+										strokeLinejoin='round'
+										className='animate-spin h-6 w-6'>
+										<path d="M21 12a9 9 0 11-6.219-8.56" />
+									</svg>
+								</div>
+							)}
 							Add Card
 						</button>
 					</form>
@@ -314,7 +358,26 @@ export default () => {
 			<button
 				onClick={handleAddPayment}
 				type="button"
-				className="mt-5 w-full rounded-md bg-gradient-to-r from-orange-400 to-orange-500 px-14 py-3 text-lg text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400">
+				className={`mt-5 w-full rounded-md ${addingFunds ? 'bg-slate-400 cursor-not-allowed' : 'bg-gradient-to-r from-orange-400 to-orange-500 shadow-orange-700 hover:from-orange-500 hover:to-orange-400'} px-14 py-3 text-lg text-white shadow-md`}
+				{...(addingFunds && { disabled: true })}
+				>
+				{addingFunds && (
+					<div className='absolute'>
+						<svg 
+							xmlns="http://www.w3.org/2000/svg"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							fill="none"
+							stroke="#FFFFFF"
+							strokeWidth='2'
+							strokeLinecap='round'
+							strokeLinejoin='round'
+							className='animate-spin h-7 w-7'>
+							<path d="M21 12a9 9 0 11-6.219-8.56" />
+						</svg>
+					</div>
+				)}
 				Add Funds
 			</button>
 		</section>
