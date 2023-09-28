@@ -9,14 +9,6 @@ export default () => {
 	const { user } = useAuth()
 	const { walletBalance } = useGlobalContext();
 
-	useEffect(() => {
-		if (user) {
-			if (localStorage.getItem('walletBalance') === null || localStorage.getItem('walletBalance') === undefined) {
-				localStorage.setItem('walletBalance', user.wallet.available)
-			}
-		}
-	}, [])
-
 	return (
 		user &&
 		user.statusCode === 200 && (
@@ -40,8 +32,23 @@ export default () => {
 					<IconWallet
 						className={'mr-2 w-4 fill-current text-gray-500'}
 					/>
-					Balance:&nbsp;<strong>{user.wallet.currency.symbol}{walletBalance}</strong>
-					{/* Balance:&nbsp;<strong>{user.wallet.currency.symbol}{user.wallet.available}</strong> */}
+					Balance:&nbsp;
+					<strong>
+					{
+						<>
+							<div className='flex'>
+								<span>{user.wallet.currency.symbol}</span> 
+								<p>{walletBalance || 
+								<>
+									<svg className="animate-spin h-[15px] w-[15px] ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+										<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+										<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+									</svg>
+								</>}</p> 
+							</div>
+						</>
+					}
+					</strong>
 				</div>
 			</>
 		)

@@ -1,5 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
+import React,{ useEffect,useState } from 'react'
 import ErrorPage from 'next/error'
 import Link from 'next/link'
 import { Disclosure } from '@headlessui/react'
@@ -7,7 +8,6 @@ import { ChevronUpIcon } from '@heroicons/react/20/solid'
 import ProfileUpdate from '@/dashboard/ProfileUpdate'
 import ProfileLimit from '@/dashboard/ProfileLimit'
 import { useAuth } from 'hooks/auth'
-import React , { useEffect } from 'react'
 import ProfileOrders from '@/dashboard/ProfileOrders'
 import ProfilePaymentMethods from '@/dashboard/ProfilePaymentMethods'
 
@@ -16,12 +16,12 @@ export default () => {
 	const router = useRouter()
 
 	useEffect(() => {
-		if (!router.isFallback && !user) {
+		if (user === '') {
 			router.push('/login')
 		}
-	}, [])
+	}, [user])
 
-	if (!router.isFallback && !user) {
+	if (user === '') {
 		return <ErrorPage title="Unauthorized" statusCode={401} />
 	}
 

@@ -41,14 +41,14 @@ export default () => {
 	}
 
 	useEffect(() => {
-		if (!router.isFallback && !user) {
+		if (user === '') {
 			router.push('/login')
 		} else {
 			fetchPaymentMethods()
 		}
 	}, [])
 
-	if (!router.isFallback && !user) {
+	if (user === '') {
 		return <ErrorPage title="Unauthorized" statusCode={401} />
 	}
 

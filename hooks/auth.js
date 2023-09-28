@@ -136,10 +136,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 				mutate()
 				if(res.data.status === 'success') {
 					setSuccess({PaymentResponse: [res.data.message]})
-					// Temporarily set the wallet balance in local storage.
-					const prevBalance = localStorage.getItem('walletBalance')
-					localStorage.setItem('walletBalance', Number(prevBalance)+Number(paymentPayload.amount))
-					setWalletBalance(Number(prevBalance)+Number(paymentPayload.amount))
+					setWalletBalance((prevBalance) => Number(prevBalance)+Number(paymentPayload.amount))
 				} else {
 					console.log(res);
 					setErrors({PaymentResponse: [res.data.message]})

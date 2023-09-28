@@ -2,10 +2,12 @@
 
 import React, { useState, useContext, useEffect } from "react";
 import { getSingleProducts } from '@../../lib/api'
+import { useAuth } from '@/../hooks/auth'
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
-  const [walletBalance, setWalletBalance] = useState(0);
+  const { user } = useAuth()
+  const [walletBalance, setWalletBalance] = useState('');
   const [lotteryProducts, setLotteryProducts] = useState([]);
   // Fetch Lottery Products
   const fetchSingleProducts = async () => {
@@ -15,9 +17,13 @@ const AppProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    setWalletBalance(localStorage.getItem('walletBalance') || 0)
-    if(walletBalance === 0) fetchSingleProducts()
-  }, [walletBalance]);
+    if(walletBalance === '') fetchSingleProducts()
+    setTimeout(() => {
+      if (user) {
+        setWalletBalance(user.wallet.withDrawal)
+			}
+    }, 500);
+  }, [user]);
   
   return (
     <AppContext.Provider
