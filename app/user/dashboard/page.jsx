@@ -51,21 +51,21 @@ export default () => {
 					</Link>
 				</div>
 			</nav>
-			<section className="mx-auto max-w-5xl">
+			<section className="mx-auto max-w-5xl px-2">
 				<p className="mt-5">
 					<span className="font-bold">Current Account Status: </span>
 					<span className="text-green-500">Active</span>
 				</p>
 
-				<div className="mx-auto w-full divide-y divide-black bg-white p-2">
+				<div className="mx-auto w-full divide-y divide-black bg-white mb-20 mt-5 border-2">
 					<Disclosure as="div">
 						{({ open }) => (
 							<>
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
 									<span>Profile</span>
 									<ChevronUpIcon
-										className={`${open ? 'rotate-180 transform' : ''
-											} h-5 w-5 text-purple-500`}
+										className={`${open ? 'transform rotate-0' : 'rotate-180'
+											} h-5 w-5 text-cyan-500 transition-all`}
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-10 text-sm text-gray-500">
@@ -83,11 +83,11 @@ export default () => {
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
 									<span>Order History</span>
 									<ChevronUpIcon
-										className={`${open ? 'rotate-180 transform' : ''
-											} h-5 w-5 text-purple-500`}
+										className={`${open ? 'transform rotate-0' : 'rotate-180'
+											} h-5 w-5 text-cyan-500 transition-all`}
 									/>
 								</Disclosure.Button>
-								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
+								<Disclosure.Panel className="text-sm text-gray-500 overflow-x-auto">
 									<ProfileOrders />
 								</Disclosure.Panel>
 							</>
@@ -99,8 +99,8 @@ export default () => {
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
 									<span>Limits</span>
 									<ChevronUpIcon
-										className={`${open ? 'rotate-180 transform' : ''
-											} h-5 w-5 text-purple-500`}
+										className={`${open ? 'transform rotate-0' : 'rotate-180'
+											} h-5 w-5 text-cyan-500 transition-all`}
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
@@ -115,8 +115,8 @@ export default () => {
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
 									<span>Payment Methods</span>
 									<ChevronUpIcon
-										className={`${open ? 'rotate-180 transform' : ''
-											} h-5 w-5 text-purple-500`}
+										className={`${open ? 'transform rotate-0' : 'rotate-180'
+											} h-5 w-5 text-cyan-500 transition-all`}
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">

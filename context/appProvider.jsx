@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { getSingleProducts } from '@../../lib/api'
 import { useAuth } from '@/../hooks/auth'
 const AppContext = React.createContext();
@@ -9,6 +9,7 @@ const AppProvider = ({ children }) => {
   const { user } = useAuth()
   const [walletBalance, setWalletBalance] = useState('');
   const [lotteryProducts, setLotteryProducts] = useState([]);
+  const fetchInProgressRef = useRef(false);
   // Fetch Lottery Products
   const fetchSingleProducts = async () => {
     let products = await getSingleProducts()
@@ -17,12 +18,21 @@ const AppProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    if(walletBalance === '') fetchSingleProducts()
     setTimeout(() => {
       if (user) {
         setWalletBalance(user.wallet.withDrawal)
 			}
     }, 500);
+
+    if (!fetchInProgressRef.current) {
+      fetchInProgressRef.current = true;
+      fetchSingleProducts().then(() => {
+        fetchInProgressRef.current = false;
+      })
+      .catch((error) => {
+        fetchInProgressRef.current = false;
+      });
+    }
   }, [user]);
   
   return (
