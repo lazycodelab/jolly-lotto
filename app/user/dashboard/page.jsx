@@ -10,10 +10,13 @@ import ProfileLimit from '@/dashboard/ProfileLimit'
 import { useAuth } from 'hooks/auth'
 import ProfileOrders from '@/dashboard/ProfileOrders'
 import ProfilePaymentMethods from '@/dashboard/ProfilePaymentMethods'
+import NavSection from '@/dashboard/NavSection'
 
 export default () => {
 	const { user } = useAuth()
 	const router = useRouter()
+	const [activeNav,setActiveNav] = useState('');
+
 
 	useEffect(() => {
 		if (user === '') {
@@ -25,32 +28,17 @@ export default () => {
 		return <ErrorPage title="Unauthorized" statusCode={401} />
 	}
 
+	const setActiveNavigation = (nav) => {
+		if (activeNav === nav) {
+			setActiveNav('');
+		} else {
+			setActiveNav(nav);
+		}
+	}
+
 	return (
 		<>
-			<nav className="bg-gray-200">
-				<div className="container mx-auto flex max-w-md items-center justify-center space-x-5 py-3">
-					<Link
-						className="border-b-2 border-slate-300 hover:border-slate-500"
-						href="/account">
-						Account
-					</Link>
-					<Link
-						className="border-b-2 border-slate-300 hover:border-slate-500"
-						href="/account">
-						Wallet
-					</Link>
-					<Link
-						className="border-b-2 border-slate-300 hover:border-slate-500"
-						href="/account">
-						Orders
-					</Link>
-					<Link
-						className="border-b-2 border-slate-300 hover:border-slate-500"
-						href="/account">
-						Notifications
-					</Link>
-				</div>
-			</nav>
+			<NavSection selected={activeNav} />
 			<section className="mx-auto max-w-5xl px-2">
 				<p className="mt-5">
 					<span className="font-bold">Current Account Status: </span>
@@ -58,7 +46,7 @@ export default () => {
 				</p>
 
 				<div className="mx-auto w-full divide-y divide-black bg-white mb-20 mt-5 border-2">
-					<Disclosure as="div">
+					<Disclosure as="div" onClick={() => setActiveNavigation('Profile')}>
 						{({ open }) => (
 							<>
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
@@ -77,7 +65,7 @@ export default () => {
 							</>
 						)}
 					</Disclosure>
-					<Disclosure as="div">
+					<Disclosure as="div" onClick={() => setActiveNavigation('Order History')}>
 						{({ open }) => (
 							<>
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
@@ -121,6 +109,22 @@ export default () => {
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
 									<ProfilePaymentMethods />
+								</Disclosure.Panel>
+							</>
+						)}
+					</Disclosure>
+					<Disclosure as="div" onClick={() => setActiveNavigation('Notification')}>
+						{({ open }) => (
+							<>
+								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
+									<span>Notifications</span>
+									<ChevronUpIcon
+										className={`${open ? 'transform rotate-0' : 'rotate-180'
+											} h-5 w-5 text-cyan-500 transition-all`}
+									/>
+								</Disclosure.Button>
+								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
+									<p className='text-center mb-2 font-bold'>No Notifcation!</p>
 								</Disclosure.Panel>
 							</>
 						)}
