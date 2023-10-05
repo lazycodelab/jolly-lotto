@@ -91,7 +91,7 @@ export default () => {
 											} h-5 w-5 text-cyan-500 transition-all`}
 									/>
 								</Disclosure.Button>
-								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
+								<Disclosure.Panel className="px-4 pb-2 text-sm text-gray-500">
 									<ProfileLimit />
 								</Disclosure.Panel>
 							</>
@@ -107,7 +107,7 @@ export default () => {
 											} h-5 w-5 text-cyan-500 transition-all`}
 									/>
 								</Disclosure.Button>
-								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
+								<Disclosure.Panel className="px-4 pb-2 text-sm text-gray-500">
 									<ProfilePaymentMethods />
 								</Disclosure.Panel>
 							</>

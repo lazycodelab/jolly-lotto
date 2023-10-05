@@ -304,6 +304,32 @@ export default () => {
 									Use my stored address as billing address.
 								</label>
 							</div>
+							{/* Billing Address */}
+							{showBillingForm && (
+								<div className="mt-5">
+									<h3 className="text-xl font-medium">Billing Address</h3>
+
+									<FormSelect
+										label="Country"
+										options={{
+											UK: 'United Kingdom',
+											US: 'United States',
+											CA: 'Canada',
+											NZ: 'New Zealand',
+											JP: 'Japan',
+											AU: 'Australia'
+										}}
+									/>
+									<div className="mt-2 flex gap-x-3">
+										<FormInput label="Address" isReq={true} />
+									</div>
+									<div className="flex gap-x-3">
+										<FormInput label="City" name='city' isReq={true} />
+										<FormInput label="State" name='state' isReq={true} />
+										<FormInput label="Post Code" name="postalCode" isReq={true} />
+									</div>
+								</div>
+							)}
 							<button
 								type="submit"
 								className={`mt-5 relative rounded-md px-8 py-2 ${addingNewMethod ? 'bg-slate-400 cursor-not-allowed' : 'bg-gradient-to-r from-orange-400 to-orange-500 shadow-orange-700 hover:from-orange-500 hover:to-orange-400'} w-full py-1.5 text-base text-white shadow-md`}
@@ -331,31 +357,6 @@ export default () => {
 						</form>
 					</div>
 				</div>
-
-				{/* Billing Address */}
-				{showBillingForm && (
-					<div className="mt-5">
-						<h3 className="text-xl font-medium">Billing Address</h3>
-
-						<FormSelect
-							label="Country"
-							options={[
-								'United States',
-								'Canada',
-								'United Kingdom',
-							]}
-						/>
-
-						<div className="mt-2 flex gap-x-3">
-							<FormInput label="Address" />
-							<FormInput label="Pin Code" />
-						</div>
-						<div className="mt-2 flex gap-x-3">
-							<FormInput label="City" />
-							<FormInput label="Province" />
-						</div>
-					</div>
-				)}
 
 				<hr className="mt-5" />
 				<button

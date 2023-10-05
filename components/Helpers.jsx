@@ -84,4 +84,5 @@ export const symbols = {
 	AUD: 'AU$',
 	CAD: 'CA$',
 	EUR: '€',
+	GBP: '£',
 }
