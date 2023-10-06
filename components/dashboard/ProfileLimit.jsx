@@ -101,7 +101,7 @@ export default () => {
             {dataFetched ? (
                 <form className="mb-8 grid gap-4 grid-cols-1 lg:grid-cols-3" onSubmit={handleUpdateLimitForm}>
                     <div className="flex-1 space-y-5">
-                        <input class="w-full border-2 border-slate-300 bg-zinc-100 p-2 text-sm ring-0 focus:ring-0 hover:border-[#00D4E3] focus:bg-[#EDFBFC]" placeholder="Limit" type="text" defaultValue={playLimit} name="play_limit" onChange={(e) => setPlayLimit(e.target.value)}/>
+                        <input className="w-full border-2 border-slate-300 bg-zinc-100 p-2 text-sm ring-0 focus:ring-0 hover:border-[#00D4E3] focus:bg-[#EDFBFC]" placeholder="Limit" type="text" defaultValue={playLimit} name="play_limit" onChange={(e) => setPlayLimit(e.target.value)}/>
                         <select className="w-full border-2 border-slate-300 bg-zinc-100 p-2 text-sm ring-0 focus:ring-0 hover:border-[#00D4E3] focus:bg-[#EDFBFC]" onChange={(e) => setPlayLimitDuration(e.target.value)} defaultValue={playLimitDuration}>
                             {
                                 Object.keys(perDayData).map((key,index) => (
@@ -123,7 +123,7 @@ export default () => {
                         </div>
                     </div>
                     <div className="flex-1 space-y-5">
-                        <input class="w-full border-2 border-slate-300 bg-zinc-100 p-2 text-sm ring-0 focus:ring-0 hover:border-[#00D4E3] focus:bg-[#EDFBFC]" placeholder="Limit" type="text" defaultValue={depositLimit} name="deposit_limit" onChange={(e) => setDepositLimit(e.target.value)}/>
+                        <input className="w-full border-2 border-slate-300 bg-zinc-100 p-2 text-sm ring-0 focus:ring-0 hover:border-[#00D4E3] focus:bg-[#EDFBFC]" placeholder="Limit" type="text" defaultValue={depositLimit} name="deposit_limit" onChange={(e) => setDepositLimit(e.target.value)}/>
                         <select className="w-full border-2 border-slate-300 bg-zinc-100 p-2 text-sm ring-0 focus:ring-0 hover:border-[#00D4E3] focus:bg-[#EDFBFC]" onChange={(e) => setDepositLimitDuration(e.target.value)} defaultValue={depositLimitDuration}>
                             {
                                 Object.keys(perDayData).map((key,index) => (

@@ -33,7 +33,7 @@ export default () => {
         const paymentMethodID = methods[index].id;
         axios.delete(`/payment/gateways/${paymentMethodID}`).then(({data}) => {
             if (data.status === 'success') {
-                setSuccess({card: ['Card Deleted Successfully']})
+                setSuccess({card: ['Card Deleted Successfully!']})
                 methods.splice(index, 1)
             } else {
                 setErrors({card: [data.message]})
@@ -172,10 +172,10 @@ export default () => {
                     <h1 className='mb-3 font-bold text-lg text-black'>Select Payment Method</h1>
                     <div className="mx-auto w-full max-w-md">
                         {
-                            isPaymentMethodFetched && methods.length === 0 && <p className='text-center text-orange-400 font-bold'>No Payment Method Found</p>
+                            isPaymentMethodFetched && methods.length === 0 && <p className='text-center my-8 text-orange-400 font-bold'>No Payment Method Found</p>
                         }
                         {
-                            isPaymentMethodFetched === true ? (
+                            isPaymentMethodFetched === true && methods.length > 0 ? (
                                 <>
                                     <RadioGroup value={selected} onChange={setSelected}>
                                         <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
@@ -223,10 +223,10 @@ export default () => {
                                         </div>
                                     </RadioGroup>
                                     {
-                                        isDeleting ? <p className='text-end text-orange-400 font-bold mt-2 cursor-not-allowed'>Deleting...</p> : <p className='text-end underline mt-2 cursor-pointer' onClick={() => deletePaymentMethod()}>Remove Selected Payment Method</p>
+                                        isDeleting ? (<p className='text-end text-orange-400 font-bold mt-2 cursor-not-allowed'>Deleting...</p>) : (<p className='text-end underline mt-2 cursor-pointer' onClick={() => deletePaymentMethod()}>Remove Selected Payment Method</p>)
                                     }
                                 </>
-                            ) : (
+                            ) : isPaymentMethodFetched !== true ? (
                                 <>
                                     {[...Array(3)].map((data,index) => (
                                         <div className="space-y-5 animate-pulse rounded-lg bg-white/5 p-3 border my-2" key={index}>
@@ -240,7 +240,7 @@ export default () => {
                                         </div>
                                     ))}
                                 </>
-                            )
+                            ) : ''
                         }
                     </div>
                 </div>
