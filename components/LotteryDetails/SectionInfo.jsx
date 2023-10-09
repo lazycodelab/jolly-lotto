@@ -1,12 +1,13 @@
 import Image from 'next/image'
 
-export default ({ lotteryType }) => {
+export default ({ lotteryType , details}) => {
+	console.log(details);
 	return (
 		<section className={`mt-10 px-6 py-10 ${lotteryType.primaryColor}`}>
 			<div className="mx-auto flex flex-wrap justify-between md:max-w-6xl md:flex-nowrap md:gap-x-5">
 				<div className="md:max-w-xl md:flex-1">
 					<h2 className="text-2xl font-semibold text-teal-600">
-						Experience Australia&apos;s Oldest National Lottery
+						Experience {details.lotteryName} Oldest National Lottery
 					</h2>
 					<p className="text-sm text-cyan-900">
 						Step into the world of Australia&apos;s oldest national
@@ -293,7 +294,7 @@ export default ({ lotteryType }) => {
 							</div>
 						</details>
 						<details className="cursor-pointer px-3 py-4">
-							<summary>Why Choose Australian Lotto 6/45?</summary>
+							<summary>Why Choose {details.lotteryName}?</summary>
 							<div className="px-5 pt-5">
 								<strong>
 									Step into the World of Australian Lotto 6/45
