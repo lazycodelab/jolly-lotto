@@ -96,7 +96,7 @@ export default ({ params }) => {
 					/>
 				) : null}
 
-				<SectionInfo lotteryType={lotteryType} />
+				<SectionInfo lotteryType={lotteryType} details={details}/>
 			</>
 		) : (
 			<div className="container mx-auto flex justify-center max-w-6xl items-center">
