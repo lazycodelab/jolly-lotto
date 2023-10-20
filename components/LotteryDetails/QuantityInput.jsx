@@ -1,6 +1,14 @@
 import cl from 'classnames'
 
-export default ({ weeks, setWeeks }) => {
+export default ({ weeks, setWeeks, setUserClick}) => {
+	const handleWeeks = (handleType) => {
+		if (handleType === 'add') {
+			setWeeks(state => state + 1)
+		} else {
+			setWeeks(state => (state > 1 ? state - 1 : state))
+		}
+		setUserClick(true)
+	}
 	return (
 		<div className="flex gap-x-2.5">
 			<button
@@ -12,9 +20,7 @@ export default ({ weeks, setWeeks }) => {
 						'bg-cyan-400 hover:bg-cyan-500': weeks > 1,
 					},
 				)}
-				onClick={() =>
-					setWeeks(state => (state > 1 ? state - 1 : state))
-				}>
+				onClick={() => handleWeeks('minus')}>
 				-
 			</button>
 			<div className="flex w-full flex-col items-center justify-center border-2 border-slate-300 bg-zinc-100">
@@ -34,7 +40,7 @@ export default ({ weeks, setWeeks }) => {
 				className={cl(
 					'flex h-16 w-14 items-center justify-center rounded-br-xl rounded-tr-xl bg-cyan-400 text-3xl text-white hover:bg-cyan-500',
 				)}
-				onClick={() => setWeeks(state => state + 1)}>
+				onClick={() => handleWeeks('add')}>
 				+
 			</button>
 		</div>

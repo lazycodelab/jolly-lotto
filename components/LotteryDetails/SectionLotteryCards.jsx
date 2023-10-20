@@ -4,6 +4,7 @@ import QuantityInput from './QuantityInput'
 import LineCard from './LineCard'
 import IconAdd from '@/Icons/IconAdd'
 import { generateRandomNum } from '@/Helpers'
+import axios from 'lib/axios'
 
 export default ({ details }) => {
 	const balls = details?.lottery?.balls ?? 0
@@ -12,6 +13,12 @@ export default ({ details }) => {
 	const price = details?.prices?.price
 	const [drawDays, setDrawDays] = useState([])
 	const [selectedDrawDays, setSelectedDrawDays] = useState(0)
+	// For Saving Details
+	const [userClick, setUserClick] = useState(false)
+
+	const saveProductDetails = () => {
+		axios.post('/saveProductDetails', getCurrentDetailsToSave())
+	}
 
 	const LotteryLinesList = () => {
 		let g = []
@@ -39,9 +46,25 @@ export default ({ details }) => {
 
 	useEffect(() => {
 		LotteryLinesList()
-
 		drawDates()
+
+		axios.get('/getSavedProductDetails').then((res) => {
+            if (res.data) {
+				const { lotteryLines, weekNumber, drawDays, selectedDrawDays } = res.data[details.id];
+				setLotteryLines(lotteryLines);
+				setSelectedDrawDays(selectedDrawDays)
+				setWeeks(weekNumber)
+				setDrawDays(drawDays)
+            }
+        }).catch((err) => console.log(err));
 	}, [])
+
+	useEffect(() => {
+		if (userClick === true && userClick !== undefined) {
+			saveProductDetails()
+			setUserClick(false)
+		}
+	}, [lotteryLines,weeks,drawDays,selectedDrawDays,userClick]);
 
 	const handleClearAll = () => {
 		for (let i = 0; i <= lotteryLines.length; i++) {
@@ -51,7 +74,7 @@ export default ({ details }) => {
 
 	const addLotteryLine = () => {
 		const rng = generateRandomNum(balls.total, balls.max)
-		const bonusRng = balls.bonus?.length > 0 ? generateRandomNum(balls.bonus[0].ballNumber, balls.bonus[0].maxNumber) : [];
+		const bonusRng = balls.bonus?.length > 0 ? generateRandomNum(balls.bonus[0].ballNumber, balls.bonus[0].maxNumber) : [];	
 
 		return {
 			completed: true,
@@ -76,19 +99,36 @@ export default ({ details }) => {
 			),
 		)
 	}
+	
 
-	const quickPickAllBalls = () => {
-		for (let i = 0; i <= lotteryLines.length; i++) {
-			quickPickBalls(i)
+	const quickPickAllBalls = async () => {
+		for (let i = 0; i < lotteryLines.length; i++) {
+			await quickPickBalls(i);
 		}
+		setUserClick(true)
+	}
+
+	const getCurrentDetailsToSave = () => {
+		const productDetails = { id : details.id, name: details.name }
+		const currentDetails = {
+			lotteryLines,
+			weeks,
+			drawDays,
+			selectedDrawDays,
+			price,
+			productDetails,
+		}
+
+		return currentDetails
 	}
 
 	const AddQuickCard = () => (
 		<div
 			className="flex w-full items-center justify-center gap-x-2.5 rounded-md border border-slate-300 bg-zinc-50 p-1.5 md:max-w-[225px] md:cursor-pointer md:flex-col"
-			onClick={() =>
-				setLotteryLines(data => [...data, addLotteryLine()])
-			}>
+			onClick={() => {
+				setLotteryLines(data => [...data, addLotteryLine()]),
+				setUserClick(true)
+			}}>
 			<IconAdd className={'w-5 md:w-16'} />
 			<span className="text-base font-medium text-cyan-900 md:mt-2.5 md:block md:font-semibold">
 				Add Line
@@ -133,6 +173,7 @@ export default ({ details }) => {
 
 				setSelectedDrawDays(selectedDrawDays + 1)
 			}
+			setUserClick(true)
 		}
 
 		return (
@@ -194,6 +235,7 @@ export default ({ details }) => {
 							totalLines={lotteryLines.length}
 							key={idx}
 							balls={balls}
+							setUserClick={setUserClick}
 						/>
 					))}
 					<AddQuickCard />
@@ -205,7 +247,7 @@ export default ({ details }) => {
 						Duration
 					</h4>
 
-					<QuantityInput weeks={weeks} setWeeks={setWeeks} />
+					<QuantityInput weeks={weeks} setWeeks={setWeeks} setUserClick={setUserClick} />
 					<div className="mt-5 md:mt-7">
 						<h4 className="text-base font-semibold text-cyan-900">
 							Select your Draw Days

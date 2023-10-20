@@ -30,6 +30,7 @@ const lotteryTypes = {
 export default ({ params }) => {
 	const [activeTab, setActiveTab] = useState('cards')
 	const [details, setDetails] = useState()
+	const [productFetched, setProductFetched] = useState(false)
 	const [lotteryType, setLotteryType] = useState()
 
 	useEffect(() => {
@@ -44,6 +45,10 @@ export default ({ params }) => {
 
 		fetchProductData(params.id)
 	}, [])
+
+	// const updateProductFetched = () => {
+	// 	setProductFetched(true);
+	// };
 
 	return (
 		details ? (
