@@ -1,7 +1,6 @@
 import Image from 'next/image'
 
 export default ({ lotteryType , details}) => {
-	console.log(details);
 	return (
 		<section className={`mt-10 px-6 py-10 ${lotteryType.primaryColor}`}>
 			<div className="mx-auto flex flex-wrap justify-between md:max-w-6xl md:flex-nowrap md:gap-x-5">

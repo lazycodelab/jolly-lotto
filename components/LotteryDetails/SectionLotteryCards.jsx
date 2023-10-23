@@ -6,7 +6,7 @@ import IconAdd from '@/Icons/IconAdd'
 import { generateRandomNum } from '@/Helpers'
 import axios from 'lib/axios'
 
-export default ({ details }) => {
+export default ({ details , savedDetails}) => {
 	const balls = details?.lottery?.balls ?? 0
 	const [weeks, setWeeks] = useState(1)
 	const [lotteryLines, setLotteryLines] = useState([])
@@ -47,16 +47,13 @@ export default ({ details }) => {
 	useEffect(() => {
 		LotteryLinesList()
 		drawDates()
-
-		axios.get('/getSavedProductDetails').then((res) => {
-            if (res.data) {
-				const { lotteryLines, weekNumber, drawDays, selectedDrawDays } = res.data[details.id];
-				setLotteryLines(lotteryLines);
-				setSelectedDrawDays(selectedDrawDays)
-				setWeeks(weekNumber)
-				setDrawDays(drawDays)
-            }
-        }).catch((err) => console.log(err));
+		if (savedDetails !== undefined) {
+			const { lotteryLines, weekNumber, drawDays, selectedDrawDays } = savedDetails;
+			setLotteryLines(lotteryLines);
+			setSelectedDrawDays(selectedDrawDays)
+			setWeeks(weekNumber)
+			setDrawDays(drawDays)
+		}
 	}, [])
 
 	useEffect(() => {
