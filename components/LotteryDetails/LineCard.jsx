@@ -14,6 +14,7 @@ export default ({
 	clearList,
 	quickPick,
 	completed,
+	setUserClick
 }) => {
 	const [modalState, setModalState] = useState(false)
 
@@ -35,6 +36,7 @@ export default ({
 		setLines(lines =>
 			lines.length > 1 ? lines.filter((list, idx) => idx !== id) : lines,
 		)
+		setUserClick(true)
 	}
 
 	const BallUI = ({ number , isBonusBall = null}) => {

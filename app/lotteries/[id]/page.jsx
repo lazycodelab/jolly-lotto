@@ -6,6 +6,7 @@ import SectionSyndicate from '@/LotteryDetails/SectionSyndicate'
 
 import Link from 'next/link'
 import classNames from 'classnames'
+import axios from 'lib/axios'
 import { getProductByID } from 'lib/api'
 import { useEffect, useState } from 'react'
 
@@ -30,6 +31,8 @@ const lotteryTypes = {
 export default ({ params }) => {
 	const [activeTab, setActiveTab] = useState('cards')
 	const [details, setDetails] = useState()
+	const [savedDetails , setSavedDetails] = useState()
+	const [fetching, setFetching] = useState(true)
 	const [lotteryType, setLotteryType] = useState()
 
 	useEffect(() => {
@@ -40,13 +43,23 @@ export default ({ params }) => {
 			// Removing bonus ball from the data for 6/49
 			if (d.id === 2) delete d.lottery.balls.bonus;
 			setDetails(d)
+			fetchSavedProductDetails()
+		}
+
+		const fetchSavedProductDetails = async () => {
+			axios.get('/getSavedProductDetails').then((res) => {
+				if (res.data) {
+					setSavedDetails(res.data[params.id])
+				}
+				setFetching(false);
+			}).catch((err) => console.log(err));
 		}
 
 		fetchProductData(params.id)
 	}, [])
 
 	return (
-		details ? (
+		!fetching ? (
 			<>
 				<SectionHero lotteryType={lotteryType} details={details} />
 				<div className={lotteryType.secondaryColor}>
@@ -86,7 +99,7 @@ export default ({ params }) => {
 				</div>
 
 				{activeTab === 'cards' ? (
-					<SectionLotteryCards details={details} />
+					<SectionLotteryCards details={details} savedDetails={savedDetails} />
 				) : details?.type === 5 &&
 					details?.lottery?.syndicate_data &&
 					activeTab === 'syndicate' ? (
