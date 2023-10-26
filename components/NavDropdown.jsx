@@ -28,19 +28,19 @@ export default ({navTitle , navType}) => {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                     >
-                        <Menu.Items className="absolute rounded-t-none pt-2 pb-4 min-h-[300px] min-w-[400px] border-1 border-[#C2D4D5] z-10 left-0 mt-0 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-[#F2FEFF] ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Items className="absolute rounded-t-none py-4 min-h-[300px] min-w-[400px] border-1 border-[#C2D4D5] z-10 left-0 mt-0 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-[#F2FEFF] ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <div className="flex flex-col">
                                 {
                                     lotteryProducts.map((product,index) => (
                                         <Menu.Item key={index}>
                                             {({ active }) => (
                                                 <Link href={`/lotteries/${product.id}${navType === 'results' ? '/results' : ''}`}>
-                                                    <div className={`max-w-sm w-full lg:max-w-full lg:flex cursor-pointer px-4 py-1.5 ${active ? 'bg-[#24484b] transition-colors' : ''}`}>
+                                                    <div className={`max-w-sm w-full lg:max-w-full lg:flex gap-3 cursor-pointer px-4 py-3 ${active ? 'bg-[#24484b] transition-colors' : ''}`}>
                                                         <div className="my-auto">
                                                             <Image
-                                                                src={`/images/lotteries/${product.lottery.country_code}.png`}
-                                                                width={75}
-                                                                height={75}
+                                                                src={`/images/lotteries/${product.lottery.country_code}_S.png`}
+                                                                width={60}
+                                                                height={60}
                                                                 alt="icon"
                                                             />
                                                         </div>

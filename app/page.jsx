@@ -291,13 +291,15 @@ const LotteryCards = ({ prods }) => {
 								type={product.lottery.country_code}
 								className="absolute -z-[1] h-full"
 							/>
-							<Image
-								src={`/images/lotteries/${product.lottery.country_code}.png`}
-								width={80}
-								height={80}
-								alt="icon"
-								style={{ width: 'auto', height: 'auto' }}
-							/>
+							<div className='grid content-center h-[80px] w-[80px]'>
+								<Image
+									src={`/images/lotteries/${product.lottery.country_code}_S.png`}
+									width={150}
+									height={150}
+									alt="icon"
+									style={{ width: 'auto', height: 'auto' }}
+								/>
+							</div>
 							<h3 className="px-2 text-center">
 								<span className="text-xs">
 									{symbols[product.lottery.currency_code]}
@@ -364,9 +366,9 @@ const LotteryPills = ({ prods }) => {
 				key={product.name}
 				className={`${type.primary} flex items-center justify-between space-x-1 sm:space-x-2.5 rounded-md border-x-[12px] ${type.secondary} p-3 shadow-md`}>
 				<Image
-					src={`/images/lotteries/${product.lottery.country_code}.png`}
-					width={80}
-					height={80}
+					src={`/images/lotteries/${product.lottery.country_code}_S.png`}
+					width={60}
+					height={60}
 					alt="icon"
 				/>
 				<div className="flex flex-col items-center justify-center space-y-2">
