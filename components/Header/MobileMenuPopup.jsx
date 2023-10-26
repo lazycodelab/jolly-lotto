@@ -2,6 +2,7 @@ import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
+import { useGlobalContext } from '@/../context/appProvider'
 import {
 	Bars3Icon,
 	BellIcon,
@@ -19,6 +20,7 @@ import { useAuth } from 'hooks/auth'
 
 export default () => {
 	const { user, logout } = useAuth()
+	const { lotteryProducts } = useGlobalContext()
 	const [isLottoOpen, setIsLottoOpen] = useState(false);
 	const pathname = usePathname()
 	return (
@@ -135,48 +137,24 @@ export default () => {
 													</div>
 													{isLottoOpen &&
 														<div className="bg-[#FAFAFA] border-none">
-															<div className='ms-3 border-none' onClick={close}>
-																<Link href="/lotteries/1">
-																	<div className={`group flex w-full items-center px-2 py-3 ps-6 text-sm ${pathname == '/lotteries/1' ? 'text-[#00AEB9]' : 'text-gray-500'}`}>
-																		<Image
-																			src={`/images/lotteries/AU.png`}
-																			width={30}
-																			height={30}
-																			alt="icon"
-																			className='mr-2'
-																		/>
-																		AUSTRALIAN LOTTO 6/45
+															{
+																lotteryProducts.map((product,index) => (
+																	<div className='ms-3 border-none' onClick={close}>
+																		<Link href={`/lotteries/${product.id}`}>
+																			<div className={`group flex w-full items-center px-2 py-3 ps-6 text-sm ${pathname == `/lotteries/${product.id}` ? 'text-[#00AEB9]' : 'text-gray-500'}`}>
+																				<Image
+																					src={`/images/lotteries/${product.lottery.country_code}_S.png`}
+																					width={30}
+																					height={30}
+																					alt="icon"
+																					className='mr-2'
+																				/>
+																				{product.lotteryName}
+																			</div>
+																		</Link>
 																	</div>
-																</Link>
-															</div>
-															<div className='ms-4 border-none' onClick={close}>
-																<Link href="/lotteries/2">
-																	<div className={`group flex w-full items-center px-2 py-3 ps-6 text-sm ${pathname == '/lotteries/2' ? 'text-[#00AEB9]' : 'text-gray-500'}`}>
-																		<Image
-																			src={`/images/lotteries/CA.png`}
-																			width={30}
-																			height={30}
-																			alt="icon"
-																			className='mr-2'
-																		/>
-																		CANADIAN LOTTO 6/49
-																	</div>
-																</Link>
-															</div>
-															<div className='ms-4 border-none' onClick={close}>
-																<Link href="/lotteries/3">
-																	<div className={`group flex w-full items-center px-2 py-3 ps-6 text-sm rounded-ee-lg ${pathname == '/lotteries/3' ? 'text-[#00AEB9]' : 'text-gray-500'}`}>
-																		<Image
-																			src={`/images/lotteries/ES.png`}
-																			width={30}
-																			height={30}
-																			alt="icon"
-																			className='mr-2'
-																		/>
-																		EuroMillions
-																	</div>
-																</Link>
-															</div>
+																))
+															}
 														</div>
 													}
 												</>
