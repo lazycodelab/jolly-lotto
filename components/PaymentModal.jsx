@@ -1,9 +1,11 @@
 import { Dialog, Transition } from '@headlessui/react'
-import Link from 'next/link'
 import { Fragment, useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from 'hooks/auth'
+import AddFunds from '@/AddFunds/AddFunds'
 import cl from 'classnames'
+import Logo from '@/Logo'
+import axios from 'lib/axios'
 
 export default ({ paymentAmount , lotteryDetails, drawDays, selectedDrawDays , lotteryCard}) => {
 	const { user } = useAuth()
@@ -13,6 +15,24 @@ export default ({ paymentAmount , lotteryDetails, drawDays, selectedDrawDays , l
 	const [success, setSuccess] = useState(null)
 	const [loading, setLoading] = useState(false)
 	const { buyLottery } = useAuth()
+
+	const [isFeteched, setIsFeteched] = useState(false);
+	const [methods, setMethods] = useState([])
+	const [selected, setSelected] = useState();
+	const fetchPaymentMethods = () => {
+		setIsFeteched(false)
+		axios.get('/payment/gateways').then(({ data }) => {
+			setMethods(data);
+			setSelected(data[0]?.cardHolder);
+			setIsFeteched(true)
+		})
+	}
+
+	useEffect(() => {
+		if (user !== '') {		
+			fetchPaymentMethods()
+		}
+	}, [])
 
 	function closeModal() {
 		setIsOpen(false)
@@ -136,29 +156,28 @@ export default ({ paymentAmount , lotteryDetails, drawDays, selectedDrawDays , l
 								leave="ease-in duration-200"
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95">
-								<Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-									<Dialog.Title
-										as="h3"
-										className="text-lg font-medium leading-6 text-gray-900">
-										Insufficient Funds
-									</Dialog.Title>
-
-									<div className="mt-2">
-										<p className="text-sm text-gray-500">
-											It looks like you do not have
-											sufficient funds in your Wallet.
-											Please add some funds to your wallet
-											to make the purchase.
-										</p>
+								<Dialog.Panel className="w-full max-w-[60rem] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
+									<div className="pt-2 px-6 md:px-0">
+										<h4 className="text-xl font-semibold text-cyan-500 text-center my-3">Please Top Up Your Wallet to Complete Purchase</h4>
+										<p className="text-md text-center mb-5">The total value of items in your cart exceeds the amount of funds available in your wallet.</p>
+										<div className='flex justify-center'>
+											<div className='min-w-[18rem] text-center'>
+												<p>Available Funds : 0.00</p>
+												<p>Balance Owing : 0.00</p>
+												<hr className='my-1 border-[0.5px] border-gray-300'/>
+												<p className='text-cyan-500 font-bold'>Funds Required: £{paymentAmount}</p>
+											</div>
+										</div>
 									</div>
-
-									<div className="mt-4">
-										<Link
-											href="/user/add-funds"
-											className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-											onClick={closeModal}>
-											Add Funds
-										</Link>
+									<span className="mt-2 block h-[2px] w-full bg-gradient-to-r from-sky-400 via-rose-400 to-lime-400"></span>
+									<div className='p-6 md:px-8'>
+										<AddFunds 
+											methods={methods} 
+											selected={selected} 
+											setSelected={setSelected} 
+											isFeteched={isFeteched}
+											fetchPaymentMethods={fetchPaymentMethods}
+										/>
 									</div>
 								</Dialog.Panel>
 							</Transition.Child>

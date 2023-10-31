@@ -7,6 +7,8 @@ import CustomFormSelect from '@/CustomFormSelect'
 import { useAuth } from 'hooks/auth'
 import Logo from '@/Logo'
 import { getDays, getMonths, getYears } from '@/Helpers'
+import { useGlobalContext } from '@/../context/appProvider'
+import VerifyEmailModal from '../VerifyEmailModal'
 
 
 export default () => {
@@ -23,6 +25,7 @@ export default () => {
 	const [selectBirthDate, setSelectBirthDate] = useState('1');
 	const [selectBirthMonth, setSelectBirthMonth] = useState('January');
 	const [selectBirthYear, setSelectBirthYear] = useState('1963');
+	const { setIsModalOpen } = useGlobalContext()
 	const countries = {
 		UK: 'United Kingdom',
 		US: 'United States',
@@ -32,6 +35,7 @@ export default () => {
 		AU: 'Australia',
 		ZR: 'Zimbabwe',
 	}
+
 	const allMonths = getMonths();
 	const getSelectedMonthKey = (month) => {
 		let targetMonthKey = '01';
@@ -80,7 +84,7 @@ export default () => {
 				isAllowPhoneCall: false,
 			},
 		}
-		register({ setErrors, userData });
+		register({ setErrors, userData, setIsModalOpen });
 	}
 
 	useEffect(() => {
@@ -363,6 +367,7 @@ export default () => {
 					</div>
 				</form>
 			</div>
+			<VerifyEmailModal />
 		</div>
 	)
 }
