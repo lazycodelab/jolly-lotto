@@ -10,8 +10,8 @@ import { useEffect, useState } from 'react'
 const lotteryTypes = {
 	CA: {
 		logo: '/images/lotteries/CA_S.png',
-		primaryColor: 'bg-[#cde5f7]',
-		secondaryColor: 'bg-[#cde5f7]/50',
+		primaryColor: 'bg-[#ffe8e8]',
+		secondaryColor: 'bg-[#ffe8e8]/50',
 	},
 	ES: {
 		logo: '/images/lotteries/ES_S.png',
@@ -20,8 +20,8 @@ const lotteryTypes = {
 	},
 	AU: {
 		logo: '/images/lotteries/AU_S.png',
-		primaryColor: 'bg-[#e3f1ff]',
-		secondaryColor: 'bg-[#e3f1ff]/50',
+		primaryColor: 'bg-[#fffdde]',
+		secondaryColor: 'bg-[#fffdde]/50',
 	},
 }
 

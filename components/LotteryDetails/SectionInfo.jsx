@@ -9,10 +9,9 @@ export default ({ lotteryType , details}) => {
 						Experience {details.lotteryName} Oldest National Lottery
 					</h2>
 					<p className="text-sm text-cyan-900">
-						Step into the world of Australia&apos;s oldest national
-						lottery with a unique twist! Select 6 numbers from 1-45
-						and unlock the potential to win incredible jackpots of
-						up to A$40 million!
+						Step into the world of {details.lotteryName}&apos;s oldest national
+						lottery with a unique twist! Select {details.lottery.balls.total} numbers from 1-{details.lottery.balls.max} and unlock the potential to win incredible jackpots of
+						up to ${details.price} million!
 					</p>
 					<div className="mt-5 space-y-8 md:space-y-11">
 						<div className="flex items-start gap-x-3 md:items-center md:gap-x-5">
@@ -49,8 +48,7 @@ export default ({ lotteryType , details}) => {
 									Jackpot
 								</h3>
 								<p className="pt-0.5 text-sm text-cyan-900">
-									Unlike standard 6/49 lotteries, Australian
-									Lotto 6/45 offers a smaller range of
+									Unlike standard 6/49 lotteries, {details.lotteryName} offers a smaller range of
 									numbers, making it 42% easier to hit the
 									jackpot. Don&apos;t miss this opportunity to
 									boost your odds and claim your share of the
@@ -67,11 +65,11 @@ export default ({ lotteryType , details}) => {
 							/>
 							<div>
 								<h3 className="text-lg font-semibold text-teal-600">
-									Jackpots Starting at A$5 Million
+									Jackpots Starting at ${details.price} Million
 								</h3>
 								<p className="pt-0.5 text-sm text-cyan-900">
 									Embark on an exciting journey towards wealth
-									with jackpots starting at A$5 million. The
+									with jackpots starting at ${details.price} million. The
 									best part? All winnings are completely
 									tax-free in Australia! Good luck as you
 									seize the chance to transform your life!
@@ -94,8 +92,7 @@ export default ({ lotteryType , details}) => {
 
 							<ul className="px-5 pt-5">
 								<li>
-									<strong>Jackpot Record:</strong> A$40
-									Million
+									<strong>Jackpot Record:</strong> ${details.price} Million
 								</li>
 								<li>
 									<strong>Prizes:</strong> Discover a Wealth
@@ -105,7 +102,7 @@ export default ({ lotteryType , details}) => {
 								<li>
 									<strong>Info:</strong> A Combination of 6
 									main numbers and 2 supplementary numbers
-									drawn from a range of 1 to 45 Days Drawn:
+									drawn from a range of 1 to {details.lottery.balls.max} Days Drawn:
 									Every Saturday 8:30pm AEST Ticket Purchase
 									Deadline: Get your tickets 2 hours before
 									the draw
@@ -137,7 +134,7 @@ export default ({ lotteryType , details}) => {
 											Prize Structure
 										</div>
 										<div className="col-xs-6 col-sm-12">
-											6 main numbers
+											{details.lottery.balls.total} main numbers
 										</div>
 									</div>
 									<div className="col-xs-12 col-sm-3">
@@ -296,15 +293,14 @@ export default ({ lotteryType , details}) => {
 							<summary>Why Choose {details.lotteryName}?</summary>
 							<div className="px-5 pt-5">
 								<strong>
-									Step into the World of Australian Lotto 6/45
+									Step into the World of {details.lotteryName}
 								</strong>
 								<p>
-									With a rich history dating back to 1972,
-									Australian Lotto 6/45 became a nationwide
+									With a rich history dating back to 1972, {details.lotteryName} became a nationwide
 									sensation in 2013. Select 6 numbers from a
 									smaller pool of 45 (instead of the more
 									common 49) and open the door to winning
-									prizes of up to A$40 Million!
+									prizes of up to ${details.price} Million!
 								</p>
 								<strong className="mt-5 block">
 									Saturday Night Draws

@@ -11,6 +11,7 @@ import { useAuth } from 'hooks/auth'
 import ProfileOrders from '@/dashboard/ProfileOrders'
 import ProfilePaymentMethods from '@/dashboard/ProfilePaymentMethods'
 import NavSection from '@/dashboard/NavSection'
+import VerifyEmailModal from '@/../components/VerifyEmailModal'
 
 export default () => {
 	const { user } = useAuth()
@@ -130,6 +131,7 @@ export default () => {
 						)}
 					</Disclosure>
 				</div>
+				<VerifyEmailModal />
 			</section>
 		</>
 	)

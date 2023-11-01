@@ -33,7 +33,7 @@ export default () => {
 									Updated to version 1.1 on 11th of November 2020
 								</p>
 								<div className="mb-5">
-									<button class="bg-[#00d4e3] text-white font-bold py-2 px-7 rounded-[13px] shadow-[0px_2px_0px_#00ACB8]">Print Screen</button>
+									<button className="bg-[#00d4e3] text-white font-bold py-2 px-7 rounded-[13px] shadow-[0px_2px_0px_#00ACB8]">Print Screen</button>
 								</div>
 								<p className="text-[#24484B] text-lg mb-5">The policy governs the data which we collect from users and other third parties in the course of our business and the way in which we protect and process such information. Please read this policy carefully to understand how we will treat your personal data. </p>
 								<ol className="list-decimal text-[#24484B] text-lg ms-[1rem]">

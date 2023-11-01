@@ -22,14 +22,17 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
 	const csrf = () => axios.get('/sanctum/csrf-cookie')
 
-	const register = async ({ setErrors, ...props }) => {
+	const register = async ({ setErrors,setIsModalOpen, ...props }) => {
 		await csrf()
 		setErrors(null)
 
 		const { userData } = props
 		await axios
 			.post('/register', userData)
-			.then(() => mutate())
+			.then(() => {
+				// setIsModalOpen(true)
+				router.push('/user/add-funds')
+			})
 			.catch(error => {
 				if (error.response.status !== 422) throw error
 
