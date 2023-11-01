@@ -1,7 +1,8 @@
 'use client'
 import { Dialog, Transition } from '@headlessui/react'
-import React, { Fragment, useEffect } from 'react'
-import { ExclamationCircleIcon } from '@heroicons/react/24/outline'
+import React, { Fragment } from 'react'
+import { ExclamationCircleIcon } from '@heroicons/react/24/solid'
+import { XMarkIcon } from '@heroicons/react/24/outline'
 import { useGlobalContext } from '../context/appProvider'
 import axios from 'lib/axios'
 
@@ -47,13 +48,16 @@ export default function () {
                             leave="ease-in duration-200"
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95">
-                            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 align-middle shadow-xl transition-all text-center">
+                            <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-[#FFF4E4] p-6 px-10 align-middle shadow-xl transition-all text-center">
+                                <div className='absolute right-0 top-0 p-3 cursor-pointer' onClick={() => setIsModalOpen(false)}>
+                                    <XMarkIcon className='w-8 text-gray-500'/>
+                                </div>
                                 <div className='flex justify-center mb-2'>
-                                    <ExclamationCircleIcon className='w-16 text-yellow-400' />
+                                    <ExclamationCircleIcon className='w-16 text-[#FFA319]' />
                                 </div>
                                 <Dialog.Title
                                     as="h3"
-                                    className="text-lg font-medium leading-6 text-gray-900">
+                                    className="text-lg font-medium leading-6 text-[#FFA319]">
                                     Verfication email sent!
                                 </Dialog.Title>
 
@@ -68,9 +72,9 @@ export default function () {
                                     If you did not get an email, Please check your spam/junk folder.
                                 </p>
 
-                                <div className="mt-4">
+                                <div className="mt-6">
                                     <button
-                                        className={`inline-flex justify-center rounded-md border border-transparent ${isResetBtnDisable === true ? 'bg-gray-200 cursor-not-allowed' : 'bg-blue-100 text-blue-900 hover:bg-blue-200'} px-4 py-2 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2`}
+                                        className={`inline-flex w-full justify-center rounded-xl focus-visible:outline-none ${isResetBtnDisable === true ? 'bg-gray-200 cursor-not-allowed' : 'bg-[#00D4E3] text-white'} p-3 text-md font-medium shadow-[0px_2px_0px_#00ACB8]`}
                                         onClick={() => handleResendEmail()}
                                         disabled={isResetBtnDisable}>
                                         Re-send Email
