@@ -53,6 +53,11 @@ export default () => {
 		setLoading(true)
 
 		const data = e.target;
+		if(!e.target.gambleResponsibly.checked) {
+			setErrors({ gambleResponsibly: [' You must confirm that you are over 18 years of age and accept the T&C & Privacy Policy before proceeding. Please review your selection and try again.'] })
+			setLoading(false)
+			return;
+		}
 		const birthDate = selectBirthYear + '-' + getSelectedMonthKey(selectBirthMonth) + '-' + selectBirthDate.padStart(2, '0');
 		const age = moment().diff(birthDate, 'years');
 
@@ -315,7 +320,7 @@ export default () => {
 								</label>
 							</div>
 							<div className="flex gap-x-3">
-								<input id="term-4" type="checkbox" name="" />
+								<input id="term-4" type="checkbox" name="gambleResponsibly" />
 								<label
 									htmlFor="term-4"
 									className="cursor-pointer text-xs text-gray-500">
