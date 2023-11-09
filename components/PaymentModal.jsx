@@ -177,6 +177,7 @@ export default ({ paymentAmount , lotteryDetails, drawDays, selectedDrawDays , l
 											setSelected={setSelected} 
 											isFeteched={isFeteched}
 											fetchPaymentMethods={fetchPaymentMethods}
+											setIsOpen={setIsOpen}
 										/>
 									</div>
 								</Dialog.Panel>

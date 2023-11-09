@@ -1,15 +1,17 @@
 import { useState } from 'react'
+import { useGlobalContext } from "@/../context/appProvider"
 import cx from 'classnames'
 import { useAuth } from 'hooks/auth'
 import FormInput from '@/FormInput'
 import FormSelect from '@/FormSelect'
 import PaymentMethods from '@/PaymentMethods'
 import { getMonths, getNextYears} from '@/Helpers'
-import { useGlobalContext } from "@/../context/appProvider";
+import { usePathname } from 'next/navigation'
 
-export default function ({isFeteched,methods,setMethods,selected,setSelected,fetchPaymentMethods}) {
+export default function ({isFeteched,methods,setMethods,selected,setSelected,fetchPaymentMethods,setIsOpen = null}) {
     const { addMethod,addFunds } = useAuth()
-	const { setWalletBalance } = useGlobalContext();
+	const { setWalletBalance } = useGlobalContext()
+    const pathname = usePathname()
 
 	const [showBillingForm, setShowBillingForm] = useState(false)
 	const [errors, setErrors] = useState(false)
@@ -53,7 +55,11 @@ export default function ({isFeteched,methods,setMethods,selected,setSelected,fet
 			expiryMonth:methods[selectedCard].month,
 			expiryYear:methods[selectedCard].year,
 		};
-		addFunds({ setErrors, setSuccess, paymentPayload, setAddingFunds, setWalletBalance })
+		addFunds({ setErrors, setSuccess, paymentPayload, setAddingFunds, setWalletBalance }).then(() => {
+            setTimeout(() => {
+                setIsOpen(false)
+            }, 5000);
+        })
 	}
 
 	const cardValidation = () => {
