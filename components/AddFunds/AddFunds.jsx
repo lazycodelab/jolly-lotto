@@ -7,7 +7,7 @@ import FormSelect from '@/FormSelect'
 import PaymentMethods from '@/PaymentMethods'
 import { getMonths, getNextYears} from '@/Helpers'
 
-export default function ({isFeteched,methods,setMethods,selected,setSelected,fetchPaymentMethods,setIsOpen = null}) {
+export default function ({isFeteched,methods,setMethods,selected,setSelected,fetchPaymentMethods}) {
     const { addMethod,addFunds } = useAuth()
 	const { setWalletBalance } = useGlobalContext()
 
@@ -53,11 +53,7 @@ export default function ({isFeteched,methods,setMethods,selected,setSelected,fet
 			expiryMonth:methods[selectedCard].month,
 			expiryYear:methods[selectedCard].year,
 		};
-		addFunds({ setErrors, setSuccess, paymentPayload, setAddingFunds, setWalletBalance }).then(() => {
-            setTimeout(() => {
-                setIsOpen(false)
-            }, 5000);
-        })
+		addFunds({ setErrors, setSuccess, paymentPayload, setAddingFunds, setWalletBalance })
 	}
 
 	const cardValidation = () => {
