@@ -6,12 +6,10 @@ import FormInput from '@/FormInput'
 import FormSelect from '@/FormSelect'
 import PaymentMethods from '@/PaymentMethods'
 import { getMonths, getNextYears} from '@/Helpers'
-import { usePathname } from 'next/navigation'
 
 export default function ({isFeteched,methods,setMethods,selected,setSelected,fetchPaymentMethods,setIsOpen = null}) {
     const { addMethod,addFunds } = useAuth()
 	const { setWalletBalance } = useGlobalContext()
-    const pathname = usePathname()
 
 	const [showBillingForm, setShowBillingForm] = useState(false)
 	const [errors, setErrors] = useState(false)
