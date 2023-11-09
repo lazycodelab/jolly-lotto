@@ -1,15 +1,15 @@
 import { useState } from 'react'
+import { useGlobalContext } from "@/../context/appProvider"
 import cx from 'classnames'
 import { useAuth } from 'hooks/auth'
 import FormInput from '@/FormInput'
 import FormSelect from '@/FormSelect'
 import PaymentMethods from '@/PaymentMethods'
 import { getMonths, getNextYears} from '@/Helpers'
-import { useGlobalContext } from "@/../context/appProvider";
 
 export default function ({isFeteched,methods,setMethods,selected,setSelected,fetchPaymentMethods}) {
     const { addMethod,addFunds } = useAuth()
-	const { setWalletBalance } = useGlobalContext();
+	const { setWalletBalance } = useGlobalContext()
 
 	const [showBillingForm, setShowBillingForm] = useState(false)
 	const [errors, setErrors] = useState(false)

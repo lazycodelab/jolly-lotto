@@ -7,7 +7,7 @@ import { useGlobalContext } from '../context/appProvider'
 import axios from 'lib/axios'
 
 export default function () {
-    const { isModalOpen, setIsModalOpen,isEmailVerified, isResetBtnDisable } = useGlobalContext()
+    const { isModalOpen, setIsModalOpen, isResetBtnDisable } = useGlobalContext()
 
     const handleResendEmail = async () => {
         setIsModalOpen(false)

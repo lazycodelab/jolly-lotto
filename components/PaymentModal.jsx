@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from 'hooks/auth'
 import AddFunds from '@/AddFunds/AddFunds'
 import cl from 'classnames'
-import Logo from '@/Logo'
+import { XMarkIcon } from '@heroicons/react/24/outline'
 import axios from 'lib/axios'
 
 export default ({ paymentAmount , lotteryDetails, drawDays, selectedDrawDays , lotteryCard}) => {
@@ -156,7 +156,10 @@ export default ({ paymentAmount , lotteryDetails, drawDays, selectedDrawDays , l
 								leave="ease-in duration-200"
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95">
-								<Dialog.Panel className="w-full max-w-[60rem] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all">
+								<Dialog.Panel className="w-full max-w-[60rem] transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all relative">
+									<div className='absolute right-0 top-0 p-3 cursor-pointer' onClick={() => closeModal()}>
+										<XMarkIcon className='w-8 text-gray-500'/>
+									</div>
 									<div className="pt-2 px-6 md:px-0">
 										<h4 className="text-xl font-semibold text-cyan-500 text-center my-3">Please Top Up Your Wallet to Complete Purchase</h4>
 										<p className="text-md text-center mb-5">The total value of items in your cart exceeds the amount of funds available in your wallet.</p>
@@ -169,7 +172,7 @@ export default ({ paymentAmount , lotteryDetails, drawDays, selectedDrawDays , l
 											</div>
 										</div>
 									</div>
-									<span className="mt-2 block h-[2px] w-full bg-gradient-to-r from-sky-400 via-rose-400 to-lime-400"></span>
+									<span className="mt-5 block h-[2px] w-full bg-gradient-to-r from-sky-400 via-rose-400 to-lime-400"></span>
 									<div className='p-6 md:px-8'>
 										<AddFunds 
 											methods={methods} 
