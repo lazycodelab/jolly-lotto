@@ -128,7 +128,7 @@ const HeroSlider = ({ prods }) => {
 										{product.lotteryName}
 									</h2>
 									<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
-										{symbols[product.lottery.currency_code]}{product.price} MILLION
+										{symbols[product.lottery.currency_code]}{product.price}
 									</h2>
 									<Link href={`/lotteries/${product.id}`}>
 										<button
@@ -283,7 +283,9 @@ const LotteryCards = ({ prods }) => {
 
 	return (
 		<swiper-container ref={swiperElRef} init="false">
-			{prods.map(product => {
+			{ prods.map( product => {
+				const price = product.price != null ? new Intl.NumberFormat('en-GB', { maximumSignificantDigits: 3 }).format(product.price * 1000000) : 'TBA'
+
 				return (
 					<swiper-slide key={product.name}>
 						<div className="relative flex flex-col items-center justify-between space-y-2.5">
@@ -304,7 +306,7 @@ const LotteryCards = ({ prods }) => {
 								<span className="text-xs">
 									{symbols[product.lottery.currency_code]}
 								</span>
-								<strong>{product.price}M</strong>
+								<strong>{price}</strong>
 							</h3>
 							<Link href={`/lotteries/${product.id}`}>
 								<PlayButton />
