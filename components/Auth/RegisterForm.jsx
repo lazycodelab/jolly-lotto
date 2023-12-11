@@ -10,21 +10,20 @@ import { getDays, getMonths, getYears } from '@/Helpers'
 import { useGlobalContext } from '@/../context/appProvider'
 import VerifyEmailModal from '../VerifyEmailModal'
 
-
 export default () => {
 	const { register } = useAuth({ middleware: 'guest' })
 	const [errors, setErrors] = useState(null)
 	const [loading, setLoading] = useState(false)
 	// For Custom Form Select
-	const [selectedCountry, setSelectedCountry] = useState('UK');
-	const [selectedCurreny, setSelectedCurreny] = useState('USD');
-	const [selectedTitle, setSelectedTitle] = useState('Mr.');
-	const [selectedPhoneCountry, setSelectedPhoneCountry] = useState('UK');
+	const [selectedCountry, setSelectedCountry] = useState('US')
+	const [selectedCurrency, setSelectedCurrency] = useState('USD')
+	const [selectedTitle, setSelectedTitle] = useState('Mr.')
+	const [selectedPhoneCountry, setSelectedPhoneCountry] = useState('US')
 	// const [selectPlayLimit, setSelectPlayLimit] = useState('1 Week');
 	// const [selectDepositLimit, setSelectDepositLimit] = useState('1 Week');
-	const [selectBirthDate, setSelectBirthDate] = useState('1');
-	const [selectBirthMonth, setSelectBirthMonth] = useState('January');
-	const [selectBirthYear, setSelectBirthYear] = useState('1963');
+	const [selectBirthDate, setSelectBirthDate] = useState('1')
+	const [selectBirthMonth, setSelectBirthMonth] = useState('January')
+	const [selectBirthYear, setSelectBirthYear] = useState('1963')
 	const { setIsModalOpen } = useGlobalContext()
 	const countries = {
 		UK: 'United Kingdom',
@@ -36,30 +35,39 @@ export default () => {
 		ZR: 'Zimbabwe',
 	}
 
-	const allMonths = getMonths();
-	const getSelectedMonthKey = (month) => {
-		let targetMonthKey = '01';
+	const allMonths = getMonths()
+	const getSelectedMonthKey = month => {
+		let targetMonthKey = '01'
 		for (const key in allMonths) {
 			if (allMonths[key] === month) {
-				targetMonthKey = key;
-			 	break;
+				targetMonthKey = key
+				break
 			}
 		}
-		return targetMonthKey.padStart(2, '0');
+		return targetMonthKey.padStart(2, '0')
 	}
 
 	const handleSome = e => {
 		e.preventDefault()
 		setLoading(true)
 
-		const data = e.target;
-		if(!e.target.gambleResponsibly.checked) {
-			setErrors({ gambleResponsibly: [' You must confirm that you are over 18 years of age and accept the T&C & Privacy Policy before proceeding. Please review your selection and try again.'] })
+		const data = e.target
+		if (!e.target.gambleResponsibly.checked) {
+			setErrors({
+				gambleResponsibly: [
+					' You must confirm that you are over 18 years of age and accept the T&C & Privacy Policy before proceeding. Please review your selection and try again.',
+				],
+			})
 			setLoading(false)
-			return;
+			return
 		}
-		const birthDate = selectBirthYear + '-' + getSelectedMonthKey(selectBirthMonth) + '-' + selectBirthDate.padStart(2, '0');
-		const age = moment().diff(birthDate, 'years');
+		const birthDate =
+			selectBirthYear +
+			'-' +
+			getSelectedMonthKey(selectBirthMonth) +
+			'-' +
+			selectBirthDate.padStart(2, '0')
+		const age = moment().diff(birthDate, 'years')
 
 		const userData = {
 			password: data.password.value,
@@ -80,7 +88,7 @@ export default () => {
 			email: data.email.value,
 			phone: data.phone.value,
 			phoneCountryCode: selectedPhoneCountry,
-			currencyCode: selectedCurreny,
+			currencyCode: selectedCurrency,
 			notification: {
 				isAllowEmail: true,
 				isAllowMarketingEmail: data.marketing.value ?? false,
@@ -89,7 +97,7 @@ export default () => {
 				isAllowPhoneCall: false,
 			},
 		}
-		register({ setErrors, userData, setIsModalOpen });
+		register({ setErrors, userData, setIsModalOpen })
 	}
 
 	useEffect(() => {
@@ -110,7 +118,7 @@ export default () => {
 			</div>
 
 			<div className={`relative p-8`}>
-			{/* <div className={cl('relative p-8', {
+				{/* <div className={cl('relative p-8', {
 				'cursor-wait after:absolute after:inset-0 after:z-30 after:h-full after:w-full after:bg-[#c7c7c74d]':loading,
 			})}> */}
 				<Link href="/login" className="text-sm text-cyan-500 underline">
@@ -161,7 +169,7 @@ export default () => {
 							placeholder="Confirm Password"
 							isReq={true}
 						/>
-						<CustomFormSelect 
+						<CustomFormSelect
 							label="Title"
 							options={['Mr.', 'Mrs.']}
 							setFunction={setSelectedTitle}
@@ -180,24 +188,24 @@ export default () => {
 							a confirmation."
 						/>
 						<div className="flex flex-col gap-x-3">
-							<div className='flex-auto'>
-								<CustomFormSelect 
+							<div className="flex-auto">
+								<CustomFormSelect
 									label="Date Of Birth"
 									options={getDays()}
 									setFunction={setSelectBirthDate}
 									selectedValue={selectBirthDate}
 								/>
 							</div>
-							<div className='flex-auto'>
-								<CustomFormSelect 
+							<div className="flex-auto">
+								<CustomFormSelect
 									label=""
 									options={allMonths}
 									setFunction={setSelectBirthMonth}
 									selectedValue={selectBirthMonth}
 								/>
 							</div>
-							<div className='flex-1'>
-								<CustomFormSelect 
+							<div className="flex-1">
+								<CustomFormSelect
 									label=""
 									options={getYears()}
 									setFunction={setSelectBirthYear}
@@ -208,7 +216,7 @@ export default () => {
 					</div>
 
 					<div className="flex-1 space-y-5">
-						<CustomFormSelect 
+						<CustomFormSelect
 							label="Country"
 							options={countries}
 							setFunction={setSelectedCountry}
@@ -225,7 +233,7 @@ export default () => {
 							<FormInput label="Post Code" isReq={true} />
 						</div>
 
-						<CustomFormSelect 
+						<CustomFormSelect
 							label="Currency"
 							options={[
 								'USD',
@@ -237,8 +245,8 @@ export default () => {
 								'CAD',
 								'ZAR',
 							]}
-							setFunction={setSelectedCurreny}
-							selectedValue={selectedCurreny}
+							setFunction={setSelectedCurrency}
+							selectedValue={selectedCurrency}
 						/>
 
 						{/* <div className="space-y-3">
@@ -269,9 +277,9 @@ export default () => {
 								label="Phone"
 								placeholder="Phone Number"
 							/>
-							<CustomFormSelect 
+							<CustomFormSelect
 								label=""
-								options={['UK', 'AUS']}
+								options={['UK', 'AUS', 'US']}
 								setFunction={setSelectedPhoneCountry}
 								selectedValue={selectedPhoneCountry}
 							/>
@@ -279,7 +287,7 @@ export default () => {
 
 						{/* <div className="flex-grow items-end gap-x-3">
 							<FormInput label="Play Limit (Optional)" />
-							<CustomFormSelect 
+							<CustomFormSelect
 								label={""}
 								options={['1 Week', '2 Weeks']}
 								setFunction={setSelectPlayLimit}
@@ -289,7 +297,7 @@ export default () => {
 
 						<div className="flex-grow items-end gap-x-3">
 							<FormInput label="Deposit Limit (Optional)" />
-							<CustomFormSelect 
+							<CustomFormSelect
 								label={""}
 								options={['1 Week', '2 Weeks']}
 								setFunction={setSelectDepositLimit}
@@ -320,7 +328,11 @@ export default () => {
 								</label>
 							</div>
 							<div className="flex gap-x-3">
-								<input id="term-4" type="checkbox" name="gambleResponsibly" />
+								<input
+									id="term-4"
+									type="checkbox"
+									name="gambleResponsibly"
+								/>
 								<label
 									htmlFor="term-4"
 									className="cursor-pointer text-xs text-gray-500">
@@ -344,18 +356,18 @@ export default () => {
 									},
 								)}>
 								<div className={`${!loading && 'hidden'}`}>
-									<div className='absolute left-6 top-[0.9rem]'>
-										<svg 
+									<div className="absolute left-6 top-[0.9rem]">
+										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											width="24"
 											height="24"
 											viewBox="0 0 24 24"
 											fill="none"
 											stroke="#FFFFFF"
-											strokeWidth='2'
-											strokeLinecap='round'
-											strokeLinejoin='round'
-											className='animate-spin h-6 w-6'>
+											strokeWidth="2"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											className="animate-spin h-6 w-6">
 											<path d="M21 12a9 9 0 11-6.219-8.56" />
 										</svg>
 									</div>
