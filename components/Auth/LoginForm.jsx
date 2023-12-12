@@ -4,11 +4,13 @@ import cl from 'classnames'
 import Logo from '@/Logo'
 import FormInput from '@/FormInput'
 import { useAuth } from 'hooks/auth'
+import { usePathname, useParams, useSearchParams } from 'next/navigation'
 
 export default () => {
 	const { login } = useAuth({ middleware: 'guest' })
 	const [errors, setErrors] = useState(null)
 	const [loading, setLoading] = useState(false)
+	const newUser = useSearchParams().get('verified')
 
 	const handleSome = e => {
 		e.preventDefault()
@@ -17,6 +19,7 @@ export default () => {
 		const userData = {
 			email: e.target.email.value,
 			password: e.target.password.value,
+			Isfirsttimelogin: newUser ? true : false,
 		}
 
 		login({ setErrors, userData })
@@ -40,12 +43,12 @@ export default () => {
 			</div>
 
 			<div
-				className='relative p-8'
+				className="relative p-8"
 				// className={cl('relative p-8', {
 				// 	'cursor-wait after:absolute after:inset-0 after:z-30 after:h-full after:w-full after:animate-pulse after:bg-black/70':
 				// 		loading,
 				// })}
-				>
+			>
 				<Link
 					href="/register"
 					className="text-sm text-cyan-500 underline">
@@ -85,7 +88,8 @@ export default () => {
 
 					<div className="flex-1 space-y-5">
 						<div className="flex flex-col gap-y-5">
-							<button type="submit"
+							<button
+								type="submit"
 								{...(loading && { disabled: 'disabled' })}
 								className={cl(
 									'mt-5 w-full rounded-md px-14 py-3 text-lg font-semibold text-white shadow-md relative',
@@ -97,18 +101,18 @@ export default () => {
 									},
 								)}>
 								<div className={`${!loading && 'hidden'}`}>
-									<div className='absolute left-6 top-[0.9rem]'>
-										<svg 
+									<div className="absolute left-6 top-[0.9rem]">
+										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											width="24"
 											height="24"
 											viewBox="0 0 24 24"
 											fill="none"
 											stroke="#FFFFFF"
-											strokeWidth='2'
-											strokeLinecap='round'
-											strokeLinejoin='round'
-											className='animate-spin h-6 w-6'>
+											strokeWidth="2"
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											className="animate-spin h-6 w-6">
 											<path d="M21 12a9 9 0 11-6.219-8.56" />
 										</svg>
 									</div>

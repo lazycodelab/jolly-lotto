@@ -96,7 +96,7 @@ const HeroSlider = ({ prods }) => {
 				{prods.map(product => (
 					<swiper-slide key={product.name}>
 						<div className="bg-[#dafcfe] relative">
-							<div className='absolute left-0 h-full'>
+							<div className="absolute left-0 h-full">
 								<Image
 									className="object-cover h-full w-full mix-blend-darken lg:opacity-100 opacity-60"
 									src="/images/banner-left-side.png"
@@ -105,7 +105,7 @@ const HeroSlider = ({ prods }) => {
 									alt="banner-left"
 								/>
 							</div>
-							<div className='absolute right-0 h-full'>
+							<div className="absolute right-0 h-full">
 								<Image
 									className="object-cover h-full w-full mix-blend-darken lg:opacity-100 opacity-60"
 									src="/images/banner-right-side.png"
@@ -128,7 +128,8 @@ const HeroSlider = ({ prods }) => {
 										{product.lotteryName}
 									</h2>
 									<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
-										{symbols[product.lottery.currency_code]}{product.price}
+										{symbols[product.lottery.currency_code]}
+										{product.price}
 									</h2>
 									<Link href={`/lotteries/${product.id}`}>
 										<button
@@ -150,94 +151,105 @@ const HeroSlider = ({ prods }) => {
 		</>
 	)
 }
-const getNextDrawTime = (drawDates) => {
-	const now = new Date();
+const getNextDrawTime = (drawDates, setBtnDisabled) => {
+	const now = new Date()
 
 	if (drawDates.length === 0) {
-		return 'No upcoming draws';
+		return 'No upcoming draws'
 	}
 
-	const validDrawDates = drawDates.filter((drawDate) => {
+	const validDrawDates = drawDates.filter(drawDate => {
 		if (!drawDate.drawTime) {
-			console.error(`Invalid draw time for draw date: ${JSON.stringify(drawDate)}`);
-			return false; // Skip this draw date if draw time is missing
+			console.error(
+				`Invalid draw time for draw date: ${JSON.stringify(drawDate)}`,
+			)
+			return false // Skip this draw date if draw time is missing
 		}
 
-		const drawTimeParts = drawDate.drawTime.split(':');
+		const drawTimeParts = drawDate.drawTime.split(':')
 		if (drawTimeParts.length !== 3) {
-			console.error(`Invalid draw time format for draw date: ${JSON.stringify(drawDate)}`);
-			return false; // Skip this draw date if draw time format is invalid
+			console.error(
+				`Invalid draw time format for draw date: ${JSON.stringify(
+					drawDate,
+				)}`,
+			)
+			return false // Skip this draw date if draw time format is invalid
 		}
 
-		const drawHour = parseInt(drawTimeParts[0], 10);
-		const drawMinute = parseInt(drawTimeParts[1], 10);
-		const drawSecond = parseInt(drawTimeParts[2], 10);
+		const drawHour = parseInt(drawTimeParts[0], 10)
+		const drawMinute = parseInt(drawTimeParts[1], 10)
+		const drawSecond = parseInt(drawTimeParts[2], 10)
 
 		if (isNaN(drawHour) || isNaN(drawMinute) || isNaN(drawSecond)) {
-			console.error(`Invalid draw time values for draw date: ${JSON.stringify(drawDate)}`);
-			return false; // Skip this draw date if draw time values are not valid numbers
+			console.error(
+				`Invalid draw time values for draw date: ${JSON.stringify(
+					drawDate,
+				)}`,
+			)
+			return false // Skip this draw date if draw time values are not valid numbers
 		}
 
-		return true;
-	});
+		return true
+	})
 
 	if (validDrawDates.length === 0) {
-		return 'No upcoming draws';
+		return 'No upcoming draws'
 	}
 
-	const today = now.getDay(); // Get the current day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
+	const today = now.getDay() // Get the current day of the week (0 = Sunday, 1 = Monday, ..., 6 = Saturday)
 	const sortedDrawDates = validDrawDates
-		.map((drawDate) => {
-			const drawTimeParts = drawDate.drawTime.split(':');
-			const drawHour = parseInt(drawTimeParts[0], 10);
-			const drawMinute = parseInt(drawTimeParts[1], 10);
-			const drawSecond = parseInt(drawTimeParts[2], 10);
-
-			const drawDateCopy = new Date(now);
-			drawDateCopy.setHours(drawHour, drawMinute, drawSecond, 0);
-
-			const drawDay = drawDate.dayOfWeek;
+		.map(drawDate => {
+			const drawTimeParts = drawDate.drawTime.split(':')
+			const drawHour = parseInt(drawTimeParts[0], 10)
+			const drawMinute = parseInt(drawTimeParts[1], 10)
+			const drawSecond = parseInt(drawTimeParts[2], 10)
+			const drawDateCopy = new Date(now)
+			drawDateCopy.setHours(drawHour - 2, drawMinute, drawSecond, 0)
+			const drawDay = drawDate.dayOfWeek
 			// Calculate the difference in days while considering rollover to the next week
-			const dayDifference = (drawDay - today + 7) % 7;
-			drawDateCopy.setDate(drawDateCopy.getDate() + dayDifference);
+			const dayDifference = (drawDay - today + 7) % 7
+			drawDateCopy.setDate(drawDateCopy.getDate() + dayDifference)
+
+			if (drawDateCopy.getHours() <= 2) {
+				console.error(`Invalid draw time values for draw date:`)
+				setBtnDisabled(true)
+				return null
+			}
 
 			if (drawDateCopy > now) {
-				return drawDateCopy;
+				return drawDateCopy
 			}
-			return null;
+			return null
 		})
-		.filter((drawDate) => drawDate !== null)
-		.sort((a, b) => a - b);
+		.filter(drawDate => drawDate !== null)
+		.sort((a, b) => a - b)
 
 	if (sortedDrawDates.length === 0) {
-		console.error('No future draw dates found.');
-		return 'No upcoming draws';
+		console.error('No future draw dates found.')
+		return 'No upcoming draws'
 	}
 
-	const nextDraw = sortedDrawDates[0];
+	const nextDraw = sortedDrawDates[0]
 
-	const remainingTime = nextDraw - now;
-	const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-	const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
-	const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
-	const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+	const remainingTime = nextDraw - now
+	const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24))
+	const hours = Math.floor(
+		(remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+	)
+	const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60))
+	const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000)
+	const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds
 
-	return `${days} Day(s) ${hours}:${minutes}:${formattedSeconds}`;
-};
+	return `${days} Day(s) ${hours}:${minutes}:${formattedSeconds}`
+}
 
-const LotteryCards = ({ prods }) => {
+const LotteryCards = ({ prods, btnDisabled, setBtnDisabled }) => {
 	const swiperElRef = useRef(null)
-	const [timers, setTimers] = useState({});
+	const [timers, setTimers] = useState({})
 
 	useEffect(() => {
 		const params = {
 			modules: [Navigation],
-			// on: {
-			// 	init: swiper => {
-			// 		console.log('loaded', swiper)
-			// 	},
-			// },
 			breakpoints: {
 				640: {
 					slidesPerView: 2,
@@ -252,39 +264,48 @@ const LotteryCards = ({ prods }) => {
 					spaceBetween: 0,
 				},
 			},
-
-			//injectStylesUrls: ['swiper/css/navigation'],
 		}
 
 		Object.assign(swiperElRef.current, params)
 
 		swiperElRef.current.initialize()
 
-		const timerIds = prods.map((product) => {
+		const timerIds = prods.map(product => {
 			const timer = {
 				lotteryId: product.id,
-				formattedTime: getNextDrawTime(product.lottery.draw_dates),
-			};
+				formattedTime: getNextDrawTime(
+					product.lottery.draw_dates,
+					setBtnDisabled,
+				),
+			}
 
 			return setInterval(() => {
-				timer.formattedTime = getNextDrawTime(product.lottery.draw_dates);
+				timer.formattedTime = getNextDrawTime(
+					product.lottery.draw_dates,
+					setBtnDisabled,
+				)
 				timer.lotteryId === product.id
-				setTimers((prevTimers) => ({
+				setTimers(prevTimers => ({
 					...prevTimers,
 					[product.id]: timer,
-				}));
-			}, 1000);
-		});
+				}))
+			}, 1000)
+		})
 
 		return () => {
-			timerIds.forEach((timerId) => clearInterval(timerId));
-		};
-	}, [prods])
+			timerIds.forEach(timerId => clearInterval(timerId))
+		}
+	}, [prods, setBtnDisabled])
 
 	return (
 		<swiper-container ref={swiperElRef} init="false">
-			{ prods.map( product => {
-				const price = product.price != null ? new Intl.NumberFormat('en-GB', { maximumSignificantDigits: 3 }).format(product.price * 1000000) : 'TBA'
+			{prods.map(product => {
+				const price =
+					product.price != null
+						? new Intl.NumberFormat('en-GB', {
+								maximumSignificantDigits: 3,
+						  }).format(product.price * 1000000)
+						: 'TBA'
 
 				return (
 					<swiper-slide key={product.name}>
@@ -293,7 +314,7 @@ const LotteryCards = ({ prods }) => {
 								type={product.lottery.country_code}
 								className="absolute -z-[1] h-full"
 							/>
-							<div className='grid content-center h-[80px] w-[80px]'>
+							<div className="grid content-center h-[80px] w-[80px]">
 								<Image
 									src={`/images/lotteries/${product.lottery.country_code}_S.png`}
 									width={150}
@@ -312,7 +333,11 @@ const LotteryCards = ({ prods }) => {
 								<PlayButton />
 							</Link>
 
-							<span className="pb-2 text-xs">{timers[product.id] ? timers[product.id].formattedTime : 'Loading...'}</span>
+							<span className="pb-2 text-xs">
+								{timers[product.id]
+									? timers[product.id].formattedTime
+									: 'Loading...'}
+							</span>
 						</div>
 					</swiper-slide>
 				)
@@ -321,7 +346,7 @@ const LotteryCards = ({ prods }) => {
 	)
 }
 
-const LotteryPills = ({ prods }) => {
+const LotteryPills = ({ prods, setBtnDisabled }) => {
 	const types = {
 		AU: {
 			primary: 'bg-[#FFFCCF]',
@@ -337,29 +362,35 @@ const LotteryPills = ({ prods }) => {
 		},
 	}
 
-	const [timers, setTimers] = useState({});
+	const [timers, setTimers] = useState({})
 
 	useEffect(() => {
-		const timerIds = prods.map((product) => {
+		const timerIds = prods.map(product => {
 			const timer = {
 				lotteryId: product.id,
-				formattedTime: getNextDrawTime(product.lottery.draw_dates),
-			};
+				formattedTime: getNextDrawTime(
+					product.lottery.draw_dates,
+					setBtnDisabled,
+				),
+			}
 
 			return setInterval(() => {
-				timer.formattedTime = getNextDrawTime(product.lottery.draw_dates);
+				timer.formattedTime = getNextDrawTime(
+					product.lottery.draw_dates,
+					setBtnDisabled,
+				)
 				timer.lotteryId === product.id
-				setTimers((prevTimers) => ({
+				setTimers(prevTimers => ({
 					...prevTimers,
 					[product.id]: timer,
-				}));
-			}, 1000);
-		});
+				}))
+			}, 1000)
+		})
 
 		return () => {
-			timerIds.forEach((timerId) => clearInterval(timerId));
-		};
-	}, [prods])
+			timerIds.forEach(timerId => clearInterval(timerId))
+		}
+	}, [prods, setBtnDisabled])
 
 	return prods.map(product => {
 		const type = types[product.lottery.country_code]
@@ -382,7 +413,11 @@ const LotteryPills = ({ prods }) => {
 						{symbols[product.lottery.currency_code]}
 						{product.price}M
 					</span>
-					<span className="font-heebo text-xs">{timers[product.id] ? timers[product.id].formattedTime : 'Loading...'}</span>
+					<span className="font-heebo text-xs">
+						{timers[product.id]
+							? timers[product.id].formattedTime
+							: 'Loading...'}
+					</span>
 				</div>
 				<Link href={`/lotteries/${product.id}`}>
 					<PlayButton mobile />
@@ -424,6 +459,8 @@ const QualityCard = ({ data }) => (
 
 export default () => {
 	const { lotteryProducts } = useGlobalContext()
+	const [btnDisabled, setBtnDisabled] = useState(false)
+
 	return (
 		<>
 			{/* Hero section */}
@@ -440,10 +477,17 @@ export default () => {
 					</h2>
 
 					<div className="mx-auto mt-10 hidden max-w-3xl md:block">
-						<LotteryCards prods={lotteryProducts} />
+						<LotteryCards
+							prods={lotteryProducts}
+							btnDisabled={btnDisabled}
+							setBtnDisabled={setBtnDisabled}
+						/>
 					</div>
 					<div className="mx-auto mt-10 block max-w-3xl space-y-3 md:hidden">
-						<LotteryPills prods={lotteryProducts} />
+						<LotteryPills
+							prods={lotteryProducts}
+							setBtnDisabled={setBtnDisabled}
+						/>
 					</div>
 				</div>
 			</section>
