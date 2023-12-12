@@ -20,7 +20,7 @@ export default () => {
 	const [activeNav, setActiveNav] = useState('')
 	const newUser = useSearchParams().get('verified')
 
-	if (newUser) {
+	if (newUser && typeof window !== 'undefined') {
 		localStorage.setItem('__jl_user_verified', 1)
 		logout()
 	}

@@ -9,9 +9,9 @@ export default () => {
 	const { login } = useAuth({ middleware: 'guest' })
 	const [errors, setErrors] = useState(null)
 	const [loading, setLoading] = useState(false)
-	const newUser = localStorage.getItem('__jl_user_verified')
 
 	const handleSome = e => {
+		const newUser = localStorage.getItem('__jl_user_verified')
 		e.preventDefault()
 		setLoading(true)
 
