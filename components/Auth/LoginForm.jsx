@@ -4,15 +4,14 @@ import cl from 'classnames'
 import Logo from '@/Logo'
 import FormInput from '@/FormInput'
 import { useAuth } from 'hooks/auth'
-import { usePathname, useParams, useSearchParams } from 'next/navigation'
 
 export default () => {
 	const { login } = useAuth({ middleware: 'guest' })
 	const [errors, setErrors] = useState(null)
 	const [loading, setLoading] = useState(false)
-	const newUser = useSearchParams().get('verified')
 
 	const handleSome = e => {
+		const newUser = localStorage.getItem('__jl_user_verified')
 		e.preventDefault()
 		setLoading(true)
 
@@ -21,6 +20,8 @@ export default () => {
 			password: e.target.password.value,
 			Isfirsttimelogin: newUser ? true : false,
 		}
+
+		localStorage.removeItem('__jl_user_verified')
 
 		login({ setErrors, userData })
 	}

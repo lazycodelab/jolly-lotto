@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
-import React,{ useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ErrorPage from 'next/error'
 import Link from 'next/link'
 import { Disclosure } from '@headlessui/react'
@@ -12,12 +12,18 @@ import ProfileOrders from '@/dashboard/ProfileOrders'
 import ProfilePaymentMethods from '@/dashboard/ProfilePaymentMethods'
 import NavSection from '@/dashboard/NavSection'
 import VerifyEmailModal from '@/../components/VerifyEmailModal'
+import { useSearchParams } from 'next/navigation'
 
 export default () => {
-	const { user } = useAuth()
+	const { user, logout } = useAuth()
 	const router = useRouter()
-	const [activeNav,setActiveNav] = useState('');
+	const [activeNav, setActiveNav] = useState('')
+	const newUser = useSearchParams().get('verified')
 
+	if (newUser && typeof window !== 'undefined') {
+		localStorage.setItem('__jl_user_verified', 1)
+		logout()
+	}
 
 	useEffect(() => {
 		if (user === '') {
@@ -29,11 +35,11 @@ export default () => {
 		return <ErrorPage title="Unauthorized" statusCode={401} />
 	}
 
-	const setActiveNavigation = (nav) => {
+	const setActiveNavigation = nav => {
 		if (activeNav === nav) {
-			setActiveNav('');
+			setActiveNav('')
 		} else {
-			setActiveNav(nav);
+			setActiveNav(nav)
 		}
 	}
 
@@ -47,14 +53,19 @@ export default () => {
 				</p>
 
 				<div className="mx-auto w-full divide-y divide-black bg-white mb-20 mt-5 border-2">
-					<Disclosure as="div" onClick={() => setActiveNavigation('Profile')}>
+					<Disclosure
+						as="div"
+						onClick={() => setActiveNavigation('Profile')}>
 						{({ open }) => (
 							<>
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
 									<span>Profile</span>
 									<ChevronUpIcon
-										className={`${open ? 'transform rotate-0' : 'rotate-180'
-											} h-5 w-5 text-cyan-500 transition-all`}
+										className={`${
+											open
+												? 'transform rotate-0'
+												: 'rotate-180'
+										} h-5 w-5 text-cyan-500 transition-all`}
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-10 text-sm text-gray-500">
@@ -66,14 +77,19 @@ export default () => {
 							</>
 						)}
 					</Disclosure>
-					<Disclosure as="div" onClick={() => setActiveNavigation('Order History')}>
+					<Disclosure
+						as="div"
+						onClick={() => setActiveNavigation('Order History')}>
 						{({ open }) => (
 							<>
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
 									<span>Order History</span>
 									<ChevronUpIcon
-										className={`${open ? 'transform rotate-0' : 'rotate-180'
-											} h-5 w-5 text-cyan-500 transition-all`}
+										className={`${
+											open
+												? 'transform rotate-0'
+												: 'rotate-180'
+										} h-5 w-5 text-cyan-500 transition-all`}
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="text-sm text-gray-500 overflow-x-auto">
@@ -88,8 +104,11 @@ export default () => {
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
 									<span>Limits</span>
 									<ChevronUpIcon
-										className={`${open ? 'transform rotate-0' : 'rotate-180'
-											} h-5 w-5 text-cyan-500 transition-all`}
+										className={`${
+											open
+												? 'transform rotate-0'
+												: 'rotate-180'
+										} h-5 w-5 text-cyan-500 transition-all`}
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-2 text-sm text-gray-500">
@@ -104,8 +123,11 @@ export default () => {
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
 									<span>Payment Methods</span>
 									<ChevronUpIcon
-										className={`${open ? 'transform rotate-0' : 'rotate-180'
-											} h-5 w-5 text-cyan-500 transition-all`}
+										className={`${
+											open
+												? 'transform rotate-0'
+												: 'rotate-180'
+										} h-5 w-5 text-cyan-500 transition-all`}
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-2 text-sm text-gray-500">
@@ -114,18 +136,25 @@ export default () => {
 							</>
 						)}
 					</Disclosure>
-					<Disclosure as="div" onClick={() => setActiveNavigation('Notification')}>
+					<Disclosure
+						as="div"
+						onClick={() => setActiveNavigation('Notification')}>
 						{({ open }) => (
 							<>
 								<Disclosure.Button className="flex w-full justify-between bg-white p-4 text-left text-base font-medium">
 									<span>Notifications</span>
 									<ChevronUpIcon
-										className={`${open ? 'transform rotate-0' : 'rotate-180'
-											} h-5 w-5 text-cyan-500 transition-all`}
+										className={`${
+											open
+												? 'transform rotate-0'
+												: 'rotate-180'
+										} h-5 w-5 text-cyan-500 transition-all`}
 									/>
 								</Disclosure.Button>
 								<Disclosure.Panel className="px-4 pb-2 pt-4 text-sm text-gray-500">
-									<p className='text-center mb-2 font-bold'>No Notifcation!</p>
+									<p className="text-center mb-2 font-bold">
+										No Notifcation!
+									</p>
 								</Disclosure.Panel>
 							</>
 						)}

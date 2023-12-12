@@ -129,7 +129,7 @@ const HeroSlider = ({ prods }) => {
 									</h2>
 									<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
 										{symbols[product.lottery.currency_code]}
-										{product.price}
+										{product.price}M
 									</h2>
 									<Link href={`/lotteries/${product.id}`}>
 										<button
