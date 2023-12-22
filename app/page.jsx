@@ -301,7 +301,7 @@ const LotteryCards = ({ prods, btnDisabled, setBtnDisabled }) => {
 		<swiper-container ref={swiperElRef} init="false">
 			{prods.map(product => {
 				const price =
-					product.price != null
+					product.price != 0
 						? new Intl.NumberFormat('en-GB', {
 								maximumSignificantDigits: 3,
 						  }).format(product.price * 1000000)
@@ -324,9 +324,9 @@ const LotteryCards = ({ prods, btnDisabled, setBtnDisabled }) => {
 								/>
 							</div>
 							<h3 className="px-2 text-center">
-								<span className="text-xs">
+								{ price != 'TBA' ? <span className="text-xs">
 									{symbols[product.lottery.currency_code]}
-								</span>
+								</span> : ''}
 								<strong>{price}</strong>
 							</h3>
 							<Link href={`/lotteries/${product.id}`}>
