@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import cx from 'classnames'
 import { useEffect, useState } from 'react'
+import { symbols } from '@/Helpers'
 
 export default ({ details, lotteryType }) => {
 	const [countdown, setCountdown] = useState(null)
@@ -97,6 +98,7 @@ export default ({ details, lotteryType }) => {
 		return `${days} Day(s) ${hours}:${minutes}:${formattedSeconds}`;
 	};
 
+	const price = details.price != 0 ? new Intl.NumberFormat('en-GB', { maximumSignificantDigits: 3 }).format(details.price * 1000000) : 'TBA'
 
 	return (
 		<section className={cx('py-3', lotteryType.primaryColor)}>
@@ -112,8 +114,13 @@ export default ({ details, lotteryType }) => {
 						Next {details?.lotteryName} Lotto
 					</h2>
 					<h1 className="font-impact text-5xl font-bold text-cyan-900 md:text-7xl">
-						<small className="text-lg md:text-3xl">$</small>
-						{details?.price} Million
+						{ price != 'TBA' ? (
+							<>
+								<small className="text-lg md:text-3xl">{symbols[details.lottery.currency_code]}</small>
+								{ price }
+							</>
+							) : price
+						}
 					</h1>
 				</div>
 				<div className="hidden text-center md:block">

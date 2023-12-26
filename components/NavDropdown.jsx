@@ -31,28 +31,31 @@ export default ({navTitle , navType}) => {
                         <Menu.Items className="absolute rounded-t-none py-4 min-h-[300px] min-w-[400px] border-1 border-[#C2D4D5] z-10 left-0 mt-0 w-56 origin-top-left divide-y divide-gray-100 rounded-md bg-[#F2FEFF] ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <div className="flex flex-col">
                                 {
-                                    lotteryProducts.map((product,index) => (
-                                        <Menu.Item key={index}>
-                                            {({ active }) => (
-                                                <Link href={`/lotteries/${product.id}${navType === 'results' ? '/results' : ''}`}>
-                                                    <div className={`max-w-sm w-full lg:max-w-full lg:flex gap-3 cursor-pointer px-4 py-3 ${active ? 'bg-[#24484b] transition-colors' : ''}`}>
-                                                        <div className="my-auto">
-                                                            <Image
-                                                                src={`/images/lotteries/${product.lottery.country_code}_S.png`}
-                                                                width={60}
-                                                                height={60}
-                                                                alt="icon"
-                                                            />
+                                    lotteryProducts.map((product,index) => {
+                                        const price = product.price != 0 ? new Intl.NumberFormat('en-GB', { maximumSignificantDigits: 3 }).format(product.price * 1000000) : 'TBA'
+                                        return (
+                                            <Menu.Item key={index}>
+                                                {({ active }) => (
+                                                    <Link href={`/lotteries/${product.id}${navType === 'results' ? '/results' : ''}`}>
+                                                        <div className={`max-w-sm w-full lg:max-w-full lg:flex gap-3 cursor-pointer px-4 py-3 ${active ? 'bg-[#24484b] transition-colors' : ''}`}>
+                                                            <div className="my-auto">
+                                                                <Image
+                                                                    src={`/images/lotteries/${product.lottery.country_code}_S.png`}
+                                                                    width={60}
+                                                                    height={60}
+                                                                    alt="icon"
+                                                                />
+                                                            </div>
+                                                            <div className="my-auto leading-normal ms-3">
+                                                                <p className={`font-bold text-base transition-colors ${active ? 'text-white' : 'text-[#24484B]'}`}>{product.lotteryName}</p>
+                                                                <p className={`text-base transition-colors ${active ? 'text-white' : 'text-[#656565]'}`}>{price != 'TBA' ? (symbols[product.lottery.currency_code] + price) : 'TBA'}</p>
+                                                            </div>
                                                         </div>
-                                                        <div className="my-auto leading-normal ms-3">
-                                                            <p className={`font-bold text-base transition-colors ${active ? 'text-white' : 'text-[#24484B]'}`}>{product.lotteryName}</p>
-                                                            <p className={`text-base transition-colors ${active ? 'text-white' : 'text-[#656565]'}`}>{symbols[product.lottery.currency_code]}{product.price} MILLION</p>
-                                                        </div>
-                                                    </div>
-                                                </Link>
-                                            )}
-                                        </Menu.Item>
-                                    ))
+                                                    </Link>
+                                                )}
+                                            </Menu.Item>
+                                        )
+                                    })
                                 }
                                 <p className='underline text-[#00AEB9] text-center pt-4 cursor-pointer'>View More</p>
                             </div>
