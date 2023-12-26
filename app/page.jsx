@@ -69,11 +69,6 @@ const HeroSlider = ({ prods }) => {
 		const params = {
 			modules: [Pagination],
 			init: false,
-			// on: {
-			// 	init: () => {
-			// 		console.log('hero loaded')
-			// 	},
-			// },
 			pagination: {
 				el: 'div[data-hero-pagination]',
 				clickable: true,
@@ -81,8 +76,6 @@ const HeroSlider = ({ prods }) => {
 					'h-2.5 w-2.5 bg-gray-200 rounded-full cursor-pointer',
 				bulletActiveClass: '!bg-cyan-400',
 			},
-			// inject modules styles to shadow DOM
-			//injectStylesUrls: ['swiper/css/pagination'],
 		}
 
 		Object.assign(swiperElRef.current, params)
@@ -93,56 +86,58 @@ const HeroSlider = ({ prods }) => {
 	return (
 		<>
 			<swiper-container ref={swiperElRef} init="false">
-				{prods.map(product => (
-					<swiper-slide key={product.name}>
-						<div className="bg-[#dafcfe] relative">
-							<div className="absolute left-0 h-full">
-								<Image
-									className="object-cover h-full w-full mix-blend-darken lg:opacity-100 opacity-60"
-									src="/images/banner-left-side.png"
-									width={800}
-									height={290}
-									alt="banner-left"
-								/>
-							</div>
-							<div className="absolute right-0 h-full">
-								<Image
-									className="object-cover h-full w-full mix-blend-darken lg:opacity-100 opacity-60"
-									src="/images/banner-right-side.png"
-									width={800}
-									height={290}
-									alt="banner-left"
-								/>
-							</div>
-							<div className="mx-auto flex max-w-6xl flex-wrap md:flex-nowrap md:items-center md:justify-between">
-								<Image
-									className="order-2 block md:order-1 relative -left-8 md:left-0"
-									width={800}
-									src="/images/banner-man-1.png"
-									alt="banner"
-									height={290}
-									priority
-								/>
-								<div className="order-1 my-3 w-full space-y-3 px-3 text-center md:order-2 md:px-0 md:py-5 md:text-center">
-									<h2 className="text-2xl font-medium text-teal-900">
-										{product.lotteryName}
-									</h2>
-									<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
-										{symbols[product.lottery.currency_code]}
-										{product.price}M
-									</h2>
-									<Link href={`/lotteries/${product.id}`}>
-										<button
-											className="mt-4 inline-block rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 px-14 py-3 text-xl text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
-											type="button">
-											Play Now
-										</button>
-									</Link>
+				{prods.map(product => {
+					const price = product.price != 0 ? new Intl.NumberFormat('en-GB', { maximumSignificantDigits: 3 }).format(product.price * 1000000) : 'TBA'
+					return (
+						<swiper-slide key={product.name}>
+							<div className="bg-[#dafcfe] relative">
+								<div className="absolute left-0 h-full">
+									<Image
+										className="object-cover h-full w-full mix-blend-darken lg:opacity-100 opacity-60"
+										src="/images/banner-left-side.png"
+										width={800}
+										height={290}
+										alt="banner-left"
+									/>
+								</div>
+								<div className="absolute right-0 h-full">
+									<Image
+										className="object-cover h-full w-full mix-blend-darken lg:opacity-100 opacity-60"
+										src="/images/banner-right-side.png"
+										width={800}
+										height={290}
+										alt="banner-left"
+									/>
+								</div>
+								<div className="mx-auto flex max-w-6xl flex-wrap md:flex-nowrap md:items-center md:justify-between">
+									<Image
+										className="order-2 block md:order-1 relative -left-8 md:left-0"
+										width={800}
+										src="/images/banner-man-1.png"
+										alt="banner"
+										height={290}
+										priority
+									/>
+									<div className="order-1 my-3 w-full space-y-3 px-3 text-center md:order-2 md:px-0 md:py-5 md:text-center">
+										<h2 className="text-2xl font-medium text-teal-900">
+											{product.lotteryName}
+										</h2>
+										<h2 className="font-impact text-5xl text-teal-900 sm:text-6xl md:text-7xl">
+											{price != 'TBA' ? (symbols[product.lottery.currency_code] + price) : 'TBA'}
+										</h2>
+										<Link href={`/lotteries/${product.id}`}>
+											<button
+												className="mt-4 inline-block rounded-lg bg-gradient-to-r from-orange-400 to-orange-500 px-14 py-3 text-xl text-white shadow-md shadow-orange-700 hover:from-orange-500 hover:to-orange-400"
+												type="button">
+												Play Now
+											</button>
+										</Link>
+									</div>
 								</div>
 							</div>
-						</div>
-					</swiper-slide>
-				))}
+						</swiper-slide>
+					)
+				})}
 			</swiper-container>
 			<div
 				data-hero-pagination
@@ -394,6 +389,7 @@ const LotteryPills = ({ prods, setBtnDisabled }) => {
 
 	return prods.map(product => {
 		const type = types[product.lottery.country_code]
+		const price = product.price != 0 ? new Intl.NumberFormat('en-GB', { maximumSignificantDigits: 3 }).format(product.price * 1000000) : 'TBA'
 		return (
 			<div
 				key={product.name}
@@ -410,8 +406,13 @@ const LotteryPills = ({ prods, setBtnDisabled }) => {
 					</h3>
 
 					<span className="font-impact text-2xl md:text-3xl font-bold text-cyan-900">
-						{symbols[product.lottery.currency_code]}
-						{product.price}M
+						{ price != 'TBA' ? (
+							<>
+								<small className="text-lg md:text-3xl">{symbols[product.lottery.currency_code]}</small>
+								{ price }
+							</>
+							) : 'TBA'
+						}
 					</span>
 					<span className="font-heebo text-xs">
 						{timers[product.id]
